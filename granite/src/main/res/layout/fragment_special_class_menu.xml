@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/loFragment"
+    >
+
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="{Page Title}"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="[Class Status]"
+        android:id="@+id/tvClassStatus"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentStart="true"
+        style="@style/Text30"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:singleLine="false"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        style="@style/Text24"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="[Progress]"
+        android:id="@+id/tvProgress"
+        android:layout_below="@+id/tvClassStatus"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="20dp"
+        android:singleLine="false"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_below="@+id/tvProgress"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loContent"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Options:"
+                android:id="@+id/tvOptionsLabel"
+                style="@style/Text30"
+                />
+
+            <GridLayout
+                android:id="@+id/loMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:useDefaultMargins="true"
+                android:columnCount="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <org.egility.android.views.QuickButton
+                    style="@style/MenuButton"
+                    android:layout_width="240dp"
+                    android:layout_margin="12dp"
+                    android:layout_height="wrap_content"
+                    android:text="Maxi"
+                    android:id="@+id/button"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    style="@style/MenuButton"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="Std"
+                    android:id="@+id/button6"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    />
+            </GridLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No Options Available"
+                android:id="@+id/tvNoOptions"
+                style="@style/Text24"
+                android:layout_marginLeft="32dp"
+                android:layout_marginTop="12dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btOK"
+            android:drawableLeft="@drawable/back"
+            />
+    </LinearLayout>
+</RelativeLayout>

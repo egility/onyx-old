@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<org.egility.android.views.QuickButton xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                                   style="@style/MenuButton"
+                                   android:layout_margin="12dp"
+                                   android:layout_width="240dp"
+                                   android:layout_height="wrap_content"
+                                   android:text="Sample"
+                                   android:singleLine="true"
+    />

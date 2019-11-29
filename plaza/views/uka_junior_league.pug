@@ -1,0 +1,31 @@
+extends _page
+
+prepend navigation
+    -title = "UKA Junior League"
+
+append scripts
+
+block content
+
+    .max50
+        +card(title + " sponsored by Agility for Juniors")
+            div.text-xs-center
+                img(src="/img/sponsor/Agility for Junior.jpg" width="50%")
+            table.table.table-sm.table-striped
+                
+
+                each height in api.heights
+                    thead
+                        tr
+                            th.group(colspan="99")=height.name
+                    tr
+                        th Place
+                        th Name
+                        th Dog
+                        th.text-sm-right Points
+                    each handler in height.handlers
+                        tr
+                            td=handler.place + (handler.equal?"=":"") 
+                            td=handler.name 
+                            td=handler.petName
+                            td.text-sm-right=handler.points

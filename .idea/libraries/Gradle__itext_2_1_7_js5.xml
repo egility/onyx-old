@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: itext-2.1.7.js5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../network/config/.gradle/caches/modules-2/files-2.1/com.lowagie/itext/2.1.7.js5/d48d10d267d999255167c291e2197b00da829112/itext-2.1.7.js5.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../network/config/.gradle/caches/modules-2/files-2.1/com.lowagie/itext/2.1.7.js5/64e7f74e8cac27bb2f0c6ed391e5b5c018ca9e0e/itext-2.1.7.js5-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

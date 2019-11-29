@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <org.egility.android.views.DbCursorListView
+        android:id="@+id/lvRunners"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:layout_above="@+id/loNavigation"
+        android:layout_below="@+id/tvPageHeader"
+        />
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:text="Sample"
+            android:id="@+id/btSample"
+            style="@style/ButtonNavigation"
+            />
+    </LinearLayout>
+</RelativeLayout>

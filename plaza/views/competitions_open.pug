@@ -1,0 +1,89 @@
+extends _page
+
+prepend navigation
+    -crumb = "Enter"
+    -icon = "thumbs-up"
+    -title = "Enter a show"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var href = $(this).data("href")
+                if (href.indexOf("alert")==0) {
+                    alert(href.substr(7))
+                } else {
+                    window.location = href;
+                }
+            });
+        });
+
+block content
+
+    .max35
+        - var month=""
+        - var week = 0
+        +card("Enter a show", icon)
+            if (api.competitions)
+                table.table.table-sm.table-clickable.font90
+                    each competition in api.competitions
+                        if competition.enteredOnline || competition.enteredPaper
+                            - href = '/competition/' + competition.idCompetition + '/review'
+                        else
+                            case competition.idOrganization
+                                when 1
+                                    - href = '/competition/' + competition.idCompetition + '/enter_kc'
+                                    - organization = "KC"
+                                when 2
+                                    if (api.user.isUkaRegistered)
+                                        if competition.grandFinals
+                                            - href = '/competition/' + competition.idCompetition + '/enter_uka_finals'
+                                        else
+                                            - href = '/competition/' + competition.idCompetition + '/enter_uka'
+                                    else
+                                        - href = "alert: You must be registered with UKA to enter this show"
+                                    - organization = "UKA"
+                                when 3
+                                    - href = '/competition/' + competition.idCompetition + '/enter_uk_open'
+                                    - organization = "Ind"
+                                when 4
+                                    - href = '/competition/' + competition.idCompetition + '/enter_fab'
+                                    - organization = "FAB"
+                                when 100
+                                    case competition.independentType
+                                        when "AA"
+                                            - href = '/competition/' + competition.idCompetition + '/enter_ind_aa'
+                                        default
+                                            - href = '/competition/' + competition.idCompetition + '/enter_ind'
+                                    - organization = "Ind"
+
+                        -var monthStart=dateFormat(competition.dateStart, "mmmm")
+                        if (monthStart != month)
+                            - month = monthStart
+                            - week = competition.weekNumber
+                            thead
+                                tr
+                                    th.group(colspan="99") #{dateFormat(competition.dateStart, "mmmm yyyy")}
+                                tr
+                                    th.width7 Dates
+                                    th Org
+                                    th Name
+                        - var attributes ={class: "organization" + competition.idOrganization}
+                        if competition.weekNumber != week
+                            - week = competition.weekNumber
+                            tr.separator
+                                td(colspan=99)
+                        if competition.hidden
+                            - attributes.class += " font-italic red"
+                            
+                        if !competition.capReached || api.user.plazaSuperUser
+                            - attributes.class += " clickable-row"
+
+                        tr&attributes(attributes)(data-href=href)
+                            - var enteredText = competition.enteredOnline? " (Entered)" : competition.enteredPaper? " (entered paper)" : ""
+                            - var closedText = competition.closed? " (Closed)" : competition.capReached? " (Cap Reached)" : ""
+                            td #{dateRange(competition.dateStart, competition.dateEnd, true)}
+                            td=organization
+                            td #{competition.name + enteredText + closedText}
+            else
+                | Sorry, there are no open competitions

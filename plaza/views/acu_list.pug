@@ -1,0 +1,36 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "ACU List"
+        
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max65
+        +card(title, "computer")
+            if !api.acus
+                div No acus found
+            else
+                table.table.table-sm.table-striped.table-clickable
+                    tr
+                        th Box
+                        th State
+                        th Internet
+                        th Info
+                    each acu in api.acus
+                        tr.clickable-row(data-href="/acu_diagnostics/" + acu.idAcu)
+                            td=acu.tag
+                            td=acu.line1
+                            td=acu.line2
+                            td=acu.line3
+                hr.mb-1

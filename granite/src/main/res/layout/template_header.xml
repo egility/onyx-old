@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+              android:orientation="horizontal"
+    >
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="@android:color/holo_blue_light"
+        android:id="@+id/vwLeft"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="false"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            style="@style/Text20"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvCaption"
+            android:text="Caption:"
+            android:layout_marginTop="5dp"
+            />
+
+        <TextView
+            style="@style/Text30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvInfo"
+            android:minLines="1"
+            android:maxLines="2"
+            android:layout_marginLeft="10dp"
+            android:text="info text"
+            />
+    </LinearLayout>
+</LinearLayout>

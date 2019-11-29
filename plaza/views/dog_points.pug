@@ -1,0 +1,40 @@
+extends _page
+
+prepend navigation
+    - crumb="Points"
+    - title = session.petName + " - Progress"
+
+block content
+
+    .max40
+
+        +card(title)
+            +cardSection("Performance Programme")
+                table.table.table-sm
+                    tr
+                        th Level
+                        th Agility
+                        th Jumping
+                        th Games
+                        th Total
+                    each level in api.performance.levels
+                        tr(class={highlight: level.active})
+                            td= level.name
+                            td= level.agility
+                            td= level.jumping
+                            td= level.games
+                            td= level.total
+
+            +hint(api.performance.statement, true)
+
+            +cardSection("Steeplechase Programme")
+                table.table.table-sm.max20
+                    tr
+                        th Level
+                        th Total
+                    each level in api.steeplechase.levels
+                        tr(class={highlight: level.active})
+                            td= level.name
+                            td= level.points
+
+            +hint(api.steeplechase.statement, true)

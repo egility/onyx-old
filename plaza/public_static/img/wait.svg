@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="120px"
+   height="120px"
+   viewBox="0 0 100 100"
+   preserveAspectRatio="xMidYMid"
+   class="uil-default"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="wait.svg">
+  <metadata
+     id="metadata34">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs32" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="660"
+     inkscape:window-height="480"
+     id="namedview30"
+     showgrid="false"
+     inkscape:zoom="1.9666667"
+     inkscape:cx="60"
+     inkscape:cy="60"
+     inkscape:window-x="2142"
+     inkscape:window-y="207"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <rect
+     x="0"
+     y="0"
+     width="100"
+     height="100"
+     fill="none"
+     class="bk"
+     id="rect4" />
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(0 50 50) translate(0 -30)"
+     id="rect6"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(30 50 50) translate(0 -30)"
+     id="rect8"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.08333333333333333s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(60 50 50) translate(0 -30)"
+     id="rect10"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.16666666666666666s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(90 50 50) translate(0 -30)"
+     id="rect12"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.25s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(120 50 50) translate(0 -30)"
+     id="rect14"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.3333333333333333s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(150 50 50) translate(0 -30)"
+     id="rect16"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.4166666666666667s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(180 50 50) translate(0 -30)"
+     id="rect18"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.5s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(210 50 50) translate(0 -30)"
+     id="rect20"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.5833333333333334s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(240 50 50) translate(0 -30)"
+     id="rect22"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.6666666666666666s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(270 50 50) translate(0 -30)"
+     id="rect24"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.75s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(300 50 50) translate(0 -30)"
+     id="rect26"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.8333333333333334s"
+       repeatCount="indefinite" />
+  </rect>
+  <rect
+     x="46.5"
+     y="40"
+     width="7"
+     height="20"
+     rx="5"
+     ry="5"
+     fill="#00b2ff"
+     transform="rotate(330 50 50) translate(0 -30)"
+     id="rect28"
+     style="fill:#b3b3b3">
+    <animate
+       attributeName="opacity"
+       from="1"
+       to="0"
+       dur="1s"
+       begin="0.9166666666666666s"
+       repeatCount="indefinite" />
+  </rect>
+</svg>

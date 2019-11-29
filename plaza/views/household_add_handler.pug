@@ -1,0 +1,40 @@
+extends _page
+
+prepend navigation
+    - crumb="Add Handler"
+    - title = "Add Handler"
+
+append scripts
+    +bind_form("")
+
+    script.
+        $(".competitorCode").keyup(function (event) {
+            var competitorCode = this.value
+            if (competitorCode.length == 6) {
+                fetch(apiData.lookup + competitorCode, function (data) {
+                    $("#idCompetitor").val(data.idCompetitor)
+                    $("#givenName").val(data.givenName)
+                    $("#familyName").val(data.familyName)
+                })
+            } else {
+                $("#givenName").val("")
+                $("#familyName").val("")
+            }
+        })
+
+block content
+
+    .max35
+        +card("Add Handler", "contact")
+            +form()
+
+                +fieldset("Details")
+                    +hint().
+                        Enter the 6 digit handler code. This is shown next to their name on their "My Household" page.
+                        When you enter a valid code, the name will be displayed below.
+                    +input("text", "competitorCode", "competitorCode", "Code", {class: "competitorCode", noautocomplete: true})
+                    +input("hidden", "idCompetitor", "idCompetitor", "")
+                    +input("readonly", "givenName", "givenName", "Given Name")
+                    +input("readonly", "familyName", "familyName", "Family Name")
+
+                +button("submit", "Save", "check")

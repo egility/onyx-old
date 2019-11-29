@@ -1,0 +1,59 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs))
+        -crumb="Tablet"
+    - icon="cogs"
+    - title = "Tablet"
+        
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+    .max45
+        +card(title, icon)
+            if (!api.tablets)
+                .card-statement.mb-2 There are no observations yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Tag
+                            th.sm-up Model
+                            th Activity
+                            th.md-up Task
+                            th ACU
+                            th Signal
+                            th Battery
+                            th.sm-up Version
+                            th On
+                            th Last
+                    - var show = ""
+                    each tablet in api.tablets
+                        if tablet.competition != show
+                            - show = tablet.competition
+                            thead
+                                tr
+                                    th.group(colspan="99")=tablet.competition
+                        tbody.font90
+                            tr.clickable-row(data-href="/tablet/" + tablet.idDevice)
+                                td=tablet.tag
+                                td.sm-up=tablet.model
+                                td=tablet.activity
+                                td.md-up=tablet.task
+                                td=tablet.accessPoint
+                                td=tablet.signal
+                                td=tablet.battery
+                                td.sm-up=tablet.version
+                                if tablet.signOnToday
+                                    td.text-xs-cente=dateFormat(tablet.timeSinceSignOn, "HH:MM")
+                                    td.text-xs-cente=dateFormat(tablet.timeSinceSample, "HH:MM")
+                                else
+                                    td.text-xs-center -
+                                    td.text-xs-center -
+                                

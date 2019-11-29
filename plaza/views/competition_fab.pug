@@ -1,0 +1,49 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "shield"
+    -title = api.competition.name + " <small>(" + dateRange(api.competition.dateStart, api.competition.dateEnd) + ")</small>"
+
+block content
+
+    - var competition=api.competition
+
+    .max45
+        +card(title)
+            +cardSection("Details")
+                table.table.table-sm.mb-1
+                    tr
+                        td Venue
+                        td= competition.venue
+                    tr
+                        td Address
+                        td= competition.venueAddress
+                    tr
+                        td Entries
+                        td= competition.entryInfo
+                    tr
+                        td Class Fees
+                        td #{competition.entryFeeText} (#{competition.ifcsFeeText} IFCS)
+                    tr
+                        td Camping
+                        td= competition.campingText
+                .group2 Classes Offered
+                table.table.table-sm.mb-1
+                    each day in competition.days
+                        tr.font80
+                            td= dateFormat(day.date, 'ddd')
+                            td
+                                if day.qualifiers
+                                    div!=day.classes + ", <span class='emphasize'>" + day.qualifiers + "</span>"
+                                else
+                                    div=day.classes
+
+                +button("externallink", "Map", "map-marker", {small: true, href: competition.mapUrl})
+                if competition.documents
+                    each document in competition.documents
+                        -var url = apiRoot + "/competition/" + competition.idCompetition + "/document/" + document + "/" + competition.uniqueName + "_" + document + ".pdf"
+                        +button("externallink", document, "file-pdf-o", {small: true, href: url})
+
+
+

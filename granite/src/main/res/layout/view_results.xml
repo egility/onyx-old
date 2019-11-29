@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_view_item"
+                android:orientation="vertical"
+                android:baselineAligned="true"
+>
+
+    <TextView
+            android:id="@+id/tvHeading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Heading"
+            style="@style/Text20"
+            android:background="#bcbcbc"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+    />
+    <RelativeLayout
+            android:background="@color/colorPrimaryInverse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:id="@+id/loRunner"
+    >
+
+        <TextView
+
+                style="@style/Text24"
+                android:id="@+id/tvPlace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="999:"/>
+        <TextView
+                style="@style/Text24"
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/tvResult"
+                android:ellipsize="end"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="50dp"/>
+        <TextView
+                style="@style/Text24"
+                android:id="@+id/tvResult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Result"
+                android:layout_alignParentEnd="true"/>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

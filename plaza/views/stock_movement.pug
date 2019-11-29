@@ -1,0 +1,19 @@
+extends _page
+
+prepend navigation
+    - icon="star"
+    - title = "Stock Movement"
+
+append scripts
+    +bind_form()
+
+
+block content
+    .max40
+        +card(title, icon)
+            +form()
+                +select("movementType", "option", "Movement Type", api.options)
+                +select("asset", "asset", "Asset Type", api.assets)
+                +input("multiline", "data", "data", "Data")
+
+                +button("submit", "Save", "check")

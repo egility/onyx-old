@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Ring 1 - Senior Steeplechase II"
+        android:id="@+id/tvClass"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        style="@style/Text20"
+        />
+
+    <TextView
+        style="@style/Text20"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/tvOverview"
+        android:layout_below="@+id/tvClass"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="20dp"
+        />
+    <TextView
+        style="@style/TextMinorBold"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="{alert}"
+        android:id="@+id/tvAlert"
+        android:layout_below="@+id/tvOverview"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="20dp"
+        android:singleLine="false"
+        />
+</RelativeLayout>

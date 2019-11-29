@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+    <TextView android:id="@+id/listText1"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:text="HEADING"
+              style="@style/Text20"
+              android:background="#bcbcbc"
+              android:gravity="center_horizontal"
+        />
+
+</LinearLayout>

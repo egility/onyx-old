@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:text="Ring X - Select Class"
+        android:id="@+id/tvPageHeader"
+        />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/loCentre"
+        android:layout_above="@+id/loNavigation"
+        android:layout_below="@+id/tvPageHeader"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loDistanceTime"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Move Beginners Agility Before"
+                android:id="@+id/tvRadioGroupHeading"
+                style="@style/Text30"
+                android:layout_marginBottom="30dp"
+                />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/rgAgilityClass"
+                >
+
+                <RadioButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class 1"
+                    android:id="@+id/btClass1"
+                    android:checked="true"
+                    style="@style/RadioButton"
+                    />
+            </RadioGroup>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btSelectClassCancel"
+            android:text="Cancel"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btSelectClassOK"
+            android:text="OK"
+            />
+    </LinearLayout>
+</RelativeLayout>

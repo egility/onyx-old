@@ -1,0 +1,78 @@
+extends _page
+
+prepend navigation
+    - crumb="UKA"
+    - icon="shopping-cart"
+    - title = "UK Agility Membership - Checkout"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max35
+        +card(title, icon)
+             if api.actions
+                +cardSection("Purchases", icon)
+                    +form()
+                        if api.actions.competitors
+                            .group2 Memberships
+                            table.table.table-sm.table-striped.mb-1
+                                tr
+                                    th Item
+                                    th Name
+                                    th Option
+                                    th.text-xs-right.width4 Fee
+                                each action in api.actions.competitors
+                                    - var index = api.actions.competitors.indexOf(action)
+                                    tr
+                                        td=index+1
+                                        td=action.name
+                                        td=action.description
+                                        if api.paper
+                                            td.align-middle.text-xs-right.clickable-cell(data-link=index)=toMoney(action.paperFee)
+                                        else
+                                            td.align-middle.text-xs-right.clickable-cell(data-link=index)=toMoney(action.fee)
+                        if api.actions.dogs
+                            .group2 Registrations
+                            table.table.table-sm.table-striped.mb-1
+                                tr
+                                    th Item
+                                    th Name
+                                    th Height
+                                    th KC Grade
+                                    th.text-xs-right.width4 Fee
+                                each action in api.actions.dogs
+                                    - var index = api.actions.dogs.indexOf(action)
+                                    tr
+                                        td=index + 1
+                                        td=action.name
+                                        td=codeToText(action.ukaHeightCode, allHeights)
+                                        td=codeToText(action.kcGradeCode, allGrades)
+                                        if api.paper
+                                            td.align-middle.text-xs-right.clickable-cell(data-link=index)=toMoney(action.paperFee)
+                                        else
+                                            td.align-middle.text-xs-right.clickable-cell(data-link=index)=toMoney(action.fee)
+                        strong= "Total Fees Due: " + toMoney(api.totalFee)
+                        hr
+                        if !api.paper
+                            if api.balance==0
+                                .alert.alert-warning.font90.
+                                    You will need to transfer the fees of #{toMoney(api.totalFee)} into your account before
+                                    your registration will
+                                    be accepted and you can enter UKA shows. If you need your registration to be accepted straight
+                                    away, please the "Instant Top-Up" service.
+                            else if api.totalFee>api.balance
+                                .alert.alert-warning.font90.
+                                    Your account balance of #{toMoney(api.balance)} does not cover these registration fees. You will
+                                    need to top up your account by #{toMoney(api.totalFee - api.balance)} before your registration will
+                                    be accepted and you can enter UKA shows. If you need your registration to be accepted straight
+                                    away, please use the "Instant Top-Up" service.
+                        +button("submit", "Confirm", "check")
+                    .mb-1
+                    .alert.alert-terms
+                        .font-weight-bold What am I Confirming?
+                        .font90.
+                            By pressing the 'Confirm' button you agree
+                            to pay the fees due and submit to and be bound by the UK Agility Rules & Regulations in their present form or as
+                            they may be amended from time to time.

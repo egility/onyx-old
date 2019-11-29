@@ -1,0 +1,37 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs))
+        -crumb="KC Clubs"
+    - icon="cogs"
+    - title = "KC Clubs"
+        
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+    .max60
+        +card(title, icon)
+            table.table.table-sm.table-clickable
+                thead
+                    tr
+                        th Club
+                        th Key
+                        th Secretary
+                        th Phone
+                        th Email
+                each entity in api.entities
+                    tbody.font80
+                        tr.clickable-row(data-href="/entity/" + entity.idEntity)
+                            td=entity.name
+                            td=entity.entityKey
+                            td=entity.secretary
+                            td=entity.phone
+                            td=entity.email
+                            
+            +button("link", "Add Club", "plus", {href: "/entities/add", small: true})    

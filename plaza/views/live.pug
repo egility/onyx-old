@@ -1,0 +1,17 @@
+extends _page
+
+prepend navigation
+    - crumb="Live"
+    - title="Live Show Information - Please Read"
+
+block content
+
+    .max40
+        +card(title, "exclamation-triangle")
+            ul.font110
+                li The live show information is for GUIDANCE ONLY. 
+                li It is always YOUR RESPONSIBILITY to make sure you are at the ring in time. 
+                li Whilst we do our best to ensure that the details are as accurate as possible, this can never be guaranteed. 
+                li You should still visit the ring from time to time as relying on the Website/Mobile App is NEVER an excuse for missing a class.
+            hr.mb-1
+            +button("link", "Continue", "", {href: '/competition/live'})   

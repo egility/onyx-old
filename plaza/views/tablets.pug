@@ -1,0 +1,39 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs))
+        -crumb="Tablets"
+    - icon="trophy"
+    - title = "Tablets"
+
+block content
+    .max60
+        +card(title, icon)
+            if (!api.tablets)
+                .card-statement.mb-2 There are no observations yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Tag
+                            th Model
+                            th.sm-up Show
+                            th UKA
+                            th Activity
+                            th Sign On
+                            th Signal
+                            th Battery
+                            //th Modified
+                    - var tag = ""
+                    each tablet in api.tablets
+                        tbody.font90
+                            tr
+                                td=tablet.tag
+                                td=tablet.model
+                                td.sm-up=tablet.competition
+                                td.text-xs-center!=tablet.uka ? "&#10004;" : ""
+                                td=tablet.activity
+                                td!=tablet.signOnDays<180? tablet.signOnDays : "--"
+                                td=tablet.signal
+                                td=tablet.battery
+                                //td=dateFormat(tablet.dateModified, "dd-mm-yy HH:MM:ss")

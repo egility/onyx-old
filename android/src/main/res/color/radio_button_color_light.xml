@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse">
+    <!-- checked -->
+    <item android:state_checked="true"
+          android:color="#000000" />
+    <!-- default -->
+    <item android:color="#808080" />
+</selector>

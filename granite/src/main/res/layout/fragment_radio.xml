@@ -1,0 +1,147 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2018
+  -->
+<RelativeLayout android:id="@+id/loPage"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Virtual Radio"
+        />
+
+    <LinearLayout
+        android:id="@+id/loMessage"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/yes_border_thick"
+        android:padding="5dp"
+        >
+
+        <TextView
+            android:id="@+id/tvRing"
+            style="@style/Text30"
+            android:text="{ring}"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            />
+
+        <TextView
+            android:id="@+id/tvClass"
+            style="@style/Text30"
+            android:text="{class}"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvMessage"
+            style="@style/Text30"
+            android:text="{message}"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loMessage"
+        android:padding="5dp"
+        android:layout_above="@+id/loNavigation"
+        >
+
+        <GridLayout
+            android:id="@+id/loOptions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:layout_alignParentTop="false"
+            android:layout_centerHorizontal="false"
+            android:layout_centerInParent="true"
+            >
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btOption1"
+                style="@style/CalculatorButtonStandard"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="{option 1}"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btOption2"
+                style="@style/CalculatorButtonStandard"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="{option 2}"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btOption3"
+                style="@style/CalculatorButtonStandard"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:text="{option 3}"
+                />
+        </GridLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_above="@+id/tvPageFooter"
+        android:layout_alignParentBottom="false"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btLock"
+            style="@style/ButtonNavigation"
+            android:text="Lock"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btCancel"
+            style="@style/ButtonNavigation"
+            android:text="Cancel"
+            />
+    </LinearLayout>
+
+    <TextView
+        android:text="Class progress text here"
+        android:id="@+id/tvPageFooter"
+        style="@style/TextPageFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+</RelativeLayout>
+

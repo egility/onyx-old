@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout android:id="@+id/loFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/loDistanceTime"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/loNavigation"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/tvHint"
+                style="@style/Text30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal|top"
+                android:text="Enter Time"
+                />
+
+            <GridLayout
+                android:id="@+id/loButtonGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:useDefaultMargins="true"
+                android:columnCount="4"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDelAll"
+                    style="@style/CalculatorButtonSmall"
+                    android:layout_margin="12dp"
+                    android:layout_marginLeft="0dp"
+                    android:text="Reset"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btSeven"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="7"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btEight"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="8"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btNine"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_marginRight="0dp"
+                    android:text="9"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDel"
+                    style="@style/CalculatorButtonStandard"
+                    android:layout_marginLeft="0dp"
+                    android:text="Del"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFour"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="4"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFive"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="5"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btSix"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_marginRight="0dp"
+                    android:text="6"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btZero"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_marginLeft="0dp"
+                    android:text="0"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOne"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="1"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btTwo"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="2"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btThree"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_marginRight="0dp"
+                    android:text="3"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btNoTime"
+                    style="@style/CalculatorButtonLargeWide"
+                    android:layout_marginLeft="0dp"
+                    android:text="No Time"
+                    android:layout_columnSpan="2"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDone"
+                    style="@style/CalculatorButtonLargeWide"
+                    android:layout_marginRight="0dp"
+                    android:text="Done"
+                    android:layout_columnSpan="2"
+                    android:layout_row="3"
+                    android:layout_column="2"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOK"
+                    style="@style/CalculatorButtonLargeWide"
+                    android:layout_marginRight="0dp"
+                    android:text="OK"
+                    android:layout_columnSpan="2"
+                    android:layout_row="3"
+                    android:layout_column="2"
+                    />
+            </GridLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btCancel"
+            style="@style/ButtonNavigation"
+            android:text="Cancel"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+    </LinearLayout>
+</RelativeLayout>

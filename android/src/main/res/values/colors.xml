@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2018
+  -->
+
+<resources>
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryInverse">#ffffff</color>
+
+</resources>

@@ -1,0 +1,35 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Entries"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Entries"
+
+block content
+    .max35
+        +card(title, icon)
+            if (!api.entries)
+                .card-statement.mb-2 There are no entries yet
+            else
+                p Total entries: #{api.entries.length} &nbsp;
+                    if api.competition.closed && api.competition.owing > 0
+                        span.emphasize (including #{api.competition.owing} not paid)
+
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Handler
+                            th Dog
+                            th Height
+                            th Nation
+                    each entry in api.entries
+                        - var extra = api.competition.closed && entry.unpaid ? {class: "emphasize"} : {}
+                        tbody.font90
+                            tr&attributes(extra).clickable-row(data-href='')
+                                td=entry.handler
+                                td=entry.dog
+                                td=entry.height
+                                td=entry.nation

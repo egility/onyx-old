@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:id="@+id/loItem"
+    >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Beginners Agility"
+        android:id="@+id/tvClass"
+        android:layout_alignParentTop="true"
+        style="@style/Text24"
+        android:layout_marginLeft="10dp"
+        />
+
+    <TextView
+        style="@style/Text20"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:id="@+id/tvOverview"
+        android:layout_below="@+id/tvClass"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="20dp"
+        android:layout_alignLeft="@+id/tvClass"
+        />
+</RelativeLayout>

@@ -1,0 +1,50 @@
+extends _page
+
+prepend navigation
+    -crumb = "Accounting"
+    -icon = "pound-sign"
+    -title = "Accounting Overview"
+
+append scripts
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    - var idCompetition = api.competition.idCompetition
+
+    .max50
+        +card("Plaza Accounting Overview - " + api.competition.name, icon)
+            table.table.table-sm.font80.table-bordered.table-clickable
+                tr
+                    th Description
+                    th.text-xs-right Debit
+                    th.text-xs-right Credit
+                    th.text-xs-right Balance
+                each account in api.ledgerAccounts.plaza
+                    - href = '/competition_account/' + idCompetition + "/" + account.idLedgerAccount
+                    tr.clickable-row(data-href=href)
+                        td=account.description
+                        td.text-xs-right #{toMoney(account.debit)}
+                        td.text-xs-right #{toMoney(account.credit)}
+                        td.text-xs-right #{toMoney(account.balance)}
+
+        +card("UKA Accounting Overview - " + api.competition.name, icon)
+            table.table.table-sm.font80.table-bordered.table-clickable
+                tr
+                    th Description
+                    th.text-xs-right Debit
+                    th.text-xs-right Credit
+                    th.text-xs-right Balance
+                each account in api.ledgerAccounts.uka
+                    - href = '/competition_account/' + idCompetition + "/" + account.idLedgerAccount
+                    tr.clickable-row(data-href=href)
+                        td=account.description
+                        td.text-xs-right #{toMoney(account.debit)}
+                        td.text-xs-right #{toMoney(account.credit)}
+                        td.text-xs-right #{toMoney(account.balance)}

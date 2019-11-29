@@ -1,0 +1,105 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit Details"
+    - title = "Edit Details"
+
+append scripts
+    +bind_form("plaza")
+    +bind_form("uka")
+    +bind_form("new")
+
+
+    script.
+
+        $("#option1").hide()
+        $("#option2").hide()
+        $("#option3").hide()
+
+        function doChoice() {
+            var choice=$('input[name=choice]:checked').val()
+            switch(choice) {
+                case undefined:
+                    alert("You must choose one of the options");
+                    break;
+                case "1":
+                    $("#question").hide()
+                    $("#option1").show()
+                    break;
+                case "2":
+                    $("#question").hide()
+                    $("#option2").show()
+                    break;
+                case "3":
+                    $("#question").hide()
+                    $("#option3").show()
+                    break;
+            }
+        }
+
+
+
+
+block content
+
+    .max35
+        #question
+            +card("Question", "question")
+                .mb-1.
+                    Please select which of the following best describes your new household member:
+
+                .mb-1.ml-1
+                    input#choice1(type="radio" name="choice" value=1)
+                    label(for="choice1") Already registered on Agility Plaza
+
+                .mb-1.ml-1
+                    input#choice2(type="radio" name="choice" value=2)
+                    label(for="choice2") Has a UKA account, but not yet registered on Agility Plaza
+
+                .mb-1.ml-1
+                    input#choice3(type="radio" name="choice" value=3)
+                    label(for="choice3") Has neither an Agility Plaza or UKA account
+
+                +button("action", "Continue", "check", {onClick: "doChoice()"})
+                +button("back", "Cancel", "arrow-left")
+
+        #option1
+            +card("Merge Existing Account", "contact")
+                .alert.alert-danger.
+                    PLEASE READ CAREFULLY: This option will merge all the new household member's details, show entries 
+                    and payment records into your account. Only proceed if the person genuinely lives at your address 
+                    and you are happy to combine your finances. Once merged it is difficult reverse this process.
+                .div.font80.mb-1.
+                    If you are happy with the above, enter the logon details for the new household member's Agility Plaza account.
+                +form({id: "plaza"})
+                    +input("text", "mergeCode", "mergeAccount.email", "Email", {noautocomplete: true})
+                    +input("password", "mergeCode", "mergeAccount.password", "Password", {noautocomplete: true})
+                    +button("submit", "Continue", "check")
+                    +button("back", "Cancel", "arrow-left")
+
+        #option2
+            +card("Existing UKA Account", "contact")
+                .alert.alert-info.
+                    Enter the logon details for the new household member's UK Agility account.
+                +form({id: "uka"})
+                    +input("text", "mergeCode", "mergeAccount.ukaUsername", "UKA Username", {noautocomplete: true})
+                    +input("password", "mergeCode", "mergeAccount.ukaPassword", "UKA Password", {noautocomplete: true})
+                    +button("submit", "Continue", "check")
+                    +button("back", "Back", "arrow-left")
+
+
+        #option3
+            +card("Add Household Member", "contact")
+                +form({id: "new"})
+                    +fieldset("Name")
+                        +input("text", "givenName", "competitor.givenName", "Given Name")
+                        +input("text", "familyName", "competitor.familyName", "Family Name")
+                    +fieldset("Contact")
+                        +input("text", "email", "competitor.email", "Email")
+                        +input("tel", "phoneMobile", "competitor.phoneMobile", "Phone (Mobile)")
+                        +input("tel", "phoneOther", "competitor.phoneOther", "Phone (Other)")
+                    +fieldset("Other")
+                        +hint("Please give your date of birth if you intend to enter age related events eg. YKC or Junior classes")
+                        +input("date", "dateOfBirth", "competitor.dateOfBirth", "Date of Birth")
+                        +input("text", "ykc", "competitor.ykc", "YKC Number")
+                    +button("submit", "Save", "check")

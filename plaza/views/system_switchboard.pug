@@ -1,0 +1,122 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "System Switchboard"
+
+block content
+
+    .max45
+        if session && session.systemAdministrator
+            +card("System Administration", "user-secret")
+                div
+                    - var url = apiRoot + "/uka/upload/transfers"
+                    +uploadXml("Upload: UKA Credit Transfers", url)
+                div
+                    - var url = apiRoot + "/swap/upload/transfers"
+                    +uploadXml("Upload: SWAP Credit Transfers", url)
+                div
+                    +link("Open: Payment Requests", "/payment_requests?root=true")
+                div
+                    +link("Open: Accounting System", "/ledger_accounts?root=true")
+                div
+                    +link("Enter: Stock Movements", "/stock_movement?root=true")
+                div
+                    +link("List: Stock", "/stock_list?root=true")
+            +card("Diagnostics", "cogs")
+                div
+                    +link("Master ACUs", "/acu_masters")
+                div
+                    +link("Tablets in Use", "/tablets_in_use")
+                div
+                    +link("Sign On's", "/sign_on")
+                div
+                    +link("Dongles", "/dongles")
+                div
+                    +link("Tablets", "/tablets")
+                div
+                    +link("ACUs", "/acus")
+
+        if session && session.plazaSuperUser
+            +card("KC Administration", "paw")
+                div
+                    - var url = apiRoot + "/spreadsheet/upload"
+                    +uploadXml("Upload: Plaza Spreadsheet", url)
+                div
+                    - var url = apiRoot + "/swap/accounts/swap.xls"
+                    +link("Download: SWAP Accounts", url, {external: true})
+                div
+                    - var url = "/class_codes"
+                    +link("List: Class Codes", url, {external: true})
+                div
+                    - var url = "/entities"
+                    +link("List: Clubs", url, {external: true})
+
+        if session && session.plazaSuperUser
+            +card("KC Marketing", "chart-line")
+                div
+                    - var url = "/kc_show/list"
+                    +link("KC Shows", url)
+                div
+                    - var url = "/kc_show/map"
+                    +link("KC Shows Map", url)
+                div
+                    - var url = "/agilitynet/map"
+                    +link("2019 Map (agilitynet)", url)
+                div
+                    - var url = "/competition/active/map"
+                    +link("Plaza Show Map", url)
+                div
+                    - var url = "/account/map/postcode/EX"
+                    +link("Competitor/Postcode Map", url)
+                div
+                    - var url = "/entities/marketing"
+                    +link("Target Clubs", url, {external: true})
+                div
+                    - var url = "/agilitynet/target/map"
+                    +link("Target Map", url)
+
+        if session && session.plazaSuperUser
+            +card("SWAP Administration", "wine-bottle")
+                div
+                    +link("Open Transfers Account", "/ledger_account/121?root=true")
+                div
+                    - var url = apiRoot + "/swap/upload/transfers"
+                    +uploadXml("Upload: SWAP Credit Transfers (*.xls)", url)
+
+
+        if session && session.ukaSuperUser
+            +card("UKA Administration", "paw")
+                div
+                    - var url = apiRoot + "/uka/members/uka_membership.xls"
+                    +link("Download: Membership Records", url, {external: true})
+                div
+                    - var url = apiRoot + "/uka/heights/uka_heights.xls"
+                    +link("Download: Height Records", url, {external: true})
+                div
+                    - var url = apiRoot + "/uka/masters_entries/masters_entries.xls"
+                    +link("Download: Masters Entries", url, {external: true})
+                div
+                    - var url = apiRoot + "/uka/registrations/registrations.xls"
+                    +link("Download: Registrations", url, {external: true})
+                div
+                    - var url = apiRoot + "/uka/finals_qualified/finals_qualified.xls"
+                    +link("Download: Finals Qualified", url, {external: true})
+                // div
+                    - var url = apiRoot + "/uka/finals_invited/finals_invited.xls"
+                    +link("Download: Finals Invited", url, {external: true})
+
+                // div
+                    - var url = apiRoot + "/uka/junior_league_data/uka_junior_league.xls"
+                    +link("Download: Junior League Data", url, {external: true})
+                div
+                    +link("View: Junior League Table", "/uka_junior_league")
+                div
+                    - var url = apiRoot + "/spreadsheet/upload"
+                    +uploadXml("Upload: Plaza Spreadsheet", url)
+                div
+                    - var url = apiRoot + "/uka/upload/measurements"
+                    +uploadXml("Upload: Measurements", url)
+            +card("UKA Diagnostics", "cogs")
+                div
+                    +link("Tablets in Use", "/uka_tablets")

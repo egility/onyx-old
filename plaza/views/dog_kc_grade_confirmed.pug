@@ -1,0 +1,41 @@
+extends _page
+
+prepend navigation
+    - crumb=api.dog.petName
+    - icon="paw"
+    - title = session.petName
+
+block content
+
+    .max40
+        +card(api.dog.petName + " - Changes made", icon)
+            if api.log.competitions
+                p.
+                    Below is a list of the changes made (we have also sent you an email with these details).
+
+                table.table.table-sm.font80
+
+                    each competition in api.log.competitions
+                        if competition.dates
+                            tr
+                                td.group(colspan="99")=competition.name
+                            tr
+                                th Date
+                                th Class
+                                th Action
+                            each day in competition.dates
+                                each agilityClass in day.classes
+                                    tr
+                                        if day.classes.indexOf(agilityClass)==0
+                                            td=dateFormat(day.date, "ddd, dd")
+                                        else
+                                            td
+                                        td=agilityClass.name
+                                        td=agilityClass.action
+            else
+                p No show entries have been changed as a result of your grade change.
+
+            hr
+            .mt-1
+
+            +button("link", "Finished", "check", {href: "/dog/review"})

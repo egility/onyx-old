@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/loFragment"
+    >
+
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="Agility Control Unit - ACU000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yes_border_thick"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:id="@+id/loVirtualLcd"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        >
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDisplay1"
+            style="@style/TextLed24"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDisplay2"
+            style="@style/TextLed24"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDisplay3"
+            style="@style/TextLed24"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loContent"
+        android:orientation="vertical"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="12dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Options for ACU000"
+            android:id="@+id/tvOptionsLabel"
+            style="@style/Text24"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <GridLayout
+            android:id="@+id/loMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:useDefaultMargins="true"
+            android:columnCount="2"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            >
+        </GridLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Options Available"
+            android:id="@+id/tvNoOptions"
+            style="@style/Text24"
+            android:layout_marginTop="12dp"
+            android:layout_gravity="center_horizontal"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btOK"
+            android:drawableLeft="@drawable/back"
+            />
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btDebug"
+            android:text="Diagnostics"
+            />
+    </LinearLayout>
+</RelativeLayout>

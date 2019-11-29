@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RadioButton xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:id="@+id/btClass2"
+             style="@style/RadioButton"
+             android:singleLine="true"/>

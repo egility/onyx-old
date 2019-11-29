@@ -1,0 +1,36 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit"
+    - title = session.petName
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max40
+        +card(session.petName + " - FAB Preferences")
+            +form()
+                +fieldset("Height")
+                +select("heightCode","dog.heightCode", "FAB Classes", fabHeights, {label: 30})
+                +select("ifcsHeightCode","dog.ifcsHeightCode", "IFCS Classes", ifcsHeights, {label: 30})
+                +fieldset("Grades")
+                +select("gradeAgility","dog.gradeAgility", "Agility", fabGrades, {label: 30})
+                +select("gradeJumping","dog.gradeJumping", "Jumping", fabGrades, {label: 30})
+                +select("gradeSteeplechase","dog.gradeSteeplechase", "Steeplechase", fabGrades, {label: 30})
+                +fieldset("Classes to be highlighted", "minor")
+                    +hint.
+                        When you enter a show, your preferred classes will be highlighted
+                        to make it easier to pick out your choices. Here you can decide which classes get this
+                        treatment. So, for example, if your dog is semi-retired and only runs in 'Allsorts' then just
+                        tick the 'Allsorts' box and just these classes will be highlighted.
+                    +checkbox("fabAgility", "dog.fab.agility", "Agility", {label: 30})
+                    +checkbox("fabJumping", "dog.fab.jumping", "Jumping", {label: 30})
+                    +checkbox("fabSteeplechase", "dog.fab.steeplechase", "Steeplechase", {label: 30})
+                    +checkbox("fabGrandPrix", "dog.fab.grandPrix", "Grand Prix", {label: 30})
+                    +checkbox("fabAllsorts", "dog.fab.allsorts", "Allsorts", {label: 30})
+                    +checkbox("fabIfcs", "dog.fab.ifcs", "IFCS", {label: 30})
+                +button("submit", "Save Changes", "check")
+
+

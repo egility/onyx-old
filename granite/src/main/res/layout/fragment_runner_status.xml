@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:id="@+id/loTopText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tvCompetitor"
+            style="@style/Text40"
+            android:text="Mike Brickman"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvDog"
+            style="@style/Text30"
+            android:text="Bingley"
+            android:layout_marginBottom="10dp"
+            />
+
+        <View
+            android:id="@+id/hrTop"
+            style="@style/LineLight"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loInfoGrid"
+            android:layout_alignParentTop="false"
+            android:layout_alignParentEnd="false"
+            android:layout_below="@+id/loTopText"
+            android:orientation="horizontal"
+            >
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:id="@+id/lnLeft"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    style="@style/Text20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCaption"
+                    android:text="Caption:"
+                    android:layout_alignParentStart="false"
+                    android:layout_toRightOf="@+id/lnLeft"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <TextView
+                    style="@style/Text30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvData"
+                    android:text="Some Status Text"
+                    android:layout_centerVertical="true"
+                    android:minLines="1"
+                    android:maxLines="2"
+                    android:layout_below="@+id/tvCaption"
+                    android:layout_marginLeft="20dp"
+                    android:layout_alignLeft="@+id/tvCaption"
+                    />
+            </RelativeLayout>
+
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                >
+
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="65dp"
+                    android:background="@android:color/holo_blue_light"
+                    android:id="@+id/lnLeft2"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <TextView
+                    style="@style/Text20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvCaption2"
+                    android:text="Caption:"
+                    android:layout_alignParentStart="false"
+                    android:layout_toRightOf="@+id/lnLeft2"
+                    android:layout_marginTop="5dp"
+                    />
+
+                <TextView
+                    style="@style/Text30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvData2"
+                    android:text="text"
+                    android:layout_centerVertical="true"
+                    android:minLines="1"
+                    android:maxLines="2"
+                    android:layout_below="@+id/tvCaption2"
+                    android:layout_marginLeft="20dp"
+                    android:layout_alignLeft="@+id/tvCaption2"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+        <View
+            android:id="@+id/hrBottom"
+            style="@style/LineLight"
+            />
+
+        <TextView
+            style="@style/ReverseText36"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="*** Needed by Show Secretary ***"
+            android:id="@+id/tvNeeded"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/loContent"
+        android:layout_below="@+id/loTopText"
+        android:layout_above="@+id/loNavigation"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/loMiddle"
+            >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Must buy credits before booking in"
+                android:id="@+id/tvMessage"
+                style="@style/Text30"
+                android:gravity="center"
+                />
+
+            <LinearLayout
+                android:id="@+id/loOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/yes_border"
+                android:padding="10dp"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <TextView
+                    style="@style/Text20"
+                    android:id="@+id/tvSubTitle"
+                    android:text="{sub-title}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <GridLayout
+                    android:id="@+id/loMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:useDefaultMargins="true"
+                    >
+
+                    <org.egility.android.views.QuickButton
+                        style="@style/MenuButton"
+                        android:layout_width="240dp"
+                        android:layout_margin="12dp"
+                        android:layout_height="wrap_content"
+                        android:text="Maxi"
+                        android:id="@+id/button"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        style="@style/MenuButton"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="12dp"
+                        android:text="Std"
+                        android:id="@+id/button6"
+                        android:layout_row="1"
+                        android:layout_column="0"
+                        />
+                </GridLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btBack"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btFinished"
+            android:text="Finished"
+            />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,120 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:id="@+id/loTopText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:id="@+id/tvCompetitor"
+            style="@style/Text30"
+            android:text="Mike Brickman"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvDog"
+            style="@style/Text30"
+            android:text="Bingley"
+            android:layout_marginBottom="10dp"
+            />
+
+        <View style="@style/LineLight"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/loStatus"
+        android:layout_below="@+id/loTopText"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alternative Handler"
+            android:id="@+id/tvTitle"
+            style="@style/Text30"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/loCompetitorName"
+            android:layout_marginTop="50dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:id="@+id/tvCompetitorNameLabel"
+                style="@style/Text24"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edCompetitorName"
+                style="@style/Text24"
+                android:ems="12"
+                android:inputType="textNoSuggestions|textCapWords"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btCancel"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btOK"
+            style="@style/ButtonNavigation"
+            android:text="OK"
+            />
+    </LinearLayout>
+</RelativeLayout>
+

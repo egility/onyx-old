@@ -1,0 +1,56 @@
+extends _page
+
+block head
+    - refresh = 120
+    - imageIndex = 2
+
+prepend navigation
+    - crumb=api.competition.name
+    - icon="shield"
+    - title = api.competition.name + "- Live Overview"
+
+block content
+
+    if (error == 1)
+        h2 Sorry
+        h4 Nothing is happening today
+    else
+        .page-info
+            span Correct at: #{dateFormat(api.lastUpdate, "HH:MM, ddd dd mmm")}
+            +hint("The numbers in brackets are: the dogs left to run. Press the " +
+            "Agility Plaza logo to update. <strong>Click on class name to see results</strong>.", true)
+
+        if (api.ringPlan.announcement && api.ringPlan.announcement != "")
+            .alert.alert-danger #{api.ringPlan.announcement}
+        .mygrid
+            each ring in api.ringPlan.rings
+                .grid-item
+                    +card("Ring " + ring.ringNumber + " - " + ring.judge)
+                        if (ring.closed)
+                            p All done - ring closed
+                        else
+                            if (ring.note && ring.note != "")
+                                +hint(ring.note, true)
+                            each agilityClass in ring.agilityClasses
+                                - var caption = agilityClass.className + (active && agilityClass.status != "" ? " - " + agilityClass.status : "")
+                                -var url = "/agilityClass/" + agilityClass.idAgilityClass + "/results"
+                                .card-heading
+                                    +link(caption, url)
+                                - if (agilityClass.notes && agilityClass.notes!="")
+                                    +hint(agilityClass.notes, true)
+                                if (api.competition.isUka)
+                                    .row.mb-1
+                                        each height in agilityClass.heights
+                                            - var progress = height.text == undefined ? "(0)" : height.text
+                                            .col-xs-3(class={active_border: height.active}) #{height.name}<BR>#{progress}
+                                else
+                                    each height in agilityClass.heights
+                                        - var progress = height.text == undefined ? "(0)" : height.text
+                                        div(class={active_border: height.active}) #{height.name} #{progress}
+
+                                if (agilityClass.next != "")
+                                    .font80 #[strong Followed by: ] #{agilityClass.next}
+                                else
+                                    .font80 #[strong Followed by: ] This is the last class
+
+

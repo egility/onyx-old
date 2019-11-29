@@ -1,0 +1,79 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="star"
+    - title = api.competition.name
+
+append scripts
+    +bind_form()
+
+
+block content
+    .max40
+        - var title = "Step 1 - Dog Details"
+        if api.competition.hasVouchers
+            - title = "Step 1 - Dog & Voucher Details"
+        +card(title, icon)
+            if !api.dogs
+                .card-statement You must register at least one dog before you can enter this show. Click on the 'My Household' menu option and then 'Add Dog'.
+            else
+
+                +form()
+                    if api.competition.entryNote
+                        .alert.alert-warning=api.competition.entryNote
+                        
+                    +cardSection("Dogs", "paw")
+                        +simpleHint.
+                            Please choose an #[strong Entry Option] for each of your dogs (remember to select #[strong Entering NFC] for
+                            non-competing dogs that you will be bringing to the show). Also confirm the name of the #[strong Default Handler]
+                            for each dog that will be competing.
+                        table.table.table-sm.mt-half.mb-1
+                            tr
+                                th Dog
+                                th Entry Option
+                                th Default Handler
+
+                            each dog in api.dogs
+                                - var index = api.dogs.indexOf(dog)
+                                - var bind = "dogs." + index
+                                tr
+                                    td.align-middle.clickable-cell(data-index=index)=dog.petName
+                                    if dog.registered && !dog.retired && dog.heightCode && !dog.isPuppy
+                                        td.width9
+                                            +select("entryOption" + index, bind + ".entryOption", "", api.entryOptions[dog.heightCode] )
+                                        td
+                                            +select("handler" + index, bind + ".idCompetitorHandler", "", api.handlers)
+
+                                    else
+                                        td.width9
+                                            +select("entryOption" + index, bind + ".entryOption", "", api.entryOptions.other)
+                                        if dog.isPuppy
+                                            td.align-middle.emphasize.pl-1.font80 Too young to compete
+                                        else if dog.retired
+                                            td.align-middle.emphasize.pl-1.font80 Retired
+                                        else if !dog.registered
+                                            td.align-middle.emphasize.pl-1.font80 Not KC registered
+
+                    if api.competition.hasVouchers
+                        +cardSection("Member/Staff Vouchers", "ticket-alt")
+                            +hint.
+                                If you are a #[strong club member] or #[strong show official] and have been given a voucher code, enter it in the space below
+                                against the name of the person to whom the voucher was issued. Multiple codes may be entered with commas between.
+    
+                            table.table.table-sm.mt-half.mb-1
+                                tr
+                                    th Issued to
+                                    th Voucher
+                                each competitor in api.competitors
+                                    - var index = api.competitors.indexOf(competitor)
+                                    - var bind = "competitors." + index
+                                    tr
+                                        td.align-middle=competitor.name
+                                        td
+                                            +input("text", "voucher", bind + ".voucherCode", "")
+
+                    +button("submit", "Continue", "check")

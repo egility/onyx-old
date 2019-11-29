@@ -1,0 +1,45 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "Missing Payment"
+        
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var checkboxId = $(this).data("checkbox");
+                var checkbox = $("#" + checkboxId);
+                checkbox.prop('checked', !checkbox.prop('checked'))
+            });
+        });
+
+block content
+
+    .max50
+        +card(title + " for " + api.user.fullName, "computer")
+            if !api.items
+                div No Unallocated Receipts
+            else
+                .p.mb-1 Unallocated Receipts
+                    +form()
+                        table.table.table-sm.table-clickable.font80
+                            tr
+                                th Date
+                                th Details
+                                th.text-xs-right Amount
+                                th.text-xs-center Claim
+                            each item in api.items
+                                - var index = api.items.indexOf(item)
+                                - var bind = "items." + index + ".confirmed"
+                                - var checkboxId = "confirmed" + index
+                                tr.clickable-row(data-checkbox="confirmed" + index)
+                                    td.align-middle=dateFormat(item.date, "dd/mm/yy")
+                                    td.align-middle=item.source
+                                    td.align-middle.text-xs-right=toMoney(item.amount)
+                                    td.text-xs-center
+                                        +checkbox(checkboxId, bind, "")
+                        hr.mb-1
+                        +button("submit", "Claim ticked receipts for " + api.user.fullName, "check")

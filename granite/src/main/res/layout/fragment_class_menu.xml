@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/loFragment"
+    >
+
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="{Page Title}"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="[Class Status]"
+        android:id="@+id/tvClassStatus"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentStart="true"
+        style="@style/Text30"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:singleLine="false"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        />
+
+    <TextView
+        style="@style/Text24"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="[Progress]"
+        android:id="@+id/tvProgress"
+        android:layout_below="@+id/tvClassStatus"
+        android:layout_alignParentStart="false"
+        android:layout_marginLeft="20dp"
+        android:singleLine="false"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_below="@+id/tvProgress"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loContent"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="350dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/loStartTime"
+                android:padding="8dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/yes_border"
+                >
+
+                <TextView
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Class commences at:"
+                    android:id="@+id/tvWalkingLabel"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+                <View
+                    style="@style/LineLight"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="240dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/loTime"
+                    android:layout_gravity="center_horizontal"
+                    >
+                    <org.egility.android.views.QuickButton
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:text="-"
+                        android:id="@+id/btTimeMinus"
+                        style="@style/ButtonStandard"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="0dp"
+                        />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="12:30"
+                        android:id="@+id/tvTime"
+                        style="@style/Text40"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:gravity="center_vertical"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:text="+"
+                        android:id="@+id/btTimePlus"
+                        style="@style/ButtonStandard"
+                        android:layout_gravity="center_vertical"
+                        android:layout_margin="0dp"
+                        />
+                </LinearLayout>
+                <View
+                    style="@style/LineLight"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_width="240dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    />
+
+
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Walking over lunch"
+                    android:id="@+id/xbOverLunch"
+                    android:layout_marginTop="0dp"
+                    android:checked="false"
+                    style="@style/CheckBox24"
+                    android:singleLine="true"
+                    android:layout_gravity="center_horizontal"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Options:"
+                android:id="@+id/tvOptionsLabel"
+                style="@style/Text30"
+                />
+
+            <GridLayout
+                android:id="@+id/loMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:useDefaultMargins="true"
+                android:columnCount="1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                >
+
+                <org.egility.android.views.QuickButton
+                    style="@style/MenuButton"
+                    android:layout_width="240dp"
+                    android:layout_margin="12dp"
+                    android:layout_height="wrap_content"
+                    android:text="Maxi"
+                    android:id="@+id/button"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    style="@style/MenuButton"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="12dp"
+                    android:text="Std"
+                    android:id="@+id/button6"
+                    android:layout_row="1"
+                    android:layout_column="0"
+                    />
+            </GridLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btOK"
+            android:text="OK"
+            />
+    </LinearLayout>
+</RelativeLayout>

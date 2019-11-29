@@ -1,0 +1,26 @@
+extends _page
+
+prepend navigation
+    - icon="star"
+    - title = "Stock Movement Confirmation"
+
+append scripts
+    +bind_form()
+
+
+block content
+    .max40
+        +card(title, icon)
+            +form()
+                table.table.table-sm
+                    tr
+                        th.width7 Type
+                        th Quantity
+                        th Codes
+                    each type in api.types
+                        tr
+                            td=type.description
+                            td=type.assetCount
+                            td=type.assetList
+                hr
+                +button("submit", "Confirm", "check")

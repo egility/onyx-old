@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="[Class Status]"
+        android:id="@+id/tvClassStatus"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentStart="true"
+        style="@style/Text30"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:singleLine="false"
+        android:gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/loNavigation"
+        android:id="@+id/loMiddle"
+        android:layout_below="@+id/tvClassStatus"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loContent"
+            android:layout_centerVertical="true"
+            android:visibility="gone"
+            >
+
+            <TextView
+                style="@style/ReverseText36"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="[Warning]"
+                android:id="@+id/tvWarning"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:focusable="false"
+                android:gravity="center_horizontal"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/loNotRunYet"
+                android:layout_marginLeft="20dp"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Dogs remaining (confirmed but not run):"
+                    android:id="@+id/tvNotRunLabel"
+                    style="@style/Text24"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginLeft="0dp"
+                    android:focusable="false"
+                    />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="[Runners]"
+                    android:id="@+id/tvRunners"
+                    style="@style/Text20"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="20dp"
+                    android:singleLine="false"
+                    android:maxLines="20"
+                    />
+            </LinearLayout>
+
+            <org.egility.android.views.QuickButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Variable close text"
+                android:id="@+id/btClose"
+                style="@style/ButtonStandard"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/loWait"
+            android:visibility="visible"
+            android:background="@drawable/yes_border_thick"
+            android:layout_marginLeft="100dp"
+            android:layout_marginRight="100dp"
+            >
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Closing Class &amp; Printing Results"
+                android:id="@+id/tvWaitTitle"
+                android:gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Please be patient as it can take a couple of minutes to complete this task"
+                android:id="@+id/tvWait"
+                style="@style/Text20"
+                android:gravity="center"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <ProgressBar
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:drawableLeft="@drawable/back"
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            />
+    </LinearLayout>
+</RelativeLayout>

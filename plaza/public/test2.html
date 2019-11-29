@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="en" style="font-size: 12pt;">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Agility Plaza</title>
+  <link rel="stylesheet" href="/bootstrap/css/bootstrap-flex.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+  <link rel="stylesheet" href="/cardjs/card-js.min.css">
+  <link rel="stylesheet" href="/css//style_v1.0.css">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <style>
+    @media screen and (min-device-width: 420px) and (orientation: portrait), screen and (min-device-height: 420px) and (orientation: landscape) {
+      .underlay {
+        background: url(/img/back/back15a.jpg) no-repeat center center fixed;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+        opacity: .5;
+      }
+    }
+
+  </style>
+</head>
+<body>
+<!-- Forms-->
+<!-- Buttons & Links-->
+<!-- Grids and Cards-->
+<!-- Misc-->
+<!-- Script mixins-->
+  <h3>My Map</h3>
+  <div id="map" style="{height: 400px; width: 100%;};"></div>
+<!-- SCRIPTS-->
+
+<script>
+  function initMap() {
+    var uluru = {lat: -25.344, lng: 131.036};
+    var map = new google.maps.Map(document.getElementById('map'), {zoom: 4, center: uluru});
+    var marker = new google.maps.Marker({position: uluru, map: map});
+  }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFuZc4J5val-feBGR3TnDlwuoFDwpk8HI&amp;callback=initMap"></script>
+</body>
+</html>

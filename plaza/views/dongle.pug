@@ -1,0 +1,39 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs))
+        -crumb="Dongles"
+    - icon="trophy"
+    - title = "Dongles"
+
+block content
+    .max60
+        +card(title, icon)
+            if (!api.dongles)
+                .card-statement.mb-2 There are no observations yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Date
+                            th Show
+                            th Net
+                            th Number
+                            th Type
+                            th Bars
+                    - var assetCode = ""
+                    each item in api.dongles
+                        - var thisAssetCode=item.assetCode
+                        if thisAssetCode!=assetCode
+                            - assetCode=thisAssetCode
+                            thead
+                                tr
+                                    th.group(colspan="99")=thisAssetCode + " (" + item.locationText + ")"
+                        tbody.font90
+                            tr
+                                td=item.day
+                                td=item.competition
+                                td=item.networkProvider
+                                td=item.phoneNumber
+                                td=item.networkType
+                                td=item.signalAverage

@@ -1,0 +1,31 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "clipboard"
+    -title =api.competition.name
+
+block content
+
+    - var competition=api.competition
+
+    .max30
+        if administratorKc || api.user.showSecretary
+
+            +card(competition.briefName + " - e-gility Picking List", "edit")
+                table.table.table-sm
+                    each pickingListItem in api.pickingList
+                        if pickingListItem.type==2
+                            tr(colspan=99)
+                                td.group2=pickingListItem.description
+                        else if pickingListItem.type == 1
+                            tr
+                                td
+                                    .ml-3!=pickingListItem.description + " x " + pickingListItem.quantity
+                        else if pickingListItem.quantity>0
+                            tr
+                                td
+                                    .ml-1!=pickingListItem.description
+                                td=pickingListItem.quantity
+                hr
+                +button("back", "Back", "arrow-left")

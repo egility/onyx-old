@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/loTop"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Change Handler for:"
+            android:id="@+id/tvChangeHandler"
+            style="@style/Text24"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bingley"
+            android:id="@+id/tvDogName"
+            style="@style/Text30"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="From:"
+            android:id="@+id/tvFromHandler"
+            style="@style/Text24"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mike Brickman"
+            android:id="@+id/tvCompetitorName"
+            style="@style/Text30"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <View
+            android:id="@+id/hrTop"
+            style="@style/LineLight"
+            android:layout_margin="0dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="To:"
+            android:id="@+id/tvToHandler"
+            style="@style/Text24"
+            android:layout_marginTop="20dp"
+            />
+
+        <GridLayout
+            android:id="@+id/loMenu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:useDefaultMargins="true"
+            android:columnCount="1"
+            >
+
+            <org.egility.android.views.QuickButton
+                style="@style/MenuButton"
+                android:layout_width="300dp"
+                android:layout_margin="12dp"
+                android:layout_height="wrap_content"
+                android:text="Sacha Dane Le Page"
+                android:id="@+id/button"
+                />
+
+            <org.egility.android.views.QuickButton
+                style="@style/MenuButton"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="12dp"
+                android:text="Other"
+                android:id="@+id/button6"
+                />
+        </GridLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loOtherHandler"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name:"
+                android:id="@+id/tvOtherHandler"
+                style="@style/Text24"
+                android:layout_marginRight="10dp"
+                />
+            <EditText
+                android:layout_height="wrap_content"
+                android:id="@+id/edOtherHandler"
+                style="@style/Text30"
+                android:inputType="textNoSuggestions|textCapWords"
+                android:layout_width="match_parent"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:text="Cancel"
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            />
+        <org.egility.android.views.QuickButton
+            android:text="OK"
+            android:id="@+id/btOK"
+            style="@style/ButtonNavigation"
+            />
+    </LinearLayout>
+</RelativeLayout>

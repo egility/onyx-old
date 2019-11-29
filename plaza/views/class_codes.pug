@@ -1,0 +1,19 @@
+extends _page
+
+prepend navigation
+    -title = "Class Codes"
+
+append scripts
+
+block content
+
+    .max50
+        +card(title)
+            table.table.table-sm.font80.table-bordered
+                tr
+                    th Code
+                    th Description
+                each node in api.classCodes
+                    tr
+                        td=node.code
+                        td=node.name

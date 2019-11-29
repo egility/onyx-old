@@ -1,0 +1,61 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    style="@style/Text24"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        >
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Heat Test"
+            android:id="@+id/tvTitle"
+            android:layout_marginTop="0dp"
+            android:gravity="center"
+            style="@style/Text40"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="tab001"
+            android:id="@+id/tvDevice"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            style="@style/Text40"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="28/04/16 13:47:58"
+            android:id="@+id/tvTime"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            style="@style/Text40"
+            />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="[Info]"
+            android:id="@+id/tvInfo"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            style="@style/Text18"
+            />
+    </LinearLayout>
+</RelativeLayout>
+

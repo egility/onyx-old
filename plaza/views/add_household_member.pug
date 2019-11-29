@@ -1,0 +1,23 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Add Household Member"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max30
+        +card("Household Member's details")
+            +hint("Please supply a mobile phone number so that we can text you in an emergency (eg if a show is cancelled)")
+
+            +form()
+                +input("text", "givenName", "competitor.givenName", "Given Name")
+                +input("text", "familyName", "competitor.familyName", "Family Name")
+                +input("text", "email", "competitor.email", "Email")
+                +input("tel", "phoneMobile", "competitor.phoneMobile", "Phone (Mobile)")
+                +input("tel", "phoneOther", "competitor.phoneOther", "Phone (Other)")
+                +button("submit", "Save my details", "check")
+

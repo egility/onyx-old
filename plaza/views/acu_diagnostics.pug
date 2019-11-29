@@ -1,0 +1,27 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "ACU Diagnostics"
+        
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max65
+        +card(title, "computer")
+            table.table
+                tr
+                    td Hostname
+                    td=api.diagnostics.hostname
+                tr
+                    td Display
+                    td=api.diagnostics.display[0] + " | " + api.diagnostics.display[1] + " | " + api.diagnostics.display[2]

@@ -1,0 +1,27 @@
+extends _page
+
+prepend navigation
+    - crumb="Add Competitor"
+    - title = "Add Competitor"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max35
+        +card(title, "contact")
+            +form()
+                +fieldset("Name")
+                    +input("text", "givenName", "competitor.givenName", "Given Name")
+                    +input("text", "familyName", "competitor.familyName", "Family Name")
+                +fieldset("Address")
+                    +textarea(4, "streetAddress", "competitor.streetAddress", "Street Address")
+                    +input("text", "town", "competitor.town", "Town")
+                    +input("text", "Postcode", "competitor.postcode", "Postcode")
+                +fieldset("Contact")
+                    +input("text", "email", "competitor.email", "Email")
+                    +input("tel", "phoneMobile", "competitor.phoneMobile", "Phone (Mobile)")
+                    +input("tel", "phoneOther", "competitor.phoneOther", "Phone (Other)")
+                +button("submit", "Save", "check")
+

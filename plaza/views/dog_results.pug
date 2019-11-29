@@ -1,0 +1,65 @@
+extends _page
+
+prepend navigation
+    - crumb="Results"
+    - icon="trophy"
+    - title = session.petName
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var href = $(this).data("href")
+                window.location = href;
+            });
+        });
+
+block content
+
+    .max45
+        +card("Results")
+            if !api.dog.competitions
+                .card-statement Sorry, we do not have any results for #{api.dog.petName} yet.
+            else
+                table.table.table-sm.table-clickable
+                    each competition in api.dog.competitions
+                        - var attributes ={class: "organization" + competition.idOrganization}
+                        thead
+                            tr&attributes(attributes)
+                                if competition.idOrganization == 2
+                                    th.group2(colspan="99") #{dateFormat(competition.dateStart, "mmm yyyy")} - UKA #{competition.name}
+                                else
+                                    th.group2(colspan="99") #{dateFormat(competition.dateStart, "mmm yyyy")} - #{competition.name}
+                        tbody
+                            tr
+                                th Day
+                                th Class
+                                th Score
+                                th Time
+                                th.text-xs-center Prize
+                                th.sm-up Points
+
+                            each date in competition.dates
+
+
+                                each entry in date.entries
+                                    - var href = "/agilityClass/" + entry.idAgilityClass + "/dog_results"
+                                    tr.clickable-row(data-href=href)
+                                        td #{dateFormat(date.date, "ddd")}
+                                        td.sm-up=entry.className
+                                        td.xs-down=entry.abbreviatedName
+                                        td #{entry.scoreText}
+                                        td #{entry.timeText}
+                                        if entry.progressionPoints == "VOID"
+                                            td.text-xs-center #{entry.prizeText}
+                                            td.sm-up VOID
+                                        else
+                                            if entry.prizeText
+                                                td.text-xs-center #{entry.prizeText}
+                                            else
+                                                td.text-xs-center &ndash;
+                                            if entry.progressionPoints > 0
+                                                td.sm-up &nbsp; &nbsp; #{entry.progressionPoints}
+                                            else
+                                                td.sm-up &nbsp; &nbsp; &ndash;
+

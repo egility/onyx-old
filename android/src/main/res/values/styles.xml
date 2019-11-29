@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<resources>
+
+    <style name="PanelNavigation">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:background">@android:color/darker_gray</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="QuickButton">
+        <item name="android:clickable">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/colorPrimaryInverse</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+
+    </style>
+
+    <style name="ButtonStandard" parent="QuickButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">false</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_margin">18dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:onClick">whenClick</item>
+        <item name="android:longClickable">false</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="ButtonSmallText" parent="ButtonStandard">
+        <item name="android:textSize">18dp</item>
+        <item name="android:layout_margin">6dp</item>
+    </style>
+
+    <style name="KeyboardButton" parent="QuickButton">
+        <item name="android:focusable">false</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_marginEnd">6dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_width">48dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:onClick">whenClick</item>
+    </style>
+
+    <style name="TimeAdjustButton" parent="QuickButton">
+        <item name="android:focusable">false</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:onClick">whenClick</item>
+    </style>
+
+    <style name="NumbericKeyboardButton" parent="KeyboardButton">
+        <item name="android:layout_margin">4dp</item>
+        <item name="android:layout_width">72dp</item>
+        <item name="android:layout_height">72dp</item>
+    </style>
+
+    <style name="NumbericKeyboardButtonText" parent="NumbericKeyboardButton">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+
+    <style name="ButtonNavigation" parent="QuickButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:focusable">false</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">8dp</item>
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">6dp</item>
+        <item name="android:paddingRight">6dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:onClick">whenClick</item>
+        <item name="navigation">true</item>
+    </style>
+
+    <style name="ButtonNavigationSmall" parent="ButtonNavigation">
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="ButtonClassReview" parent="ButtonStandard">
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_margin">12dp</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:gravity">right|center_vertical</item>
+    </style>
+
+    <style name="ButtonLarge" parent="ButtonStandard">
+        <item name="android:textSize">40dp</item>
+    </style>
+
+    <style name="MenuButton" parent="ButtonStandard">
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+
+    </style>
+
+    <style name="CalculatorButtonStandard" parent="ButtonStandard">
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_width">80dp</item>
+        <item name="android:layout_height">80dp</item>
+    </style>
+
+    <style name="CalculatorButtonStandardScore" parent="CalculatorButtonStandard">
+        <item name="android:layout_margin">36dp</item>
+    </style>
+
+    <style name="CalculatorButtonLarge" parent="CalculatorButtonStandard">
+        <item name="android:textSize">40dp</item>
+    </style>
+
+    <style name="CalculatorButtonLargeWide" parent="CalculatorButtonStandard">
+        <item name="android:layout_width">196dp</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:layout_height">60dp</item>
+    </style>
+
+    <style name="CalculatorButtonLargeScore" parent="CalculatorButtonLarge">
+        <item name="android:layout_margin">36dp</item>
+    </style>
+
+    <style name="CalculatorButtonHugeScore" parent="CalculatorButtonLarge">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="android:layout_marginTop">36dp</item>
+        <item name="android:layout_marginBottom">36dp</item>
+        <item name="android:layout_marginLeft">56dp</item>
+        <item name="android:layout_marginRight">36dp</item>
+    </style>
+
+    <style name="CalculatorButtonSmall" parent="CalculatorButtonLarge">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="CalculatorButtonLargeGames" parent="CalculatorButtonLarge">
+        <item name="android:layout_margin">12dp</item>
+    </style>
+
+    <style name="CalculatorButtonMediumGames" parent="CalculatorButtonLarge">
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="CalculatorButtonSmallGames" parent="CalculatorButtonLargeGames">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="CalculatorButtonLargeGames24" parent="CalculatorButtonLarge">
+        <item name="android:layout_width">68dp</item>
+        <item name="android:layout_height">68dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">14dp</item>
+        <item name="android:layout_marginRight">14dp</item>
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="CalculatorButtonMediumGames24" parent="CalculatorButtonLargeGames24">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="CalculatorButtonSmallGames24" parent="CalculatorButtonLargeGames24">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="Text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="Text40" parent="Text">
+        <item name="android:textSize">40dp</item>
+    </style>
+
+    <style name="Text36" parent="Text">
+        <item name="android:textSize">36dp</item>
+    </style>
+
+    <style name="Text30" parent="Text">
+        <item name="android:textSize">30dp</item>
+    </style>
+
+    <style name="Text28" parent="Text">
+        <item name="android:textSize">28dp</item>
+    </style>
+
+    <style name="Text24" parent="Text">
+        <item name="android:textSize">24dp</item>
+    </style>
+
+    <style name="Text24Bold" parent="Text24">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="Text24Heading" parent="Text24">
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+
+    <style name="Text20" parent="Text">
+        <item name="android:textSize">20dp</item>
+    </style>
+
+    <style name="Text20Bold" parent="Text20">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextMinorBold" parent="Text20">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ReverseText36" parent="Text">
+        <item name="android:textSize">30dp</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryInverse</item>
+    </style>
+
+
+
+    <style name="TextPageHeader">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:textSize">24dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryInverse</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+    <style name="TextPageFooter" parent="TextPageHeader">
+        <item name="android:layout_alignParentTop">false</item>
+        <item name="android:layout_alignParentBottom">true</item>
+        <item name="android:paddingBottom">2dp</item>
+    </style>
+
+    <style name="LineLight">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="LineLightVertical">
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="LineBold">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:background">@android:color/holo_blue_dark</item>
+    </style>
+
+    <style name="RadioButton">
+        <item name="android:textSize">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:button">@drawable/radio_button_light</item>
+        <item name="android:textColor">@color/radio_button_color_light</item>
+        <item name="android:onClick">whenClick</item>
+    </style>
+
+    <style name="RadioButtonNormal">
+        <item name="android:textSize">24dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:button">@drawable/radio_button_light</item>
+        <item name="android:textColor">@color/radio_button_color_light</item>
+        <item name="android:onClick">whenClick</item>
+    </style>
+
+    <style name="RadioButtonSmall">
+        <item name="android:textSize">20dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:button">@drawable/radio_button_light</item>
+        <item name="android:textColor">@color/radio_button_color_light</item>
+        <item name="android:onClick">whenClick</item>
+    </style>
+
+    <style name="CheckBox30" >
+        <item name="android:textSize">30dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:onClick">whenClick</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:button">@drawable/check_box_light</item>
+    </style>
+
+    <style name="CheckBox24" >
+        <item name="android:textSize">24dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:onClick">whenClick</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:button">@drawable/check_box_light</item>
+    </style>
+
+
+</resources>

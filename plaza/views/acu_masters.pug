@@ -1,0 +1,60 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "Master ACUs"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+        
+block content
+
+    .max65
+        +card(title, "computer")
+            if !api.status
+                div No acu masters
+            else
+                table.table.table-sm.table-striped.table-clickable
+                    tr
+                        th Show
+                        th Box
+                        th IO
+                        th SQL
+                        th.md-up State
+                    each acu in api.status
+                        - var channel = acu.Channel_Name
+                        - var index = channel.indexOf("_acu")
+                        - var show = channel.substring(0, index)
+                        - var box = channel.substring(index+1)
+                        - var retrieved=acu.Retrieved_Gtid_Set.replace("\n", "<br>")
+                        tr.clickable-row(data-href="/acu_list/" + acu.idAcu)
+                            td=show
+                            td=box
+                            td=acu.Slave_IO_Running
+                            td=acu.Slave_SQL_Running
+                            td.md-up=acu.Slave_IO_State
+                hr.mb-1
+                +button("link", "Raw Data", "", {href: apiRoot + "/replication"})
+                +button("link", "Fix Replication", "", {href: apiRoot + "/replication/fix"})
+              
+        if api.faults
+            +card("Replication Faults", "computer")
+                table.table.table-sm.table-striped
+                    tr
+                        th Show
+                        th Box
+                        th Channel
+                        th Fault
+                    each fault in api.faults
+                        tr
+                            td=fault.competition
+                            td=fault.device
+                            td=fault.channelName
+                            td=fault.sqlError

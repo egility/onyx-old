@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions"/>
+  -->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"
+          android:background="@color/colorPrimaryInverse"
+          package="org.egility.granite">
+
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
+
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions"/>
+
+    <application
+            android:name="org.egility.android.tools.AndroidApplication"
+            android:label="@string/app_name"
+            android:icon="@drawable/paw"
+            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
+            android:allowBackup="true">
+        <activity
+                android:name="org.egility.granite.activities.Home"
+                android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.HOME"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+        <activity
+                android:name="org.egility.granite.activities.Menu"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.Scrime"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ScrimePaper"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ScoreBoard"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.Results"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.EnterCourseTimes"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity
+                android:name="org.egility.granite.activities.SelfService"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.BookIn"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.Queue"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.CheckIn"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.CloseClass"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.RingStatus"
+                android:windowSoftInputMode="adjustResize"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.RingStatusRingParty"
+                android:windowSoftInputMode="adjustResize"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.EnterPin"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.LockDevice"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ClassStatus"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.CombinedClassStatus"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.MemberServices"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.MeasuringServices"
+                android:windowSoftInputMode="stateAlwaysHidden"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.CompetitorServices"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ControlUnitServices"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ShowStats"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.EndOfDay"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.SelectTeam"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ClapperBoard"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.HeatTest"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.PublicAddress"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.VirtualRadio"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.VirtualRadioRing"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.NetworkTest"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.ClassList"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.PanicDialog"
+                android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth"
+                android:screenOrientation="portrait"/>
+        <activity
+                android:name="org.egility.granite.activities.EnterAmount"
+                android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar.MinWidth"
+                android:screenOrientation="portrait"/>
+    </application>
+</manifest>

@@ -1,0 +1,76 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Preferences"
+    else
+        -crumb="Preferences " +  api.competition.uniqueName;
+    - icon="star"
+    - title = "Dog's Preferences - " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+block content
+            .max40
+                +card(title, icon)
+                    if api.competition.needsInvite
+                        .card-statement You cannot enter this show without an invite.
+                    else if !api.dogs
+                        .card-statement You do not have any active dogs registered with UKA.
+                    else
+                        +simpleHint.
+                            These are your dog's preferences for this show. Click the 'Edit Preferences' button to change settings that just appy to this show
+                            such as preferred jump heights or highlight options. To change something that will affect all shows (such as level/grade or measured
+                            height) use the 'My Household' menu option. If you are happy with these choices, press the 'Continue' button.
+                        .mb-1
+                        each dog in api.dogs
+                            - var dogName = dog.petName + " (" + codeToText(dog.uka.heightCode, allHeights) + ")"
+                            if api.user.access!=0
+                                - dogName = dog.idUka + " " + dogName
+                            +cardSection(dogName, "paw")
+                                if !dog.uka.dogRegistered
+                                    .alert.alert-danger Ineligible for entry as the dog is not registered with UKA
+                                    div Please go to the "My Household" page and press the "UKA membership"/"Join UK Agility" button to complete the registration process
+                                else if !dog.uka.handlerRegistered
+                                    .alert.alert-danger Ineligible for entry as the handler does not have an up to date UKA membership
+                                    div Please go to the "My Household" page and press the "UKA membership"/"Join UK Agility" button to add or renew your UKA membership
+                                else
+                                    table.table.table-sm.mb-1
+                                        thead
+                                            tr
+                                                th Programme
+                                                th Level
+                                                th Jump Height
+                                                th Highlight
+
+                                        tbody
+                                            tr
+                                                td Performance
+                                                td=codeToText(dog.uka.performanceLevel, allGrades)
+                                                td=codeToText(dog.uka.heightCodePerformance, allHeights)
+                                                td!=dog.uka.performance ? "&#10004;" : "&#10005;"
+                                            tr
+                                                td Steeplechase
+                                                td=codeToText(dog.uka.steeplechaseLevel, allGrades)
+                                                td=codeToText(dog.uka.heightCodeSteeplechase, allHeights)
+                                                td!=dog.uka.steeplechase ? "&#10004;" : "&#10005;"
+                                            tr
+                                                td Nursery
+                                                td n/a
+                                                td=codeToText(dog.uka.heightCodeNursery, allHeights)
+                                                td!=dog.uka.Nursery ? "&#10004;" : "&#10005;"
+                                            tr
+                                                td Casual
+                                                td n/a
+                                                td=codeToText(dog.uka.heightCodeCasual, allHeights)
+                                                td!=dog.uka.casual ? "&#10004;" : "&#10005;"
+                                            tr
+                                                td Junior
+                                                td n/a
+                                                td n/a
+                                                td!=dog.uka.junior ? "&#10004;" : "&#10005;"
+                                    - var url = '/competition/' + api.competition.idCompetition + '/preferences_uka/select/' + dog.idDog + '?destination=preferences_uka'
+                                    +button("link", "Edit Preferences for " + dog.petName, "pencil-alt", {href: url, small: true, secondary: true})
+
+                        +button("link", "Continue", "check", {href: path + "/done"})

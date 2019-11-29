@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:tools="http://schemas.android.com/tools"
+                android:id="@+id/loFragment"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <org.egility.android.views.DbCursorListView
+        android:id="@+id/lvRunners"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_above="@+id/loNavigation"
+        />
+
+    <TextView
+        android:text="No Dogs Queuing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNoDogs"
+        android:layout_centerInParent="true"
+        style="@style/Text36"
+        />
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btRefresh"
+            android:drawableLeft="@drawable/refresh"
+            />
+
+
+    </LinearLayout>
+</RelativeLayout>

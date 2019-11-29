@@ -1,0 +1,90 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "System Switchboard"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var email = $(this).data("email");
+                $("#email").val(email)
+                $("#password").val("system")
+                $("#token").val($(this).data("token"))
+                $("#loginForm").submit()
+                
+            });
+        });
+
+
+
+block content
+
+    .max45
+        if session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser
+            +card("Accounts", "search")
+                if !api.competitors
+                    .card-statement.mb-2 No accounts found
+                else
+                    table.table.table-sm.table-plain.table-clickable
+                        if session.plazaSuperUser
+                            each competitor in api.competitors
+                                tr.clickable-row(data-email=competitor.idCompetitor + "@ap" data-token=session.token)
+                                    td=competitor.fullName
+                                    td=competitor.postcode
+                                    td=competitor.email
+                                    td!=competitor.accountFlags>0 ? "&#10004;" : "&#10005;"
+                                if competitor.dogs
+                                    tr
+                                        td(colspan=99)
+                                            table.table.table-bordered.font90(style="background-color: rgba(236, 236, 236, 0.4)")
+                                                thead
+                                                    tr
+                                                        th KC
+                                                        th Code
+                                                        th Name
+                                                each dog in competitor.dogs
+                                                    tr
+                                                        td.width6=dog.idKC
+                                                        td.width6=dog.dogCode
+                                                        if dog.petName
+                                                            td #{dog.registeredName} (#{dog.petName})
+                                                        else
+                                                            td=dog.registeredName
+                        else
+                            each competitor in api.competitors
+                                tr.clickable-row(data-email=competitor.idCompetitor + "@ap" data-token=session.token)
+                                    td=competitor.idUka
+                                    td=competitor.fullName
+                                    td=competitor.postcode
+                                    td=competitor.email
+                                    td!=td!=competitor.accountFlags>0 ? "&#10004;" : "&#10005;"
+                                if competitor.dogs
+                                    tr
+                                        td(colspan=99)
+                                            table.table.table-bordered.font90(style="background-color: rgba(236, 236, 236, 0.4)")
+                                                thead
+                                                    tr
+                                                        th Code
+                                                        th PetName
+                                                        th Height
+                                                        th Performance
+                                                        th Steeplechase
+                                                each dog in competitor.dogs
+                                                    tr
+                                                        td=dog.idUka
+                                                        td=dog.petName
+                                                        td=dog.ukaHeight
+                                                        td=dog.ukaPerformance
+                                                        td=dog.ukaSteeplechase
+
+
+                    .hidden
+                        +form({id: "loginForm"})
+                            +input("text", "email", "authenticate.email", "")
+                            +input("text", "password", "authenticate.password", "")
+                            +input("text", "token", "authenticate.token", "")
+                            +button("submit", "Login", "sign-in", {small: true})
+                .mt-1
+                +button("link", "Add New Competitor", "user", {small: true, href: "/competitor_add"})

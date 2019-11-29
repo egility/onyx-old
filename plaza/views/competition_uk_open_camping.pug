@@ -1,0 +1,29 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Camping"
+    else
+        -crumb=api.competition.name;
+    - icon="bed"
+    - title = api.competition.name + " - Camping"
+
+block content
+    .max35
+        +card(title, icon)
+            if (!api.bookings)
+                .card-statement.mb-2 There are no bookings yet
+            else
+                .p.mb-1 Total pitches: #{api.bookings.length}
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th.width15 Camper
+                            th.width4 Hookup
+                            th
+                    each booking in api.bookings
+                        tbody.font90
+                            tr.clickable-row(data-href='')
+                                td=booking.camper
+                                td.text-xs-center!=booking.pitchType==2 ? "&#10004;" : ""
+                                td

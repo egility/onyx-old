@@ -1,0 +1,21 @@
+extends ../_page
+
+prepend navigation
+    - crumb="Error"
+    - title = "System API Fault"
+
+block content
+    .max45
+        +card(title, "ban")
+            img.news-image(src="/img/pexels/sad-dog.jpeg" width="100%")
+            p
+                | Oh dear! Something has gone wrong.
+                | Please try again and if you keep getting the problem you can email &nbsp;
+                a(href="mailto:support@agilityplaza.com") support@agilityplaza.com
+                | . Ignore the diagnostics below - this is just for our geeks.
+
+            +cardSection("Diagnostics")
+                for line in fatal.stack
+                    .code=line
+
+

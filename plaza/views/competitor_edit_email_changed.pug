@@ -1,0 +1,14 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Update Email"
+
+block content
+
+    .max30
+        +card("Verifying your email address")
+            p.
+                We have sent an email to #[strong= api.competitor.unVerifiedEmail] to make sure that it is correct. Please
+                check your inbox, then follow the instructions. We will not update your email address until your new
+                address has been verified.

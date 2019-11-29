@@ -1,0 +1,120 @@
+extends _page
+
+prepend navigation
+    - crumb="Checkout"
+    - title = api.competition.name + " - Checkout"
+    - icon = "shopping-cart"
+
+append scripts
+    +bind_form()
+
+    script(src="https://cdn.jsdelivr.net/npm/autonumeric@4.0.1")
+    script.
+        $(document).ready( function() {
+            new AutoNumeric("#cheque", apiData.competition.cheque / 100.00).british();
+            new AutoNumeric("#cash", apiData.competition.cash / 100.00).british();
+            totals()
+        })
+
+        $("#cheque").keyup(function (event) { totals() })
+        $("#cash").keyup(function (event) { totals() })
+
+        function totals() {
+            var cheque = Math.round($("#cheque").val().replace("£", "").replace(",", "")*100);
+            var cash = Math.round($("#cash").val().replace("£", "").replace(",", "") * 100);
+            var total = cheque + cash;
+            var diff=apiData.amounts.totalFees - total;
+            $("#total").val("£" + (total / 100.00).toFixed(2));
+            if (diff<0) {
+                $("#paid").text("Overpaid by £" + (-diff / 100.00).toFixed(2))
+            } else if (diff>0) {
+                $("#paid").text("Underpaid by £" + (diff / 100.00).toFixed(2) + " !!!")
+            } else {
+                $("#paid").text("")
+            }
+
+        }
+
+block content
+        .max40
+            +card("Step 4 - Confirm entry", icon)
+                if (!api.items)
+                    p.mb-1.
+                        You have not ticked any boxes - Please press the button below to confirm that you do not wish
+                        to enter this show. If you had previously entered, your entry will be deleted.
+                    +form()
+                        +button("submit", "Confirm", "check")
+
+                else
+                    +cardSection("Purchases", icon)
+                        table.table.table-sm.table-striped
+                            tr
+                                th Item
+                                th Description
+                                th.text-xs-right Cost
+                            each item in api.items
+                                - var style=item.subTotal<0 ?{class: "pick-out"} :{}
+                                tr&attributes(style)
+                                    td= api.items.indexOf(item) + 1
+                                    td= item.description
+                                    if (item.paid)
+                                        td.align-middle.text-xs-right.font90 Paid
+                                    else
+                                        td.text-xs-right= toMoney(item.subTotal)
+                            tr
+                                td(colspan=2) #[strong Total]
+                                td.text-xs-right
+                                    strong= toMoney(api.amounts.totalFees)
+                    if api.user.access == 0
+                        .alert.alert-info.font90.
+                            You will be able to change or cancel your #{api.competition.name} entry any time before the show
+                            closes on #{dateFormat(api.competition.dateCloses, "ddd, dd mmmm")} (subject to capping levels if relevant).
+                        if api.competition.noPosting
+                            .alert.alert-danger.font90.
+                                We will not be posting out ring cards for this show. Instead, we will email running orders (as appropriate) to you and you can download all your documents from this website.
+                        else if api.competition.noPost
+                            +hint("You have chosen not to have ring cards etc. sent by post. Instead, we will email running orders to you and you can download all your documents from this website.")
+                        +form()
+                            +button("submit", "Confirm", "check")
+                        .mb-1
+                        .alert.alert-terms
+                            .font-weight-bold What am I Confirming?
+                            .font90.
+                                By pressing the 'Confirm' button you agree
+                                to the rules governing the show as detailed in the show schedule which
+                                can be dowloaded via the "Show diary" page and for us to 
+                                #[strong share your personal data] with the show organisers and their 
+                                agents to the extent that they need this data to run the show and accept your entry. See
+                                our 'Privacy Policy' for further details.
+                    else if api.competition.paper
+                        +cardSection("Payment Received", "pound-sign")
+                            +form()
+                                +input("money", "cheque", "competition.cheque", "Cheque")
+                                +input("money", "cash", "competition.cash", "Cash")
+                                +input("readonly", "total", "", "Total")
+                                +button("submit", "Accept Entry", "check")
+                                span#paid
+                    else
+                        +form()
+                            +button("submit", "Save", "check")
+                    +cardSection("Details", "folder-open")
+                        if (api.competition.days != undefined)
+                            each day in api.competition.days
+                                +cardSection("Entries - " + dateFormat(day.date, "ddd, dd"), "calendar", {info: true})
+                                    each dog in day.dogs
+                                        .card-heading= dog.petName + " (" + codeToText(dog.gradeCode, allGrades) + ", " + codeToText(dog.jumpHeightCode, allHeights) + (dog.clearRoundOnly?" CRO":"") + ")"
+                                        each entry in dog.entries
+                                            .row.ml-1
+                                                if entry.runsEntered > 1
+                                                    .col-xs-10 #{entry.className} (#{entry.runsEntered} runs)
+                                                else
+                                                    .col-xs-10 #{entry.className}
+                                                if !api.competition.combinedFee
+                                                    .col-xs-2.text-xs-right= toMoney(entry.fee)
+                        if (api.competition.camping != undefined)
+                            +cardSection("Camping", "bed", {info: true})
+                                p.ml-1=api.competition.camping.description
+                                if api.competition.camping.days
+                                    each date in api.competition.camping.days
+                                        .ml-2= dateFormat(date, "ddd, dd mmm")
+

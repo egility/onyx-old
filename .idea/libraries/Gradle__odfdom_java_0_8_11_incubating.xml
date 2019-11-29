@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: odfdom-java-0.8.11-incubating">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../network/config/.gradle/caches/modules-2/files-2.1/org.apache.odftoolkit/odfdom-java/0.8.11-incubating/96a5b1b4844e5dcb4729e653984b86daa5195096/odfdom-java-0.8.11-incubating.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../network/config/.gradle/caches/modules-2/files-2.1/org.apache.odftoolkit/odfdom-java/0.8.11-incubating/ad85d2bbf47f812a1afcac8d8742c4b9ebc83929/odfdom-java-0.8.11-incubating-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="30dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+              android:orientation="horizontal"
+              android:paddingTop="3dp"
+              android:paddingBottom="3dp"
+    >
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="80dp"
+        >
+
+        <TextView
+            android:layout_marginTop="8dp"
+            android:text="acu020"
+            style="@style/Text20"
+            android:layout_width="match_parent"
+            android:id="@+id/tvLabel"
+            />
+        <TextView
+            android:layout_marginTop="8dp"
+            android:text="WiFi: 80%"
+            style="@style/Text16"
+            android:layout_width="match_parent"
+            android:id="@+id/tvWiFi"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/yes_border_thick"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
+        android:id="@+id/loVirtualLcd"
+        >
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDisplay1"
+            tools:text="[OK] 00:00:12"
+            style="@style/TextLed"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDisplay2"
+            style="@style/TextLed"
+            />
+
+        <TextView
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvDisplay3"
+            style="@style/TextLed"
+            />
+    </LinearLayout>
+</LinearLayout>

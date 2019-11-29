@@ -1,0 +1,29 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit Household"
+    - title = "Edit Household"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max35
+        +card(title)
+            +form()
+                +fieldset("Account Holder")
+                    +select("name", "account.idCompetitor", "Name", api.competitors)
+                +fieldset("Address")
+                    +textarea(4, "streetAddress", "account.streetAddress", "Street Address")
+                    each char in api.account.country.addressFormat
+                        if char == "T"
+                            +input("text", "town", "account.town", api.account.country.townTitle)
+                        if char == "R" || char == "r"
+                            +select("region", "account.regionCode", api.account.country.regionTitle, regions, {
+                                label: 0,
+                                startsWith: api.account.country.countyCode
+                            })
+                        if char == "P"
+                            +input("text", "Postcode", "account.postcode", api.account.country.postcodeTitle)
+                +button("submit", "Save", "check")

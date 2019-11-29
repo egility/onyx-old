@@ -1,0 +1,191 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Step 2 - Enter " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+    script.
+        function tickHighlighted(dataGroup) {
+            jQuery("[data-group = '" + dataGroup + "']").each(function (index) {
+                if (jQuery(this).closest("tr").hasClass("highlight")) {
+                    jQuery(this).prop('checked', true);
+                }
+            })
+        }
+
+        function tick(dataGroup) {
+            jQuery("[data-group = '" + dataGroup + "']").each(function (index) {
+                jQuery(this).prop('checked', true);
+            })
+        }
+
+        function untick(dataGroup) {
+            jQuery("[data-group = '" + dataGroup + "']").prop('checked', false);
+        }
+
+        function checkAllOrNothing(checkbox) {
+            var runCheck = checkbox.getAttribute("data-run-check-link")
+            var select = "[data-run-check-link = '" + runCheck + "']"
+            $(select).each(function () {
+                this.checked = checkbox.checked
+            })
+        }
+
+        function checkRuns(checkbox) {
+            if (apiData.competition.allOrNothing) {
+                checkAllOrNothing(checkbox)
+            } else {
+                checkMax(checkbox)
+            }
+        }
+
+        $(document).ready(function ($) {
+            $("[data-run-check]").each(function () {
+                checkRuns(this)
+            });
+
+        });
+
+        $("[data-run-check]").change(function () {
+            checkRuns(this)
+        });
+
+
+
+
+
+
+block content
+
+        if (error == 1)
+            .page-warning No classes available
+            .m-2
+                +button("back", "Finished", "arrow-left")
+        else if beforeToday(api.competition.dateCloses) && !api.competition.openForPaper && api.user.access!=9 && api.user.access != 1
+            .page-warning Closed for Entries
+            .m-2
+                +button("back", "Finished", "arrow-left")
+        else
+
+            .max40
+                +card(title, icon)
+                    +simpleHint.
+                        You can change the highlighted classes for each of your dogs or the pre-set jump
+                        heights offered (where FAB rules permit) by returning to the previous page (back) and
+                        pressing the 'Edit Preferences' option for your dog.
+                    .mb-1
+                    +form()
+
+                        each dog in api.dogs
+                            mixin class_row(agilityClass)
+                                td.align-middle #{agilityClass.name}
+                                each classDay in agilityClass.days
+                                    td.text-xs-center
+                                        if (classDay.available)
+                                            - var bind = "dogs." + api.dogs.indexOf(dog) + ".agilityClasses." + dog.agilityClasses.indexOf(agilityClass) + ".days." + agilityClass.days.indexOf(classDay) + ".confirmed"
+                                            +checkbox(dog.petName, bind + "", "", {
+                                                extra: {
+                                                    "data-run-check": true,
+                                                    "data-run-check-link": "dogs." + api.dogs.indexOf(dog) + ".days." + agilityClass.days.indexOf(classDay)
+                                                }
+                                            })
+
+                                td.align-middle.text-xs-right #{toMoney(agilityClass.fee)}
+
+                            - var dogName = dog.petName 
+                            +cardSection(dogName, "paw")
+                                if (dog.agilityClasses == undefined)
+                                    h5 No classes available
+                                else
+                                    table.table.table-xs.mb-1
+                                        tr
+                                            th Class
+                                            each day in api.days
+                                                th.text-xs-center #{dateFormat(day, "ddd")}
+                                            th.text-xs-right Fee
+                                        if api.competition.allOrNothing
+                                            each agilityClass in dog.agilityClasses
+                                                tr
+                                                    +class_row(agilityClass)
+                                        else
+                                            each agilityClass in dog.agilityClasses
+                                                if (agilityClass.preferred)
+                                                    tr.highlight(class={pickout: agilityClass.isSpecial})
+                                                        +class_row(agilityClass)
+                                            each agilityClass in dog.agilityClasses
+                                                if (!agilityClass.preferred)
+                                                    tr.un-highlight(class={pickout: agilityClass.isSpecial})
+                                                        +class_row(agilityClass)
+                                if !api.competition.allOrNothing
+                                    .ml-1
+                                        - var click="tickHighlighted('" + dog.petName + "')"
+                                        +button("action", "Tick highlighted", "check-square-o", {
+                                            onClick: click,
+                                            small: true,
+                                            secondary: true
+                                        })
+                                        - var click="untick('" + dog.petName + "')"
+                                        +button("action", "Un-tick all", "square-o", {
+                                            onClick: click,
+                                            small: true,
+                                            secondary: true
+                                        })
+
+                        if (api.camping != undefined)
+                            +cardSection("Camping", "bed")
+                                if api.camping.terms
+                                    .alert.alert-info.font90!=api.camping.terms
+                                    
+                                if api.camping.note
+                                    .alert.alert-info.font90!=api.camping.note
+                                    
+                                if api.camping.blockNote
+                                    .alert.alert-info.font90!=api.camping.blockNote
+
+                                if api.camping.blocks
+                                    table.table.table-xs
+                                        tr
+                                            th Night
+                                            th.text-xs-center.width5 Booked
+                                            th.text-xs-right.width4 Fee
+                                        each block in api.camping.blocks
+                                            - var bind = "camping.blocks." + api.camping.blocks.indexOf(block) + ".confirmed"
+                                            tr
+                                                if block.end
+                                                    td.align-middle.clickable-cell(data-link="camping" + index) #{dateFormat(block.start, "ddd, dd mmm")} - #{dateFormat(block.end, "ddd, dd mmm")}
+                                                else
+                                                    td.align-middle.clickable-cell(data-link="camping" + index) #{dateFormat(block.start, "ddd, dd mmm")}
+                                                td.text-xs-center
+                                                    +checkbox("camping" + index, bind, "")
+                                                td.align-middle.text-xs-right.clickable-cell(data-link="camping" + index) #{toMoney(block.rate)}
+
+                        if (api.options != undefined)
+                            +cardSection("Options", "shopping-basket")
+                                table.table.table-xs
+                                    tr
+                                        th Item
+                                        th.text-xs-center.width5 Selected
+                                        th.text-xs-right.width4 Fee
+                                    each option in api.options
+                                        - var bind = "options." + api.options.indexOf(option) + ".confirmed"
+                                        tr
+                                            td.align-middle= option.description
+                                            td.text-xs-center
+                                                if option.readOnly
+                                                    span!=option.confirmed ? "&#10004;" : "&#10005;"
+                                                else
+                                                    +checkbox("option", bind, "")
+                                            td.align-middle.text-xs-right #{toMoney(option.unitPrice)}
+
+
+                        +button("submit", "Continue", "check")
+
+
+

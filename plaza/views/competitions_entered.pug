@@ -1,0 +1,54 @@
+extends _page
+
+prepend navigation
+    -crumb = "Entries"
+    -icon = "thumbs-up"
+    -title = "Entries"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max30
+
+        +card("Shows I have entered", icon)
+            if (api.competitions)
+                +simpleHint("Click on show name below to review/amend your entry")
+                table.table.table-sm.table-clickable.font90
+                    each competition in api.competitions
+                        - var competitionName= competition.name
+                        if competition.idOrganization == 2 && !competitionName.startsWith("UKA")
+                            - competitionName = "UKA " + competitionName
+                        if competition.paper
+                            - competitionName+= " (Paper)"
+                        if competition.closed
+                            - competitionName+= " (Closed)"
+
+                        case competition.idOrganization
+                            when 3
+                                - href = '/competition/' + competition.idCompetition + '/review_uk_open'
+                            default
+                                - href = '/competition/' + competition.idCompetition + '/review'
+                            
+
+                        -var monthStart=dateFormat(competition.dateStart, "mmmm")
+                        if (monthStart != month)
+                            - month = monthStart
+                            thead
+                                tr
+                                    th.group(colspan="99") #{dateFormat(competition.dateStart, "mmmm yyyy")}
+                                tr
+                                    th Dates
+                                    th Name
+                        - var attributes ={class: "organization" + competition.idOrganization}
+                        tr.clickable-row&attributes(attributes)(data-href=href)
+                            td #{dateRange(competition.dateStart, competition.dateEnd, true)}
+                            td=competitionName
+            else
+                .card-statement  You haven't entered any shows yet

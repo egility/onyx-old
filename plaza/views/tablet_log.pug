@@ -1,0 +1,33 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs))
+        -crumb="Tablets"
+        - icon="cogs"
+        - title = "Tablets"
+
+block content
+    .max45
+        +card(api.device.tag + " (" + api.device.model + ")", icon)
+            if (!api.logs)
+                .card-statement.mb-2 There are no observations yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Time
+                            th Activity
+                            th.md-up Task
+                            th ACU
+                            th Signal
+                            th Battery
+                    - var show = ""
+                    each log in api.logs
+                        tbody.font90
+                            tr
+                                td=dateFormat(log.logTime, "HH:MM")
+                                td=log.activity
+                                td.md-up=log.task
+                                td=log.accessPoint
+                                td=log.signal
+                                td=log.battery

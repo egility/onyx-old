@@ -1,0 +1,131 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Enter " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-cell").click(function () {
+                var link = $(this).data("link");
+                var checkbox = $("#" + link)
+                checkbox.prop("checked", !checkbox.prop("checked"));
+            });
+        });
+
+        $(".dogCode").keyup(function (event) {
+            var dogCode = this.value
+            var dogIndex = this.name.substr(7)
+            if (dogCode.length == 5) {
+                fetch(apiData.lookup + dogCode, function (data) {
+                    $("#idDog" + dogIndex).val(data.idDog)
+                    $("#dogName" + dogIndex).val(data.petName)
+                    $("#dogHandler" + dogIndex).val(data.handler)
+                })
+            } else {
+                $("#dogName" + dogIndex).val("")
+                $("#dogHandler" + dogIndex).val("")
+            }
+        })
+
+
+block content
+
+
+    .max40
+        +card("Step 3a - Supplementary Details", icon)
+            - var hintText=""
+            +form()
+                if api.verifyHandler
+                    each dog in api.verifyHandler.dogs
+                        if (dog.entryOption != "NE")
+                            if (dog.days)
+                                - description =  dog.petName + " (" + codeToText(dog.gradeCode, allGrades) + " " + codeToText(dog.entryOption, allHeights) + ")"
+                                +cardSection(description + " - Verify Handler", "paw")
+
+                                    -var index=0
+                                    table.table.table-sm.mb-1
+                                        tr
+                                            th Class
+                                            th Handler
+                                        each day in dog.days
+                                            tr
+                                            td(colspan=99)
+                                                .group2 #{dateFormat(day.classDate, "dddd, d mmmm")}
+                                            each agilityClass in day.classes
+                                                - var bind = "verifyHandler.dogs." + api.verifyHandler.dogs.indexOf(dog) + ".days." + dog.days.indexOf(day) + ".classes." + day.classes.indexOf(agilityClass)
+                                                tr
+                                                    td.align-middle.pl-2 #{agilityClass.className}
+                                                    td
+                                                        +select("handler" + index, bind + ".idCompetitor", "", agilityClass.options)
+                                                - index++
+                if api.dualHandler
+                    each dog in api.dualHandler.dogs
+                        if (dog.entryOption != "NE")
+                            if (dog.days)
+                                - description =  dog.petName + " (" + codeToText(dog.gradeCode, allGrades) + " " + codeToText(dog.entryOption, allHeights) + ")"
+                                +cardSection(description + " - Dual Handler", "paw")
+                                    +simpleHint.
+                                        The class/classes below have one dog and #[strong two handlers]. Please enter the name of the second handler in the space provided.
+                                    -var index=0
+                                    table.table.table-sm.mb-1
+                                        tr
+                                            th Class
+                                            th Second Handler
+                                        each day in dog.days
+                                            tr
+                                            td(colspan=99)
+                                                .group2 #{dateFormat(day.classDate, "dddd, d mmmm")}
+                                            each agilityClass in day.classes
+                                                - var bind = "dualHandler.dogs." + api.dualHandler.dogs.indexOf(dog) + ".days." + dog.days.indexOf(day) + ".classes." + day.classes.indexOf(agilityClass)
+                                                tr
+                                                    td.align-middle.pl-2 #{agilityClass.className}
+                                                    td
+                                                        +input("text", "handler" + index, bind + ".dualHandler", "")
+                                                - index++
+                if api.teams
+
+                    each team in api.teams
+                        - var members = team.team.members
+                        - var noun = members.length==2? "Pair" : "Team"
+                        - var teamIndex = api.teams.indexOf(team)
+                        - var section = api.teams.length == 1 ? noun + " Details" : noun + " " + (teamIndex + 1) + " Details"
+                        +cardSection(section)
+                            +hint.
+                                Select your #{noun.toLowerCase()} dogs by entering their 5 digit code in the
+                                space provided. If you wish to change a dog, replace the old dog's code with the
+                                new dog's code. Each of your dog's 5 digit codes is shown on your 'My Household' page. If
+                                you do not have this information available now, you can still enter the show and
+                                fill out the details later.
+
+                            - var teamBind = "teams." + teamIndex + ".team"
+                            if (noun == "Team")
+                                +input("text", "teamName", teamBind + ".teamName", "Team Name")
+                                +input("text", "clubName", teamBind + ".clubName", "Club Name")
+                                hr
+
+                            each member in members
+                                - var index = team.team.members.indexOf(member)
+                                - var memberBind = teamBind + ".members." + index
+                                - var dogTitle = index < team.teamSize ? "Dog " + (index + 1) : "Reserve " + (index + 1 - team.teamSize)
+                                +fieldset(dogTitle)
+                                    +input("hidden", "idDog" + teamIndex + index, memberBind + ".idDog", "")
+                                    +input((member.idDog == team.idDog ? "readonly" : "text"), "dogCode" + teamIndex + index, memberBind + ".dogCode", "Code", {
+                                        class: "dogCode",
+                                        noautocomplete: true
+                                    })
+                                    +input("readonly", "dogName" + teamIndex + index, memberBind + ".petName", "Pet Name")
+                                    +input("text", "dogHandler" + teamIndex + index, memberBind + ".competitorName", "Handler")
+
+
+                +button("submit", "Continue", "check")
+
+
+

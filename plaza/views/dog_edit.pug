@@ -1,0 +1,185 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit"
+    - title = session.petName
+
+append scripts
+    +bind_form()
+
+    script.
+        $("#champ").hide()
+        $("#wonOut1Group").hide()
+        $("#wonOut2Group").hide()
+        $("#wonOut3Group").hide()
+        $("#wonOut4Group").hide()
+        $("#wonOut5Group").hide()
+        $("#wonOut6Group").hide()
+        $("#winningOutAlert").hide()
+
+        function checkChamp() {
+            var g7 = $('#kcGradeCode').val() == "KC07"
+            if (g7) {
+                $("#champ").show()
+            } else {
+                $("#champ").hide()
+            }
+        }
+
+        function checkWonOut() {
+            $("#wonOut1Group").hide()
+            $("#wonOut2Group").hide()
+            $("#wonOut3Group").hide()
+            $("#wonOut4Group").hide()
+            $("#wonOut5Group").hide()
+            $("#wonOut6Group").hide()
+            $("#winningOutAlert").hide()
+
+
+
+            var grade = $('#kcGradeCode').val()
+            if (grade == "KC01")
+                $("#winningOutHint").hide()
+            if (grade == "KC02")
+                $("#wonOut1Group").show()
+            if (grade == "KC03")
+                $("#wonOut2Group").show()
+            if (grade == "KC04")
+                $("#wonOut3Group").show()
+            if (grade == "KC05")
+                $("#wonOut4Group").show()
+            if (grade == "KC06")
+                $("#wonOut5Group").show()
+            if (grade == "KC07")
+                $("#wonOut6Group").show()
+
+            if (grade != apiData.dog.kcGradeCodeWas && grade!= "KC01") {
+                $("#winningOut").addClass('form-select');
+                $("#winningOutAlert").removeAttr('hidden')
+                $("#winningOutAlert").show()
+            } else {
+                $("#winningOut").removeClass('form-select');
+            }
+        }
+
+        function checkOwner() {
+            var ownerType = $('#ownerType').val()
+            if (ownerType==0) {
+                $("#idCompetitorGroup").show()
+                $("#ownerNameGroup").hide()
+                $("#ownerAddressGroup").hide()
+            } else if (ownerType == 1) {
+                $("#idCompetitorGroup").hide()
+                $("#ownerNameGroup").show()
+                $("#ownerAddressGroup").hide()
+            } else {
+                $("#idCompetitorGroup").hide()
+                $("#ownerNameGroup").show()
+                $("#ownerAddressGroup").show()
+            }
+        }
+
+        $("#kcGradeCode").change(function () {
+            checkChamp()
+            checkWonOut()
+        })
+
+        $("#ownerType").change(function () {
+            checkOwner()
+        })
+        
+        $(document).ready(function () {
+            checkChamp()
+            checkWonOut()
+            checkOwner()
+        })
+
+
+
+block content
+
+    .max40
+        +card("Edit Dog Information")
+            +form()
+                +fieldset("General")
+                    +input("text", "petName", "dog.petName", "Pet Name")
+                    +input("date", "dateOfBirth", "dog.dateOfBirth", "Date of Birth")
+                    +select("gender", "dog.gender", "Gender", gender)
+                    +select("breed", "dog.idBreed", "Breed", breeds)
+                    +select("idCompetitorHandler", "dog.idCompetitorHandler", "Handler", api.handlerList)
+
+                    +simpleHint().
+                        If your dog is retired or no longer with you then select the appropriate status below
+                    +select("dogState", "dog.dogState", "Status", dogStates, {label: 30})
+                    hr
+                    +fieldset("Owner")
+                    +select("ownerType", "dog.ownerType", "Ownership Type", api.ownershipTypeList)
+                    +select("idCompetitor", "dog.idCompetitor", "Owner", api.competitorList)
+                    +input("text", "ownerName", "dog.ownerName", "Owner Name(s)")
+                    +textarea(4, "ownerAddress", "dog.ownerAddress", "Owner Address")
+
+
+                if api.user.access != 2
+                    hr
+                    +fieldset("Kennel Club")
+                        +hint.
+                            #[strong Registration numbers] must be one of the following styles: 2 letters followed by 8 digits (breed register), OR
+                            The letter 'K' followed by 6 digits (activity register), OR 'ATC' followed by 1 letter followed
+                            by 5 digts followed by a 3 letter country code (authority to compete). Any other format will
+                            not be accepted.
+                        +input("text", "idKC", "dog.idKC", "Registration Number")
+                        +input("text", "registeredName", "dog.registeredName", "Registered Name")
+                        +select("kcHeightCode", "dog.kcHeightCode", "Height", kcHeights, {label: 30})
+                        +select("kcGradeCode", "dog.kcGradeCode", "Grade", kcGrades, {label: 30})
+                        #winningOut
+                            #winningOutAlert(hidden)
+                                .alert.alert-warning.
+                                    Enter your winning out date below. Leave this blank if you are #[strong progressing on points]. If
+                                    you don't know your win out date you can leave blank, but we will not apply your new grade to any closed shows.
+
+                            +input("date", "wonOut1", "dog.kcGrade2", "Won Out of G1 on")
+                            +input("date", "wonOut2", "dog.kcGrade3", "Won Out of G2 on")
+                            +input("date", "wonOut3", "dog.kcGrade4", "Won Out of G3 on")
+                            +input("date", "wonOut4", "dog.kcGrade5", "Won Out of G4 on")
+                            +input("date", "wonOut5", "dog.kcGrade6", "Won Out of G5 on")
+                            +input("date", "wonOut6", "dog.kcGrade7", "Won Out of G6 on")
+
+                        #champ
+                            .group2 Championship Qualifying Wins
+
+                            table.table.table-sm
+                                tr
+                                    th.width1
+                                    th.width8 Date
+                                    th Show
+                                    th Class
+                                each i in [0,1,2,3,4]
+                                    tr
+                                        td.align-middle=i + 1
+                                        td
+                                            +input("date", "winDate", "dog.kcChampWins." + i + ".date", "")
+                                        td
+                                            +input("text", "show", "dog.kcChampWins." + i + ".show", "")
+                                        td
+                                            +input("text", "class", "dog.kcChampWins." + i + ".class", "")
+
+
+                if api.dog.ukaState > 0 && api.user.access != 1
+                    if (api.user.access != 0)
+                        hr
+                        +fieldset("UKA Administration")
+                        +select("ukaEntryLevel", "dog.ukaEntryLevel", "Transfer from KC", ukaGrades, {label: 30})
+                        +checkbox("ukaChampEquiv", "dog.ukaChampEquiv", "Champ Equivalent", {label: 30})
+                        +checkbox("ukaBarred", "dog.ukaBarred", "Red Carded", {label: 30})
+                        +input("text", "ukaBarredReason", "dog.ukaBarredReason", "Reason Red Carded", {label: 30})
+                    hr
+                    +fieldset("UK Agility")
+                        if (api.dog.ukaMeasuredHeight > 0)
+                            +input("readonly", "UkaHeightCode", "dog.ukaHeightText", "Height Category", {label: 30})
+                        else
+                            +select("ukaHeightCode", "dog.ukaHeightCode", "Height", ukaHeights, {label: 30})
+                        +input("readonly", "ukaPerformanceText", "dog.ukaPerformanceText", "Performance Level", {label: 30})
+                        +input("readonly", "ukaSteeplechaseText", "dog.ukaSteeplechaseText", "Steeplechase Level", {label: 30})
+
+                +button("submit", "Save Changes", "check")
+

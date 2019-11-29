@@ -1,0 +1,55 @@
+extends _page
+
+prepend navigation
+    - crumb=api.dog.petName
+    - icon="paw"
+    - title = session.petName
+
+append scripts
+    +bind_form()
+
+block content
+    .max30
+        +card(api.dog.petName + " - Grade Change", icon)
+            p.
+                Please confirm the following for #{api.dog.petName}:
+            table.table.table-sm.font90
+                tr
+                    td.width6 New Grade:
+                    td=api.dog.kcGradeNew
+                if api.dog.wonOut
+                    tr
+                        td Won Out:
+                        if api.dog.wonOut=="no"
+                            td Progressing on points or date unknown
+                        else
+                            td=api.dog.wonOut
+            hr
+
+            .alert.alert-warning.font90.
+                When you press confirm, we will update your dog's details and adjust your show entries (see table below)
+                to match your new grade.
+
+            hr
+
+            +form()
+                +button("submit", "Confirm", "check")
+
+                +button("link", "Abandon", "times-circle", {href: "/dog/review"})
+
+            .mb-1
+
+            +cardSection("Adjustments we will make:")
+                if !api.competitions
+                    p Your dog is not entered in any shows so we will not be making any adjustments.
+                else
+                    table.table.table-sm.font80
+                        tr
+                            th Show
+                            th Entered&nbsp;&nbsp;&nbsp;&nbsp;
+                            th Adjustment
+                        each show in api.competitions
+                            tr
+                                td=show.name
+                                td=show.grade
+                                td=show.action

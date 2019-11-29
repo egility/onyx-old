@@ -1,0 +1,90 @@
+extends _page_display
+
+block head
+    - refresh = 300
+    - imageIndex = 1
+    - scrolling = 1
+
+prepend navigation
+    if (api && api.ringPlan)
+        - crumb=dateFormat(api.ringPlan.date, "dd mmm")
+        - title = api.ringPlan.name + " (" + dateFormat(api.ringPlan.date, "ddd, dd mmm") + ")"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+
+
+block content
+
+    if (!api || !api.competition || !api.ringPlan)
+        h2 Sorry
+        h4 Something has gone wrong
+    else if (error == 1)
+        h2 Sorry
+        h4 Nothing is happening today
+    else
+        if (api.competition && api.competition.days && api.competition.days.length > 1)
+            .tabBlock
+                each day in api.competition.days
+                    - var url="/competition/" + api.competition.idCompetition + "/ringPlan2/" + dateFormat(day, 'yyyymmdd')
+                    - var caption = isToday(day)? "Today" : dateFormat(day, 'dddd')
+                    +button("link", caption, "", {tab: true, href: url, selected: day == api.ringPlan.date})
+
+        if (api.ringPlan.announcement && api.ringPlan.announcement != "")
+            .alert.alert-danger #{api.ringPlan.announcement}
+
+        .mygrid
+            if api.ringPlan.restDay
+                .grid-item
+                    +card("All Rings", "", {compact: true})
+                        .emphasize Rest Day
+            else
+                each ring in api.ringPlan.rings
+                    .grid-item
+                        +card("Ring " + ring.ringNumber + " - " + ring.judge, "", {compact: true})
+                            if ring.note
+                                +hint(ring.note, true)
+                            if ring.closed
+                                .emphasize.font90="Ring Closed"
+                            else if ring.radio
+                                marquee.font90.plan-radio=ring.radio
+    
+                            table.table.table-sm.table-clickable.font80.table-bordered
+                                tr
+                                    th(colspan=2) Class
+                                    th.text-xs-right.width3 Total
+                                    th.text-xs-right.width3 Run
+                                    th.text-xs-right.width3 Not Run
+                                each agilityClass in ring.agilityClasses
+                                    -var url = "/agilityClass/" + agilityClass.idAgilityClass + "/results"
+                                    each group in agilityClass.groups
+                                        each height in group.heights
+                                            - var heightIndex = group.heights.indexOf(height)
+                                            tr(class={active_row: height.active} class={"clickable-row": agilityClass.run > 0} data-href=url style="border-top: 1px solid red;")
+                                                if heightIndex == 0
+                                                    td(rowspan=group.heights.length colspan=group.heights.length == 1 ? 2 : 1)=agilityClass.className
+                                                if group.heights.length > 1
+                                                    td.width3=height.name
+                                                td.text-xs-right=height.entered
+        
+                                                if agilityClass.status == "Closed"
+                                                    td.text-xs-right=height.run
+                                                    if heightIndex == 0
+                                                        td(rowspan=group.heights.length) Closed
+                                                else if agilityClass.status != "" || agilityClass.run == 0
+                                                    if heightIndex == 0
+                                                        td.text-xs-center(colspan=2 rowspan=group.heights.length)=agilityClass.status
+                                                else
+                                                    td.text-xs-right(colspan=1)=height.run
+                                                    td.text-xs-right=height.notRun
+                                    if agilityClass.active && agilityClass.info
+                                        tr
+                                            td(colspan=99).emphasize=agilityClass.info

@@ -1,0 +1,90 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "clipboard"
+    -title =api.competition.name + " <small>(" + dateRange(api.competition.dateStart, api.competition.dateEnd) + ")</small>"
+
+block content
+
+    - var competition=api.competition
+
+    .max45
+        if (competition.idOrganization == 3 && api.user && api.user.ukaSuperUser)
+            +card(competition.briefName + " Switchboard", icon)
+                +cardSection("Quick Lists", "file-alt")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/entries_uk_open"
+                            +link("Entries", url)
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/camping_uk_open"
+                            +link("Camping", url)
+                        
+                        if (competition.heightsGenerated)
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/ring_plan_provisional/" + session.token + "/" + competition.uniqueName + "_ring_plan_provisional.doc"
+                                +link("Ring Plan (Provisional)", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/ring_boards/" + session.token + "/" + competition.uniqueName + "_ring_boards.doc"
+                                +link("Ring Boards", url, {external: true})
+                        
+
+                +cardSection("Download", "download")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/classes/" + session.token + "/" + competition.uniqueName + "_classes.xls"
+                            +link("Ring Planner", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/template/" + session.token + "/" + competition.uniqueName + "_template.xls"
+                            +link("Show Template", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/ukOpenData/" + competition.uniqueName + "_data.xls"
+                            +link("Show Data", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/ukOpenGroups/" + competition.uniqueName + "_groups.xls"
+                            +link("Dog Heights/Groups", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/runningOrderData/" + competition.uniqueName + "_running_orders.xls"
+                            +link("Running Order Data", url, {external: true})
+
+                        if competition.processed
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/address_labels/" + session.token + "/" + api.competition.uniqueName + "_address_labels.pdf"
+                                +link("Labels", url, {external: true})
+
+                +cardSection("Upload", "download")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Schedule"
+                            +uploadPdf("Schedule", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Ring Plan"
+                            +uploadPdf("Ring Plan", url)
+                        .list-item
+                            - var url = apiRoot + "/spreadsheet/upload"
+                            +uploadXml("Plaza Spreadsheet", url)
+                if api.competition.provisionalRunningOrders
+                    +cardSection("Logo Provisional Running Orders", "lock")
+                        each agilityClass in api.competition.provisionalRunningOrders
+                            div
+                                - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/runningOrders/pdf/runningOrders_"+ agilityClass.idAgilityClass + ".pdf?tournament=true&provisional=true"
+                                - var className = agilityClass.className
+                                +link(className, url)
+                if api.competition.runningOrders
+                    +cardSection("Logo Final Running Orders", "lock")
+                        each agilityClass in api.competition.runningOrders
+                            div
+                                - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/runningOrders/pdf/runningOrders_"+ agilityClass.idAgilityClass + ".pdf?tournament=true"
+                                - var className = agilityClass.className
+                                +link(className, url)
+                if api.competition.results
+                    +cardSection("Logo Results", "lock")
+                        each agilityClass in api.competition.results
+                            if (!agilityClass.inProgress)
+                                div
+                                    - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/results/pdf/results_"+ agilityClass.idAgilityClass + ".pdf?tournament=true"
+                                    if agilityClass.subResultsFlag
+                                        - url+="&subResultsFlag=" + agilityClass.subResultsFlag
+                                    - var className = agilityClass.className
+                                    +link(className, url)

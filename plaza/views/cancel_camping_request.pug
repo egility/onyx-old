@@ -1,0 +1,16 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Cancel Camping Request"
+
+block content
+
+    .max30
+        +card(title)
+            if api.status==99
+                .card-statement Sorry, you are not on the waiting list for #{api.competition.briefName}.
+            else if api.status==1 || api.status==0
+                .card-statement You have been removed from the waiting list for #{api.competition.briefName}.
+            else if api.status==9
+                .card-statement We cannot remove you from the waiting list for #{api.competition.briefName} as you have already been allocated a permit.

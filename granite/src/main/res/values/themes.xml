@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<resources>
+    <style name="granite" parent="android:style/Theme.Holo.Light.NoActionBar">
+        <item name="android:buttonStyle">@style/QuickButton</item>
+    </style>
+</resources>

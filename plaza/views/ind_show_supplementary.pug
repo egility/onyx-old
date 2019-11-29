@@ -1,0 +1,78 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Enter " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-cell").click(function () {
+                var link = $(this).data("link");
+                var checkbox = $("#" + link)
+                checkbox.prop("checked", !checkbox.prop("checked"));
+            });
+        });
+
+        $(".dogCode").keyup(function (event) {
+            var dogCode = this.value
+            var dogIndex = this.name.substr(7)
+            if (dogCode.length == 5) {
+                fetch(apiData.lookup + dogCode, function (data) {
+                    $("#idDog" + dogIndex).val(data.idDog)
+                    $("#dogName" + dogIndex).val(data.petName)
+                    $("#dogHandler" + dogIndex).val(data.handler)
+                })
+            } else {
+                $("#dogName" + dogIndex).val("")
+                $("#dogHandler" + dogIndex).val("")
+            }
+        })
+
+
+block content
+
+
+    .max30
+        +card("Step 3a - Supplementary Details", icon)
+            - var hintText=""
+            +form()
+                if true
+                    +hint.
+                        This show has special prizes for handlers/dogs in the categories below. Please refer to the schedule and
+                        tick any boxes for prizes that apply to you. If you do not tick a box then you may not be considered for the
+                        prize even if you would otherwise meet the criteria. It is ultimately at the discretion of the judges 
+                        and show organisers whether any boxes you tick will apply.
+                    each dog in api.dogs
+                        -var index=0
+                        -var dogIndex=api.dogs.indexOf(dog)
+                        - description =  dog.petName + " / " + dog.handler
+                        +cardSection(description, "paw")
+                            table.table.table-xs.mb-1
+                                tr
+                                    th Category
+                                    th.width3 Select
+                                each category in dog.categories
+                                    -var categoryIndex=dog.categories.indexOf(category)
+                                    - var bind = "dogs." + dogIndex + ".categories." + categoryIndex
+                                    tr
+                                        - index++
+                                        td.align-middle.clickable-cell(data-link=dog.petName + index).pl-2=category.description
+                                        td.align-middle.pl-half
+                                            +checkbox(dog.petName + index, bind + ".selected", "", {
+                                                extra: {
+                                                }
+                                            })
+
+
+
+                +button("submit", "Continue", "check")
+
+
+

@@ -1,0 +1,145 @@
+extends _page
+
+prepend navigation
+    - home=true
+    - crumb="Home"
+    - title="Home"
+
+append scripts
+    +use_grids()
+
+block content
+
+    if (session == undefined || session.authenticated == undefined || !session.authenticated || (session.access==0 && !session.registrationComplete))
+        .mygrid
+            .grid-item
+                +card("Login")
+                    +form({id: "loginForm", autocomplete: true})
+                        .font80
+                            +input("email", "username", "authenticate.email", "Your email", {label: 0, icon: "envelope"})
+                            +input("password", "password", "authenticate.password", "Your password", {label: 0, icon: "lock"})
+                        .row
+                            .col-xs-4
+                                +button("submit", "Login", "sign-in", {small: true})
+                            .font80.col-xs-8.text-xs-right
+                                div Not a member? #[a(href="javascript:showLoading();window.location='/register'") Register]
+                                div Forgot #[a(href="javascript:showLoading();window.location='/password_forgotten'") Password?]
+            .grid-item
+                +card("Why Register?")
+                    p.
+                        Registering is free and once you are on-board you will be able to:
+                    ul
+                        li Access the sport's largest results database (360,000 runs).
+                        li See what the rings are up to at any live e-gility show.
+                        li Follow classes results as they unfold.
+                        li Enter e-gility shows - KC & UKA.
+                        li Check your dog's progress.
+                        li And much more...
+
+    else
+        +grid()
+            +gridcard()
+                .news-title Intermediate Height - Act Now
+                img.news-image(src="/img/measure.jpeg" width="100%")
+                .news-intro2.
+                    Time is running out to get your dog measured for intermediate.
+                .news.
+                    If your dog is currently classified as large but you want to compete in Intermediate, you must get it measured <b><u>before 31st December 2019</u></b>. If you don't, 
+                    your dog will remain as large for life.
+            +gridcard()
+                .news-title Mobile App
+                img.news-image(src="/img/pexels/mobile-phone.jpeg" width="100%")
+                .news-heading.
+                    Install Agility Plaza on your mobile device
+                .news-intro2.
+                    Agility Plaza has been designed as a 'Web App'. This means that you can install it on your
+                    iPhone/iPad or Android device and it behaves much like a conventional app.
+                .news.
+                    Unlike regular apps, you can't (currently) install web apps directly from an app store. Instead
+                    just follow the instructions below:
+
+                table.table.table-sm.font90
+                    tr
+                        th(colspan=2).font110 iPhone/iPad
+                    tr
+                        td 1.
+                        td.
+                            Open www.agilityplaza.com in you Safari web browser. Even if you use another browser, only
+                            Apple's own browser has the capability to install a web app.
+                    tr
+                        td 2.
+                        td
+                            span.
+                                Press the menu button:
+                            img(src="/img/safari-menu.png" width="25%")
+                    tr
+                        td 3.
+                        td
+                            span.
+                                Press the Add to Home Screen button:
+                            img(src="/img/addhome.png" width="100%")
+                    tr
+                        td 4.
+                        td.
+                            On the 'Add to Home' popup window press the 'Add' button and an Agility Plaza icon will be
+                            added to your device. Just press this whenever you want to open the app.
+
+                table.table.table-sm.font90
+                    tr
+                        th(colspan=2).font110 Android
+                    tr
+                        td 1.
+                        td.
+                            Install the chrome browser if not already on you device (some devices are still shipped
+                            with the inferior android browser).
+                    tr
+                        td 2.
+                        td.
+                            Open www.agilityplaza.com in chrome.
+                    tr
+                        td 3.
+                        td.
+                            Press the chrome menu button (three vertical dots) and select 'Add to Home Screen' and then
+                            'Add' on the popup window.
+
+            +gridcard()
+                .news-title UKA Junior League
+                hr
+                img.news-image(src="/img/sponsor/Agility for Junior.jpg" width="100%")
+                hr
+                .news-intro2.
+                    UKA's new style Junior League sponsored by Agility for Juniors is already under way.
+                .news
+                    | The aim of this competition is to encourage Junior handlers to compete against their peers in the sport of Agility and
+                    | prepare them for their future competitions.
+                .news
+                    | The league tables are updated every night on Agility Plaza. 
+                    a(href="/uka_junior_league") Click here
+                    |  to see the latest rankings.
+
+
+            +gridcard()
+                .news-title Fantastic Images
+                hr
+                img.news-image(src="/img/sponsor/Yellow hound.jpg" width="100%")
+                hr
+                .news-intro2.
+                    We would like to say a special 'thank you' to Chris Tarling at Yellow Hound for supplying a
+                    collection of stunning agility images for this site.
+                .news.
+                    We will be using them to dress our news pages, and for backdrops to add texture to our pages.
+                .news
+                    span
+                        | To find out more about Yellow Hound, checkout their website (
+                        a(href="http://www.yellowhound.co.uk") www.yellowhound.co.uk
+                        | )
+
+            +gridcard()
+                img.news-image(src="/img/FB-f-Logo__blue_114.png")
+                hr
+                .news-heading.
+                    Tell us what you think
+                .news.
+                    Let us know your thoughts on our new website or ask for help by joining our facebook group.
+                .news
+                    a(href="https://www.facebook.com/groups/371698413276745/") Click Here

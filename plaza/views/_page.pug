@@ -1,0 +1,68 @@
+extends _document
+
+append scripts
+    script.
+        bindForm("loginForm", "/api/authenticate", {
+            authenticate: {
+                email: "",
+                password: "",
+                token: ""
+            }
+        })
+
+block style
+    if (imageIndex == -1)
+        - imageIndex = Math.floor(Math.random() * 17) + 1
+    - var back="/img/back/back" + imageIndex + "a.jpg"
+    style.
+        @media screen and (min-device-width: 420px) and (orientation: portrait), screen and (min-device-height: 420px) and (orientation: landscape) {
+            .underlay {
+                background: url(#{back}) no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
+                opacity: .5;
+            }
+        }
+
+block body
+    - var loggedIn=session && session.authenticated && (session.access!=0 || session.registrationComplete)
+    - var isSysMgr = loggedIn && session && session.systemAdministrator
+    - var administrator = loggedIn && session && (session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser)
+    - var administratorUka = loggedIn && session && (session.systemAdministrator || session.ukaSuperUser)
+    - var administratorKc = loggedIn && session && (session.systemAdministrator || session.plazaSuperUser)
+    - var isMe = session.access == undefined || session.access==0 || session.access==9
+    - var isNotMe = session.access || session.access!=0
+    - var isSpoofed = session.idCompetitorReal>0 &&  session.idCompetitorReal!=session.idCompetitor
+
+    - var crumb=""
+    - var home=false
+    - var login=false
+    - var icon=""
+    - var nextId = 1
+
+    .underlay
+
+    input(type="hidden" id="refresh" value="no")
+
+    block navigation
+
+        - addBreadCrumb(breadcrumbs, path, crumb, icon, renderView, query, home)
+
+        include _nav_top
+
+        .nav-panel
+            include _nav_side
+
+    div.home-panel
+
+        .container-fluid
+            #loading.text-xs-center
+                img(src="/img/wait.svg" width=120)
+
+            block content
+
+
+
+

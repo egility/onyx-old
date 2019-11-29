@@ -1,0 +1,261 @@
+extends _page
+
+prepend navigation
+    - crumb="My Account"
+    - title="My Account"
+    - icon="calculator"
+
+append scripts
+    +bind_form()
+
+    script(src="https://checkout.stripe.com/checkout.js")
+    script(src="https://cdn.jsdelivr.net/npm/autonumeric@4.0.1")
+    script.
+
+        function setInitial(amount) {
+            new AutoNumeric("#topup", amount / 100.00).british();
+            if (amount == 0) {
+                $("#handling").text("(£0.00 Incl. handling fee)")
+            } else {
+                var total = calcStripeFee(amount) + amount
+                $("#handling").text("(£" + (total / 100.00).toFixed(2) + " Incl. handling fee)")
+            }
+        }
+
+        setInitial(#{api.topup.amount})
+
+        function calcStripeFee(pence) {
+            var rate = #{api.card.rate};
+            var fixed = #{api.card.fixed};
+            var fee = Math.round((pence * rate) + fixed);
+            return fee
+        };
+
+        $("#topup").keyup(function (event) {
+            var amount=Math.round(this.value.replace("£", "").replace(",", "")*100)
+            if (amount == 0) {
+                $("#handling").text("(£0.00 Incl. handling fee)")
+            } else {
+                var total = calcStripeFee(amount) + amount
+                $("#handling").text("(£" + (total / 100.00).toFixed(2) + " Incl. handling fee)")
+            }
+
+
+        });
+
+        var handler = StripeCheckout.configure({
+            key: '#{api.key}',
+            image: '/img/logo192.png',
+            locale: 'auto',
+            token: function (token) {
+                var amount=Math.round($("#topup").val().replace("£", "").replace(",", "")*100)
+                var fee = calcStripeFee(amount)
+                apiData.stripe = {
+                    token: token,
+                    amount: amount + fee,
+                    handlingFee: fee
+                }
+                $("#main").submit()
+            }
+        });
+
+        $("#stripeButton").click(function (event) {
+            event.preventDefault();
+
+            var amount = Math.round($("#topup").val().replace("£", "").replace(",", "") * 100)
+            if (amount == 0) {
+                alert("You must enter an amount for your instant Top-Up")
+            } else {
+                var fee = calcStripeFee(amount)
+                var data = {
+                    name: 'agilityplaza.com',
+                    email: '#{api.competitor.email}',
+                    description: 'Top Up Account',
+                    zipCode: false,
+                    currency: 'gbp',
+                    amount: amount + fee
+                }
+                handler.open(data);
+            }
+
+        });
+
+        // Close Checkout on page navigation:
+        window.addEventListener('popstate', function () {
+            handler.close();
+        });
+
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+
+block content
+    - var haveCapped=false
+    .max40
+        .hidden
+            +form()
+        +card(title, icon)
+            if (api.pending)
+                +cardSection("Pending Shows and other Purchases")
+                    +hint.
+                        Below is a list of show entries and other items that have yet to be paid. The #[strong Due Date] is when
+                        your account will be charged (for shows this is the closing date). The #[strong Balance] is a projection
+                        of how much will remain in your account after each item has been paid. If there are sufficient funds in
+                        your account, each of these items will be automatically paid for sometime after midnight at the
+                        end of the #[strong Due Date].
+                    if api.summary.statementBalance > 0
+                        .font90 Account Balance: #{toMoney(api.summary.statementBalance)}
+                    else if api.summary.statementBalance < 0
+                        .font90 Account Balance: <span class=warning>#{toMoney(-api.summary.statementBalance)} Overdrawn</span>
+                    table.table.table-sm.font80.table-bordered.table-clickable
+                        tr
+                            th Due Date
+                            th Description
+                            th.text-xs-right Amount
+                            th.text-xs-right Balance
+                            th
+                            
+                        - var havePartial=false
+
+                        each item in api.pending
+                            case item.idOrganization
+                                when 1
+                                    - href = '/competition/' + item.idCompetition + '/review'
+                                when 2
+                                    - href = '/competition/' + item.idCompetition + '/review'
+                                when 3
+                                    - href = '/competition/' + item.idCompetition + '/review_uk_open'
+                                when 4
+                                    - href = '/competition/' + item.idCompetition + '/review'
+
+                            tr.clickable-row(data-href=href)
+                                if item.dueImmediately
+                                    td
+                                        b.warning Due Now
+                                else
+                                    td #{dateFormat(item.date, "dd/mm/yy")}
+                                td=item.description
+                                if item.partial
+                                    td.text-xs-right=toMoney(-item.amount) + "*"
+                                    - havePartial=true
+                                else
+                                    td.text-xs-right=toMoney(-item.amount)
+
+                                td.text-xs-right #{toMoney(item.balance)}
+                                td.text-xs-center
+                                    if (item.balance < 0 && item.amount<0)
+                                        span.important-warning.font110 #[i.fa.fa-exclamation-triangle]
+                                    else
+                                        span.important-goodnews.font110 #[i.fa.fa-check]
+                    if havePartial
+                        .alert.alert-info.mt-1.
+                            Asterisk (*) indicates an outstanding amount after a partial payment has been deducted - see statement below.
+
+
+                    if (api.summary.pendingBalance < 0)
+                        .mb-1
+                        - var reference = api.account.code.replace("-", " ").replace("-", " ")
+                        +warning
+                            | Show fees are paid out of your #[strong Agility Plaza] account when the show closes. To
+                            | ensure that this entry does not get deleted, you need to transfer at least
+                            | #[strong #{toMoney(-api.summary.pendingBalance)}] into your account before this date. For
+                            | BACS/FPS use the information below #[strong (our bank details changed on 24th November 2018)]
+                            table.ml-2.mt-1.mb-1.transparent
+                                tr
+                                    td.pr-1 Pay
+                                    td Agility Plaza
+                                tr
+                                    td.pr-1 Reference
+                                    td #[strong #{reference}] (do not omit)
+                                tr
+                                    td.pr-1 Sort Code
+                                    td 60-83-71
+                                tr
+                                    td.pr-1 Account Number
+                                    td 05360428
+                            | Alternatively you can buy an #[strong Instant Top-Up] using
+                            | your debit or credit card. For this service we charge a processing fee of #{api.card.rate * 100}% + #{api.card.fixed}p
+                            | (inclusive fee shown in brackets below).
+                            | See &nbsp
+                            +link("FAQs", "/faq?root=true")
+                            | &nbsp for all payment options.
+
+                    else if (api.summary.pendingBalance > 0)
+                        .font90
+                            +tick.
+                                Your account balance will be #{toMoney(api.summary.pendingBalance)} in credit after these have been paid.
+                    else
+                        .font90
+                            +tick.
+                                Your account balance covers these shows.
+                    p You can return to this page at any time using the 'My Account' menu option.
+
+            else if (api.summary.statementBalance > 0)
+                +cardSection("Account Summary", "")
+                    p Your account is #{toMoney(api.summary.statementBalance)} in credit.
+
+
+
+            +cardSection("Instant Top-Up", "credit-card")
+                if (api.summary.pendingBalance >= 0)
+                    +hint
+                        | See &nbsp
+                        +link("FAQs", "/faq?root=true")
+                        | &nbsp for details of how you can add funds to your #[strong Agility Plaza] account directly
+                        | from your bank account (eg. using #[strong BACS]). You can also buy an #[strong Instant Top-Up]
+                        | using your debit or credit card. For this service we charge a processing fee
+                        | of #{api.card.rate * 100}% + #{api.card.fixed}p
+
+                form#dummy
+                    label Amount:
+                    input.form-control.max6.inline#topup(type="text")
+                    span#handling.ml-1.mr-1=""
+                    .mt-1
+                        +button("externallink", "Buy Instant Top-Up", "credit-card", {href: "#", id: "stripeButton"})
+
+
+            +cardSection("Statement")
+                if (api.statement)
+                    - var havePartial=false
+                    table.table.table-sm.font80.table-bordered.table-clickable
+                        tr
+                            th Date
+                            th Item
+                            th.text-xs-right Amount
+                            th.text-xs-right Balance
+                        each item in api.statement
+                            - var extra={}
+                            if item.idCompetition>0
+                                case item.idOrganization
+                                    when 1
+                                        - href = '/competition/' + item.idCompetition + '/review'
+                                    when 2
+                                        - href = '/competition/' + item.idCompetition + '/review'
+                                    when 3
+                                        - href = '/competition/' + item.idCompetition + '/review_uk_open'
+                                - extra={class: "clickable-row", "data-href": href}
+
+                            tr&attributes(extra)(class={alternative: item.type == 500})
+                                td #{dateFormat(item.date, "dd/mm/yy")}
+                                td #{item.description}
+                                if item.partial
+                                    td.text-xs-right=toMoney(item.amount) + "*"
+                                    - havePartial=true
+                                else
+                                    td.text-xs-right=toMoney(item.amount)
+                                td.text-xs-right #{toMoney(item.balance)}
+                    if (api.summary.pendingRefund)
+                        .mt-half You have a refund pending for #{api.summary.pendingRefundText}.
+                    else if (api.summary.maxRefund > 0)
+                        .mt-half
+                            +button("link", "Request a Refund", "pound-sign", {href: "/refund", small: true, secondary: true})
+
+                else
+                    p There are no account transactions to show
+
+            if administratorKc
+                +cardSection("Plaza Management", "lock", {protected: true})
+                    +link("Find Missing Payment", "/missing_payment")

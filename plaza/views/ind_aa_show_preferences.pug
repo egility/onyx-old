@@ -1,0 +1,76 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="star"
+    - title = api.competition.name
+
+append scripts
+    +bind_form()
+
+
+block content
+    .max40
+        - var title = "Active Agility Entry"
+        if api.competition.hasVouchers
+            - title = "SActive Agility Entry & Voucher Details"
+        +card(title, icon)
+            if !api.dogs
+                .card-statement You must register at least one dog before you can enter this show. Click on the 'My Household' menu option and then 'Add Dog'.
+            else
+                +simpleHint.
+                    For each dog, select one of the bundles below and your preferred height. If the handler has ever owned a
+                    KG grade 7 dog you must tick the G7 Owner box.
+                
+                table.table.table-sm.font80.table-bordered.mb-1
+                    tr
+                        td(colspan=99).emphasize Bundles Available
+                    tr
+                        td 1. Standard
+                        td 1 x Agility, 1 x Jumping, 2 x Steeplechase
+                    tr
+                        td 2. Steeplechase
+                        td 2 x Steeplechase - 2 attempts each
+                    tr
+                        td 3. Practice
+                        td 1 x Agility, 1 x Jumping- 2 attempts each (clear round rosettes only)
+
+                +form()
+                    each dog in api.dogs
+                        - var index = api.dogs.indexOf(dog)
+                        - var bind = "dogs." + index
+                        +cardSection(dog.petName, "paw")
+                            +select("handler" + index, bind + ".idCompetitorHandler", "Handler", api.handlers)
+                            +checkbox("g7Owner", bind + ".g7Owner", "G7 Owner", {label: 30})
+                            +select("jumpOption" + index, bind + ".jumpOption", "Height", dog.heightOptions )
+                            +select("bundle" + index, bind + ".bundle", "Bundle", dog.entryOptions )
+
+                    if (api.camping)
+                        +cardSection("Camping", "bed")
+                            +hint.
+                                If you have been allocated a Camping Permit then enter the #[strong six letter code] in the space below.
+                            +input("text", "voucher", "camping.voucherCode", "Camping Permit")
+
+
+                    if api.competition.hasVouchers
+                        +cardSection("Member/Staff Vouchers", "ticket-alt")
+                            +hint.
+                                If you are a #[strong club member] or #[strong show official] and have been given a voucher code, enter it in the space below
+                                against the name of the person to whom the voucher was issued. Multiple codes may be entered with commas between.
+    
+                            table.table.table-sm.mt-half.mb-1
+                                tr
+                                    th Issued to
+                                    th Voucher
+                                each competitor in api.competitors
+                                    - var index = api.competitors.indexOf(competitor)
+                                    - var bind = "competitors." + index
+                                    tr
+                                        td.align-middle=competitor.name
+                                        td
+                                            +input("text", "voucher", bind + ".voucherCode", "")
+
+                    +button("submit", "Continue", "check")

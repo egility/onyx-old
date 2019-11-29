@@ -1,0 +1,26 @@
+extends _page
+
+prepend navigation
+    - icon="star"
+    - title = "Stock Movement Confirmation"
+
+append scripts
+    +bind_form()
+
+
+block content
+    .max60
+        +card(title, icon)
+            +form()
+                each location in api.locations
+                    +cardSection(location.locationText, map)
+                        table.table.table-sm
+                            tr
+                                th.width10 Type
+                                th.width3 Quantity
+                                th Codes
+                            each type in location.types
+                                tr
+                                    td=type.description
+                                    td=type.assetCount
+                                    td=type.assetList

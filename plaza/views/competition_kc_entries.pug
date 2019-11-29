@@ -1,0 +1,122 @@
+extends _page
+
+append scripts
+    script.
+        $("#deleteUnpaid").click(function (e) {
+            e.preventDefault();
+            if (window.confirm("Are you sure you want to delete unpaid entries?")) {
+                location.href = this.href;
+            }
+        });
+
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var email = $(this).data("email");
+                $("#email").val(email)
+                $("#password").val("system")
+                $("#token").val($(this).data("token"))
+                $("#loginForm").submit()
+
+            });
+        });
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Entries"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Entries"
+
+block content
+    .max35
+        +card(title, icon)
+            if (!api.entries)
+                .card-statement.mb-2 There are no entries yet
+            else
+                p Total entries: #{api.entries.length} &nbsp;
+                    if api.competition.owing > 0
+                        span.emphasize (including #{api.competition.owing} not paid)
+
+                if api.competition.owing > 0 && api.user.plazaSuperUser && api.competition.canDeleteUnpaid
+                    hr
+                    +button("link", "Delete Unpaid Entries", "trash-alt", {
+                        href: "/competition/" + api.competition.idCompetition + "/deleteKcUnpaid",
+                        small: true,
+                        secondary: true,
+                        id: "deleteUnpaid"
+                    })
+                    .mb-half
+                    
+                - var clickable = session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser ? {class: "table-clickable"} : {}
+                table.table.table-sm&attributes(clickable)
+                    thead
+                        tr
+                            th Account Holder
+                            th.text-xs-right Runs
+                            if api.competition.totalCamping
+                                th.text-xs-right Camping
+                            if api.competition.totalPostage
+                                th.text-xs-right Postage
+                            if api.competition.totalSurcharge
+                                th.text-xs-right Surcharge
+                            if api.competition.totalExtras
+                                th.text-xs-right Extras
+                            th.text-xs-right Entrered
+                    each entry in api.entries
+                        - var extra = entry.owed ? {class: "emphasize"} : {}
+
+                        if session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser
+                            - extra.class += " clickable-row"
+                            - extra["data-email"] = entry.idCompetitor + "@ap"
+                            - extra["data-token"] = session.token
+                        tbody.font90
+                            tr&attributes(extra)
+                                td=entry.account
+                                td.text-xs-right=toMoney(entry.runs)
+                                if api.competition.totalCamping 
+                                    if entry.camping>0
+                                        td.text-xs-right=toMoney(entry.camping)
+                                    else
+                                        td
+                                if api.competition.totalPostage 
+                                    if entry.postage>0
+                                        td.text-xs-right=toMoney(entry.postage)
+                                    else
+                                        td
+                                if api.competition.totalSurcharge
+                                    if entry.surcharge > 0
+                                        td.text-xs-right=toMoney(entry.surcharge)
+                                    else
+                                        td
+                                if api.competition.totalExtras
+                                    if entry.extras > 0
+                                        td.text-xs-right=toMoney(entry.extras)
+                                    else
+                                        td
+
+                                if entry.paper
+                                    td.text-xs-right Paper
+                                else
+                                    td.text-xs-right=dateFormat(entry.date, "dd/mm/yy hh:MM")
+                    tfoot
+                        tr
+                            th Total
+                            th.text-xs-right=toMoney(api.competition.totalRuns)
+                            if api.competition.totalCamping
+                                th.text-xs-right=toMoney(api.competition.totalCamping)
+                            if api.competition.totalPostage
+                                th.text-xs-right=toMoney(api.competition.totalPostage)
+                            if api.competition.totalSurcharge
+                                th.text-xs-right=toMoney(api.competition.totalSurcharge)
+                            if api.competition.totalExtras
+                                th.text-xs-right=toMoney(api.competition.totalExtras)
+
+                            th
+                
+                .hidden
+                    +form({id: "loginForm"})
+                        +input("text", "email", "authenticate.email", "")
+                        +input("text", "password", "authenticate.password", "")
+                        +input("text", "token", "authenticate.token", "")
+                        +button("submit", "Login", "sign-in", {small: true})

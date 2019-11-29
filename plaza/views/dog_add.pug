@@ -1,0 +1,71 @@
+extends _page
+
+prepend navigation
+    - crumb="Add Dog"
+    - title = "Add Dog"
+
+append scripts
+    +bind_form()
+    
+    script.
+        function checkOwner() {
+            var ownerType = $('#ownerType').val()
+            if (ownerType == 0) {
+                $("#idCompetitorGroup").show()
+                $("#ownerNameGroup").hide()
+                $("#ownerAddressGroup").hide()
+            } else if (ownerType == 1) {
+                $("#idCompetitorGroup").hide()
+                $("#ownerNameGroup").show()
+                $("#ownerAddressGroup").hide()
+            } else {
+                $("#idCompetitorGroup").hide()
+                $("#ownerNameGroup").show()
+                $("#ownerAddressGroup").show()
+            }
+        }
+
+        $("#ownerType").change(function () {
+            checkOwner()
+        })
+
+        $(document).ready(function () {
+            checkOwner()
+        })
+
+block content
+
+    .max40
+        +card("General Details")
+            +form()
+                +fieldset("General")
+                    +input("text", "petName", "dog.petName", "Pet Name")
+                    +input("date", "dateOfBirth", "dog.dateOfBirth", "Date of Birth")
+                    +select("gender", "dog.gender", "Gender", gender)
+                    +select("breed", "dog.idBreed", "Breed", breeds)
+                    +select("idCompetitorHandler", "dog.idCompetitorHandler", "Handler", api.handlerList)
+                    +simpleHint().
+                        If your dog is retired or no longer with you then select the appropriate status below
+                    +select("dogState", "dog.dogState", "Status", dogStates, {label: 30})
+                    
+                hr
+                +fieldset("Owner")
+                +select("ownerType", "dog.ownerType", "Ownership Type", api.ownershipTypeList)
+                +select("idCompetitor", "dog.idCompetitor", "Owner", api.competitorList)
+                +input("text", "ownerName", "dog.ownerName", "Owner Name(s)")
+                +textarea(4, "ownerAddress", "dog.ownerAddress", "Owner Address")
+                
+                hr
+                +fieldset("Kennel Club")
+                    +hint.
+                        If your dog is not registered with the Kennel Club, you can leave this section blank. #[strong Registration numbers]
+                        must be one of the following styles: 2 letters followed by 8 digits (breed register), OR
+                        The letter 'K' followed by 6 digits (activity register), OR 'ATC' followed by 1 letter followed
+                        by 5 digts followed by a 3 letter country code (authority to compete). Any other format will
+                        not be accepted.
+                    +input("text", "idKC", "dog.idKC", "Registration Number")
+                    +input("text", "registeredName", "dog.registeredName", "Registered Name")
+                    +select("kcHeightCode", "dog.kcHeightCode", "Height", kcHeights, {label: 30})
+                    +select("kcGradeCode", "dog.kcGradeCode", "Grade", kcGrades, {label: 30})
+                hr
+                +button("submit", "Save Changes", "check")

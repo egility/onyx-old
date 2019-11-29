@@ -1,0 +1,86 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:id="@+id/loTopText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentEnd="true"
+        >
+
+        <TextView
+            android:id="@+id/tvCompetitor"
+            style="@style/Text40"
+            android:text="Mike Brickman"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/tvDog"
+            style="@style/Text30"
+            android:text="Bingley"
+            android:layout_marginBottom="10dp"
+            />
+
+        <View
+            android:id="@+id/hrTop"
+            style="@style/LineLight"
+            />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loIdDog"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:id="@+id/tvStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="12dp"
+                android:paddingTop="6dp"
+                android:text="Dog ID:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <TextView
+                android:id="@+id/tvIdDog"
+                style="@style/Text40"
+                android:text="00000"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tvStatusLabel"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loTopText"
+        android:layout_marginBottom="4dp"
+        ></FrameLayout>
+</RelativeLayout>
+

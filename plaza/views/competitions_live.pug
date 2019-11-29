@@ -1,0 +1,46 @@
+extends _page
+
+prepend navigation
+    -crumb = "Live Shows"
+    -icon = "bolt"
+    -title = "Live Shows"
+
+block content
+
+    .max30
+        if (!api|| !api.competitions)
+            +card("Live & Imminent Shows", icon)
+                .card-statement  Sorry, there are no shows taking place within the next 7 days.
+        else
+            for competition in api.competitions
+                +card(competition.name + " <small>(" + dateRange(competition.dateStart, competition.dateEnd) + ")</small>")
+                    if (competition.announcement && competition.announcement != "")
+                        .alert.alert-danger #{competition.announcement}
+                    = competition.venue + ", " + competition.venuePostcode
+
+                    table.table.table-sm(style="border-bottom: 1px solid #eceeef;")
+                        if (competition.rings)
+                            for ring in competition.rings
+                                tr
+                                    td.small="Ring " + ring.ringNumber
+                                    td.small=ring.class
+                                    td.small=ring.progress
+                        else if beforeToday(competition.dateStart)
+                            tr
+                                td.small="Rest day"
+                        else
+                            tr
+                                td.small="Show opens on " + dateFormat(competition.dateStart, "dddd")
+                    +button("externallink", "Map", "map-marker", {small: true, href: competition.mapUrl})
+                    -var ringPlanPage = competition.idOrganization == 1 ? '/ringPlan2/' : '/ringPlan/'
+
+                    if (afterToday(competition.dateStart) && !beforeToday(competition.dateEnd))
+                        - var url = '/competition/' + competition.idCompetition + ringPlanPage + dateFormat(competition.dateStart, "yyyymmdd")
+                        +button("link", "Ring Plan", "", {small: true, href: url})
+                    else
+                        - var url = '/competition/' + competition.idCompetition + ringPlanPage + dateFormat(new Date(), "yyyymmdd")
+                        +button("link", "Ring Plan", "", {small: true, href: url})
+                    if (!afterToday(competition.dateStart))
+                        - var url = "/competition/" + competition.idCompetition + "/results"
+                        +button("link", "Results", "", {small: true, href: url})
+

@@ -1,0 +1,41 @@
+extends _page
+
+prepend navigation
+    - crumb="Share"
+    - title = "Share Dog"
+    - icon = "handshake"
+
+append scripts
+    +bind_form("")
+
+    script.
+        $(".competitorCode").keyup(function (event) {
+            var competitorCode = this.value
+            if (competitorCode.length == 6) {
+                fetch(apiData.lookup + competitorCode, function (data) {
+                    $("#idCompetitor").val(data.idCompetitor)
+                    $("#givenName").val(data.givenName)
+                    $("#familyName").val(data.familyName)
+                })
+            } else {
+                $("#givenName").val("")
+                $("#familyName").val("")
+            }
+        })
+
+block content
+
+    .max35
+        +card(title, icon)
+            +form()
+                +hint().
+                    Enter the 6 digit handler code for the person you are sharing this dog with. This is shown next to their name on their "My Household" page.
+                    When you enter a valid code, the name will be displayed below. #[strong To un-share, just delete the code and press save.]
+
+                +fieldset("Share " + api.dog.petName + " with:")
+                    +input("text", "competitorCode", "handlerCode", "Code", {class: "competitorCode", noautocomplete: true})
+                    +input("hidden", "idCompetitor", "idCompetitor", "")
+                    +input("readonly", "givenName", "givenName", "Given Name")
+                    +input("readonly", "familyName", "familyName", "Family Name")
+
+                +button("submit", "Save", "check")

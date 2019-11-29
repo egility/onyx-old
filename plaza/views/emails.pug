@@ -1,0 +1,31 @@
+extends _page
+
+prepend navigation
+    - icon="envelope"
+    - title = "My Emails"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+        
+block content
+    .max60
+        +card(title, icon)
+            if !api.emails
+                div We haven't sent you any emails.
+            else
+                +simpleHint Click on email to open.
+                table.table.table-sm.table-striped.table-clickable
+                    tr
+                        th Time Sent
+                        th Subject
+                    each email in api.emails
+                        tr.clickable-row(data-href="/email/" + email.idEmailQueue)
+                            td=dateFormat(email.sent, "dd/mm/yy HH:MM")
+                            td=email.subject

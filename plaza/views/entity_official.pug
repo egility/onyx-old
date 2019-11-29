@@ -1,0 +1,56 @@
+extends _page
+
+prepend navigation
+    - crumb="Official"
+    - title = "Club Official"
+
+append scripts
+    +bind_form()
+
+    script.
+        $(".competitorCode").keyup(function (event) {
+            var competitorCode = this.value
+            if (competitorCode.length == 6) {
+                fetch(apiData.lookup + competitorCode, function (data) {
+                    $("#idCompetitor").val(data.idCompetitor)
+                    $("#name").val(data.fullName)
+                    $("#email").val(data.email)
+                    $("#phone").val(data.phone)
+
+                    $("#name").prop('readonly', true);
+                    $("#email").prop('readonly', true);
+                    $("#phone").prop('readonly', true);
+
+                })
+            } else {
+                $("#idCompetitor").val(0)
+                $("#name").val("")
+                $("#email").val("")
+                $("#phone").val("")
+
+                $("#name").prop('readonly', false);
+                $("#email").prop('readonly', false);
+                $("#phone").prop('readonly', false);
+            }
+        })
+        
+block content
+
+    .max60
+        +card(title, "Club")
+            +cardSection("Details")
+                +form()
+                    +input("hidden", "idCompetitor", "official.idCompetitor", "")
+                    +input("text", "competitorCode", "official.competitorCode", "Handler Code", {class: "competitorCode", noautocomplete: true})
+                    +input("text", "role", "official.role", "Role/Title")
+                    if api.official.competitorCode
+                        +input("readonly", "name", "official.name", "Name")
+                        +input("readonly", "email", "official.email", "Email")
+                        +input("readonly", "phone", "official.phone", "Phone")
+                    else
+                        +input("text", "name", "official.name", "Name")
+                        +input("text", "email", "official.email", "Email")
+                        +input("text", "phone", "official.phone", "Phone")
+                    +input("multiline", "notes", "official.notes", "Notes")
+
+                    +button("submit", "Save", "check")

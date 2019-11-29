@@ -1,0 +1,20 @@
+extends _page
+
+prepend navigation
+    - crumb="Refund"
+    - title = "Request Refund"
+
+
+
+
+
+block content
+
+    .max35
+        +card(title, "Confirm Refund")
+            .h3 Please Read
+            ul
+                li Before we can refund your money we have to confirm your identity.
+                li To do this, we have sent you an email which should arrive within the next few minutes.
+                li When you get this, please check the details and then press the confirm button.
+                li.emphasize If you do not press the confirm button on the email within one hour we will not process your refund.

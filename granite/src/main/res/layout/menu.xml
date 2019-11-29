@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+            android:id="@+id/loTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="false"
+
+            android:orientation="vertical">
+        <TextView
+                android:id="@+id/tvPageHeader"
+                style="@style/TextPageHeader"
+                android:text="{Competition}"
+        />
+
+        <TextView
+                android:id="@+id/tvSubHeading"
+                style="@style/Text28"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="{Class)"
+                android:singleLine="false"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center_horizontal"
+        />
+        <TextView
+                android:id="@+id/tvIpAddress"
+                style="@style/Text16"
+                android:text="{Ip Address}"
+                android:gravity="center_horizontal"
+                android:layout_width="match_parent"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvPageFooter"
+        android:layout_alignParentBottom="false"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btLeft"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{left}"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btMiddle"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{middle}"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btRight"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{right}"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/loInner"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/loNavigation"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false"
+        android:layout_below="@+id/loTop"
+        >
+
+        <LinearLayout
+            android:id="@+id/loCentre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yes_border"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                style="@style/Text20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="{sub-title}"
+                />
+
+            <GridLayout
+                android:id="@+id/loMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:columnCount="1"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOption1"
+                    style="@style/CalculatorButtonStandard"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:text="{option 1}"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOption2"
+                    style="@style/CalculatorButtonStandard"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:text="{option 2}"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOption3"
+                    style="@style/CalculatorButtonStandard"
+                    android:layout_width="160dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="10dp"
+                    android:text="{option 3}"
+                    />
+            </GridLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:text="Device details here"
+        android:id="@+id/tvPageFooter"
+        style="@style/TextPageFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+
+</RelativeLayout>

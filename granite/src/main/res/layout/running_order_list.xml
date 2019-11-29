@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_view_item"
+              android:orientation="vertical"
+              android:baselineAligned="true"
+    >
+
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heading"
+        style="@style/Text20"
+        android:background="#bcbcbc"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/loRunner"
+        >
+
+        <TextView
+            android:id="@+id/tvRunningOrder"
+            android:layout_height="wrap_content"
+            android:text="999."
+            style="@style/Text24"
+            android:layout_width="50dp"
+            android:layout_marginEnd="5dp"
+            />
+
+        <TextView
+            android:id="@+id/tvRunner"
+            android:layout_height="wrap_content"
+            android:text="Line 1"
+            style="@style/Text24"
+            android:layout_width="match_parent"
+            />
+
+    </LinearLayout>
+
+</LinearLayout>

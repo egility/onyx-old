@@ -1,0 +1,60 @@
+doctype html
+html(lang='en' style="font-size: 12pt")
+    head
+        -var refresh=0
+        -var imageIndex=-1
+        -var scrolling=0
+        block head
+
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1, shrink-to-fit=no')
+        meta(http-equiv='x-ua-compatible', content='ie=edge')
+        if (refresh>0)
+            meta(http-equiv='refresh', content=refresh)
+
+        title Agility Plaza
+
+
+        link(rel="stylesheet" href="/bootstrap/css/bootstrap-flex.min.css")
+        link(rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css")
+        link(rel="stylesheet" href="/cardjs/card-js.min.css")
+        link(rel="stylesheet" href='/css//style_v1.1.css')
+
+
+        link(rel="manifest" href="/manifest.json")
+
+        meta(name="apple-mobile-web-app-capable" content="yes")
+
+        block style
+
+
+    body
+        include _mixins
+        block body
+
+        // SCRIPTS
+        block scripts
+
+            script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha384-3ceskX3iaEnIogmQchP8opvBy3Mi7Ce34nWjpBIwVTHfGYWQS9jwHDVRnpKKHJg7" crossorigin="anonymous")
+            script(src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.3.7/js/tether.min.js" integrity="sha384-XTs3FgkjiBgo8qjEjBk0tGmf3wPrWtA6coPfQDfFEY8AnYJwjalXCiosYRBIBZX8" crossorigin="anonymous")
+            script(src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/js/bootstrap.min.js" integrity="sha384-BLiI7JTZm+JWlgKa0M0kGRpJbF2J8q+qreVrKBC47e3K6BW78kGLrCkeRX6I9RoK" crossorigin="anonymous")
+            script(src="https://cdnjs.cloudflare.com/ajax/libs/masonry/3.3.2/masonry.pkgd.min.js")
+            script(src="/api_v1.0.js")
+
+            script.
+                $(document).ready(function (e) {
+                    var $input = $('#refresh');
+                    $input.val() == 'yes' ? location.reload(true) : $input.val('yes');
+                });
+
+                jQuery("#screenWidth").text(screen.width)
+                jQuery("#screenHeight").text(screen.height)
+                jQuery("#windowWidth").text(window.innerWidth)
+                jQuery("#windowHeight").text(window.innerHeight)
+
+                jQuery(window).resize(function () {
+                    jQuery("#screenWidth").text(screen.width)
+                    jQuery("#screenHeight").text(screen.height)
+                    jQuery("#windowWidth").text(window.outerWidth)
+                    jQuery("#windowHeight").text(window.outerHeight)
+                })

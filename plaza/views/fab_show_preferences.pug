@@ -1,0 +1,99 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="star"
+    - title = api.competition.name
+
+append scripts
+    +bind_form()
+    
+block content
+    .max40
+        +card("Step 1 - Preferences & Vouchers", icon)
+            if !api.dogs
+                .card-statement You must register at least one dog before you can enter this show. Click on the 'My Household' menu option and then 'Add Dog'.
+            else
+                +simpleHint.
+                    These are your dog's preferences for FAB shows. Click the 'Edit Preferences' button to change 
+                    settings such as grades, height or highlight options. If you are happy with these choices, press the 
+                    'Continue' button at the bottom of the page.
+                .mb-1
+                if api.competition.entryNote
+                    .alert.alert-warning=api.competition.entryNote
+                each dog in api.dogs
+                    +cardSection(dog.petName, "paw")
+                        table.table.table-sm.mb-1
+                            thead
+                                tr
+                                    th Event
+                                    th ABC
+                                    th Grade
+                                    th Height
+                                    th Highlight
+                            tbody
+                                tr
+                                    td Agility
+                                    td!=dog.fab && dog.collie ? "&#10005;" : "&#10004;"
+                                    td=codeToText(dog.gradeAgility, allGrades)
+                                    td=codeToText(dog.heightCode, allHeights)
+                                    td!=dog.fab && dog.fab.agility ? "&#10004;" : "&#10005;"
+                                tr
+                                    td Jumping
+                                    td!=dog.fab && dog.collie ? "&#10005;" : "&#10004;"
+                                    td=codeToText(dog.gradeJumping, allGrades)
+                                    td=codeToText(dog.heightCode, allHeights)
+                                    td!=dog.fab && dog.fab.jumping ? "&#10004;" : "&#10005;"
+                                tr
+                                    td Steeplechase
+                                    td!=dog.fab && dog.collie ? "&#10005;" : "&#10004;"
+                                    td=codeToText(dog.gradeSteeplechase, allGrades)
+                                    td=codeToText(dog.heightCode, allHeights)
+                                    td!=dog.fab && dog.fab.steeplechase ? "&#10004;" : "&#10005;"
+                                tr
+                                    td Grand Prix
+                                    td!=dog.fab && dog.collie ? "&#10005;" : "&#10004;"
+                                    td="n/a"
+                                    td=codeToText(dog.heightCode, allHeights)
+                                    td!=dog.fab && dog.fab.grandPrix ? "&#10004;" : "&#10005;"
+                                tr
+                                    td Allsorts
+                                    td -
+                                    td="n/a"
+                                    td=codeToText(dog.heightCode, allHeights)
+                                    td!=dog.fab && dog.fab.allsorts ? "&#10004;" : "&#10005;"
+                                tr
+                                    td IFCS
+                                    td -
+                                    td="n/a"
+                                    td=codeToText(dog.ifcsHeightCode, allHeights)
+                                    td!=dog.fab && dog.fab.ifcs ? "&#10004;" : "&#10005;"
+                    
+                        - var url = '/competition/' + api.competition.idCompetition + '/preferences_fab/select/' + dog.idDog + '?destination=preferences_fab'
+                        +button("link", "Edit Preferences for " + dog.petName, "pencil-alt", {
+                            href: url,
+                            small: true,
+                            secondary: true
+                        })
+                +form()
+                    +cardSection("Show Official Vouchers", "ticket-alt")
+                        +hint.
+                            If you are a #[strong show official] and have been given a voucher code, enter it in the space below
+                            against the name of the person to whom the voucher was issued. Multiple codes may be entered with commas between.
+
+                        table.table.table-sm.mt-half.mb-1
+                            tr
+                                th Issued to
+                                th Voucher
+                            each competitor in api.competitors
+                                - var index = api.competitors.indexOf(competitor)
+                                - var bind = "competitors." + index
+                                tr
+                                    td.align-middle=competitor.name
+                                    td
+                                        +input("text", "voucher", bind + ".voucherCode", "")
+
+                    +button("submit", "Continue", "check")

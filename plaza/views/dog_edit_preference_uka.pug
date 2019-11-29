@@ -1,0 +1,55 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit"
+    - title = session.petName
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max40
+        +card(session.petName + " - Preferences for " + api.competition.name)
+            +form()
+                +fieldset("Preferred Jump Heights", "minor")
+                    if (api.dog.uka.heightCode < "UKA650")
+                        +hint.
+                            UKA allows dogs to jump higher than their measured height. For example,
+                            if your dog measures 'Standard', but you would rather compete at 'Maxi' then select this in the
+                            boxes below. You may choose different heights for Performance and Steeplechase classes.
+
+                        +select("ukaHeightCodePerformance", "dog.uka.heightCodePerformance", "Performance", ukaHeights, undefined, undefined, {notLessThan: api.dog.uka.heightCode})
+                        +select("ukaHeightCodeSteeplechase", "dog.uka.heightCodeSteeplechase", "Steeplechase", ukaHeights, undefined, undefined, {notLessThan: api.dog.uka.heightCode})
+                        hr
+                    +hint.
+                        Enter your preferred height for Nursery classes below. UKA
+                        rules allow you to enter any height but 'Maxi' (see the UKA rule book for more details).
+                    +select("ukaHeightCodeNursery", "dog.uka.heightCodeNursery", "Nursery Classes", ukaCasualHeights, {label: 30})
+                    if (api.dog.uka.heightCode > "UKA350")
+                        hr
+                        +hint.
+                            For Casual classes your dog jumps at the height below its measured height. Alternatively you
+                            can choose an even lower height, but your run will be treated as
+                            'Clear Round Only'. Select your chosen height for Casual classes below.
+                        +select("ukaHeightCodeCasual", "dog.uka.heightCodeCasual", "Casual Classes", ukaCasualHeights, {label: 30, lessThan: api.dog.uka.heightCode})
+                +fieldset("Classes to be highlighted", "minor")
+                    +hint.
+                        When you enter a show, your preferred classes will be highlighted
+                        to make it easier to pick out your choices. Here you can decide which classes get this
+                        treatment. So, for example, if your dog is semi-retired and only runs in 'Casual' then just
+                        tick the 'Casual' box and just casual classes will be highlighted.
+                    +checkbox("ukaPerformance", "dog.uka.performance", "Performance", {label: 30})
+                    +checkbox("ukaSteeplechase", "dog.uka.steeplechase", "Steeplechase", {label: 30})
+                    +checkbox("ukaCasual", "dog.uka.casual", "Casual", {label: 30})
+                    +checkbox("ukaNursery", "dog.uka.nursery", "Nursery", {label: 30})
+                    +checkbox("ukaJunior", "dog.uka.junior", "Junior", {label: 30})
+                    if api.user.access==0 || api.user.access==9
+                        +fieldset("Apply to all new shows", "minor")
+                            +hint.
+                                Tick the box below if you want these settings to be the default for all new shows entered.
+                            +checkbox("makeDefault", "makeDefault", "Default", {label: 30})
+
+                    +button("submit", "Save Changes", "check")
+
+

@@ -1,0 +1,93 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    - icon="thumbs-up"
+    if (beforeToday(api.competition.dateCloses))
+        - title = api.competition.name + " <small>(Closed)</small>"
+    else
+        - title = api.competition.name
+
+block content
+
+    .max40
+        - var superUser=api.user && (api.user.systemAdministrator || api.user.access==api.competition.idOrganization)
+
+        +card("Entry Confirmed", icon)
+            .alert.alert-danger Please Read Carefully
+            ul
+                li Your entry has been accepted with details as below.
+                li This #[strong replaces] any previous entries for #{api.competition.briefName} and is the entirety of your entry for the show.
+                if api.competition.hasManagedCamping && api.competition.camping
+                    if api.competition.camping.pending
+                        li.emphasize Your camping application is on hold - see below.
+                    else if api.competition.camping.confirmed
+                        li Your camping application has been #[strong confirmed].
+                    else
+                        li.red Your camping application cannot be confirmed at this time and you have been added to the #[strong waiting list]. Please check the schedule for more details.
+                        
+                li An email confirmation will be sent to #[strong #{api.user.email}].
+                
+            +button("link", "Continue to Payment", "check", {href: "/account?root=true"})
+            .mt-1
+            
+            if api.competition.entries
+                each date in api.competition.entries
+                    +cardSection("Entries - " + dateFormat(date.date, "ddd, dd mmm"), "calendar")
+                        each dog in date.dogs
+                            if dog.entries
+
+                                .card-heading= dog.petName + (dog.kcEntryOption ? " (" + dog.kcGrade + ", " + dog.kcEntryOption + ")" : "")
+                                .ml-1
+                                    each entry in dog.entries
+                                        - var extra=""
+                                        if entry.runsEntered > 1
+                                            - extra = " (" + entry.runsEntered + " runs)"
+                                        if (entry.heightText)
+                                            div #{entry.className} (#{entry.heightText})#{extra}
+                                        else
+                                            div #{entry.className}#{extra}
+                        if (date.teams)
+                            each team in date.teams
+                                .card-heading= "Team - " + team.name
+                                if (team.heightText)
+                                    .ml-1 #{team.members} (#{team.heightText})
+                                else
+                                    .ml-1 #{team.members}
+                        if (date.pairs)
+                            each pair in date.pairs
+                                .card-heading= "Split Pair"
+                                if (pair.heightText)
+                                    .ml-1 #{pair.members} (#{pair.heightText})
+                                else
+                                    .ml-1 #{pair.members}
+            if api.competition.nfc
+                +cardSection("Other", "paw")
+                    .ml-1 #[strong NFC: ] #{api.competition.nfc}
+
+            if api.competition.camping
+                - var camping = api.competition.camping
+                +cardSection("Camping", "bed")
+                    if camping.canNotCancel && !locked
+                        .alert.alert-danger.
+                            Camping fees are non-refundable.
+                    p=camping.description
+                    if camping.days
+                        each date in camping.days
+                            div.ml-1= dateFormat(date, "ddd, dd mmm")
+                    if camping.pending
+                        .emphasize.font90.
+                            In order for us to proceed with your camping application, you must pay the 
+                            #{toMoney(camping.deposit)} deposit in full. Your account balance is currently
+                            #{toMoney(camping.accountBalance)} so you need to top up your account by 
+                            at least #{toMoney(camping.paymentNeeded)}. We will process your camping application as
+                            soon at this is received.
+
+            if (api.competition.items != undefined)
+                +cardSection("Options", "shopping-basket")
+                    each item in api.competition.items
+                        div= item.description
+
+                
+            
+                

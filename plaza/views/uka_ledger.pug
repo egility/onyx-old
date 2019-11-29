@@ -1,0 +1,26 @@
+extends _page
+
+prepend navigation
+    - crumb="Balance"
+    - icon="gbp"
+    - title = "UKA Account"
+
+block content
+
+    .max40
+        +card(title)
+            table.table.table-sm.table-striped.font80
+                tr
+                    th Date
+                    th Member
+                    th Item
+                    th.text-xs-right Amount
+                    th.text-xs-right Balance
+                each item in api.items
+                    tr
+                        td #{dateFormat(item.date, "dd/mm/yy")}
+                        td=item.memberId
+                        td #{item.description}
+                        td.text-xs-right #{toMoney(item.amount)}
+                        td.text-xs-right #{toMoney(item.balance)}
+

@@ -1,0 +1,91 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Heights"
+    else
+        -crumb="Heights " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Enter - " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-cell").click(function () {
+                var index = $(this).data("index");
+                var checkbox = $("#ukOpenEntered" + index)
+                checkbox.prop("checked", !checkbox.prop("checked"));
+            });
+        });
+
+
+block content
+    .max40
+        +card(title, icon)
+            if !api.transaction
+                .card-statement Something seems to have gone wrong - please try again
+            else if !api.transaction.dogs
+                .card-statement You must register at least one dog before you can enter this show. Click on the 'My Household' menu option and then 'Add Dog'.
+            else
+                +form()
+                    +cardSection("Entries", "paw")
+                        +simpleHint.
+                            Entries #{toMoney(api.transaction.misc.entryFee)} per dog, please tick the box next to the dog's name to enter. If you wish to be
+                            considered for one of the UK national WAO sides, select the country in the WAO column.
+                        table.table.table-sm.mt-half
+                            tr
+                                th Dog
+                                th Enter
+                                th Height
+                                th Handler
+                                th WAO
+                            each dog in api.transaction.dogs
+                                - var index = api.transaction.dogs.indexOf(dog)
+                                - var bind = "transaction.dogs." + index
+                                tr
+                                    td.align-middle.clickable-cell(data-index=index)=dog.petName
+                                    td.align-middle.pl-half
+                                        +checkbox("ukOpenEntered" + index, bind + ".entered", "")
+                                    if false && dog.heightCodeLocked
+                                        td.width5
+                                            +select("ukOpenHeightCode", bind + ".heightCode", "", ukOpenHeights, {notLessThan: dog.heightCode})
+                                    else
+                                        td.width5
+                                            +select("ukOpenHeightCode", bind + ".heightCode", "", ukOpenHeights)
+                                    td
+                                        +input("text", "handler", bind + ".handler", "")
+                                    td.width5
+                                        +select("ukOpenNation", bind + ".nation", "", [{value: "England", description: "Eng"},{value: "Scotland", description: "Sct"},{value: "Wales", description: "Wal"},{value: "", description: ""}])
+                    +cardSection("Camping", "bed")
+                        div
+                            +radio("camping", 1, "campingOption", "Camping not required")
+                        div
+                            +radio("camping", 2, "campingOption", "Camping without electric hook-up (£50)")
+                        div
+                            +radio("camping", 3, "campingOption", "Camping with electric hook-up (£100)")
+                    if (api.options != undefined)
+                        +cardSection("Options", "shopping-basket")
+                            +simpleHint.
+                                Ring card postage is only available for UK addresses.
+                            table.table.table-xs
+                                tr
+                                    th Item
+                                    th.text-xs-center.width5 Selected
+                                    th.text-xs-right.width4 Fee
+                                each option in api.options
+                                    - var bind = "options." + api.options.indexOf(option) + ".confirmed"
+                                    tr
+                                        td.align-middle= option.description
+                                        td.text-xs-center
+                                            if option.readOnly
+                                                span!=option.confirmed ? "&#10004;" : "&#10005;"
+                                            else
+                                                +checkbox("option", bind, "")
+                                        if option.perDog
+                                            td.align-middle.text-xs-right #{toMoney(option.unitPrice)}/dog
+                                        else
+                                            td.align-middle.text-xs-right #{toMoney(option.unitPrice)}
+
+                    +button("submit", "Continue", "check")

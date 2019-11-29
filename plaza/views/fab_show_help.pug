@@ -1,0 +1,66 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="thumbs-o-up"
+    - title = api.competition.name
+
+append scripts
+    +bind_form()
+
+
+block content
+    .max40
+        +card("Offer to Help", icon)
+            if !api.competitors
+                .card-statement Something seems to have gone wrong
+            else
+                +form()
+                    each competitor in api.competitors
+                        - var index = api.competitors.indexOf(competitor)
+                        - var bind = "competitors." + index
+                        +cardSection(competitor.name, "user")
+                            +hint.
+                                Tick the appropriate #[strong e-gility skills] box if the named person has used the tablet system
+                                before. Select the times they would like to help. You
+                                can leave this section blank they will not be attending the
+                                show or are not available to help.
+
+                            table.table.table-sm.transparent
+                                tr.form-control-label.col-form-label
+                                    th
+                                    th.text-xs-center Ring Manage
+                                    th.text-xs-center Scrime
+                                    th.text-xs-center Check In
+                                tr
+                                    td.align-middle.form-control-label.col-form-label.width_quarter e-gility skills:
+
+                                    td.text-xs-center
+                                        +checkbox("ringManage" + index, bind + ".skills.ringManage", "")
+                                    td.text-xs-center
+                                        +checkbox("scrime" + index, bind + ".skills.scrime", "")
+                                    td.text-xs-center
+                                        +checkbox("check" + index, bind + ".skills.check", "")
+
+                            hr
+                            .form-control-label.col-form-label Would like to help:
+                            table.table.table-sm
+                                tr
+                                    th Day
+                                    th.text-xs-center AM
+                                    th.text-xs-center PM
+                                each day in competitor.helpDays
+                                    - var dayIndex = competitor.helpDays.indexOf(day)
+                                    - var dayBind = bind + ".helpDays." + dayIndex
+                                    tr
+                                        td.align-middle=dateFormat(day.date, "ddd")
+                                        td
+                                            +checkbox("am", dayBind + ".am", "")
+                                        td
+                                            +checkbox("pm", dayBind + ".pm", "")
+
+
+                    +button("submit", "Continue", "check")

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout android:id="@+id/loFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/loDistanceTime"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/loNavigation"
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_above="@+id/loButtonGrid"
+            android:id="@+id/loTop"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Enter Score"
+                android:id="@+id/tvHint"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                style="@style/Text30"
+                />
+        </RelativeLayout>
+
+        <GridLayout
+            android:id="@+id/loButtonGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:useDefaultMargins="true"
+            >
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btOne"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="0"
+                android:layout_row="0"
+                android:text="1"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btTwo"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:text="2"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btThree"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="2"
+                android:layout_row="0"
+                android:text="3"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btFour"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="3"
+                android:layout_row="0"
+                android:text="4"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btFive"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="4"
+                android:layout_row="0"
+                android:text="5"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btSix"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="0"
+                android:layout_row="1"
+                android:text="6"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btSeven"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="1"
+                android:layout_row="1"
+                android:text="7"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btEight"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="2"
+                android:layout_row="1"
+                android:text="8"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btNine"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="3"
+                android:layout_row="1"
+                android:text="9"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btTen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="4"
+                android:layout_row="1"
+                android:text="10"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btEleven"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="0"
+                android:layout_row="2"
+                android:text="11"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btTwelve"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="1"
+                android:layout_row="2"
+                android:text="12"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btThirteen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="2"
+                android:layout_row="2"
+                android:text="13"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btFourteen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="3"
+                android:layout_row="2"
+                android:text="14"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btFifteen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="4"
+                android:layout_row="2"
+                android:text="15"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btSixteen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="0"
+                android:layout_row="3"
+                android:text="16"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btSeventeen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="1"
+                android:layout_row="3"
+                android:text="17"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btEighteen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="2"
+                android:layout_row="3"
+                android:text="18"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btNineteen"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="3"
+                android:layout_row="3"
+                android:text="19"
+                />
+
+            <LinearLayout
+                android:layout_column="4"
+                android:layout_row="3"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btTwenty"
+                    style="@style/CalculatorButtonLargeGames"
+                    android:text="20"
+                    />
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btBonus"
+                    style="@style/CalculatorButtonMediumGames"
+                    android:text="Bonus"
+                    android:visibility="gone"
+                    />
+            </LinearLayout>
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btScoreDelete"
+                style="@style/CalculatorButtonSmallGames"
+                android:layout_column="0"
+                android:layout_row="4"
+                android:text="Del"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btElimination"
+                style="@style/CalculatorButtonLargeGames"
+                android:layout_column="1"
+                android:layout_row="4"
+                android:text="E"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btGamble0"
+                style="@style/CalculatorButtonMediumGames"
+                android:layout_column="2"
+                android:layout_row="4"
+                android:text="No"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btGamble1"
+                style="@style/CalculatorButtonMediumGames"
+                android:layout_column="3"
+                android:layout_row="4"
+                android:text="G10"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btGamble2"
+                style="@style/CalculatorButtonMediumGames"
+                android:layout_column="4"
+                android:layout_row="4"
+                android:text="G15"
+                />
+
+            <org.egility.android.views.QuickButton
+                    android:id="@+id/btScoreClose"
+                    style="@style/CalculatorButtonSmallGames"
+                    android:layout_column="4"
+                    android:layout_row="4"
+                    android:text="Close"
+            />
+
+
+        </GridLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btCancel"
+            style="@style/ButtonNavigation"
+            android:text="Cancel"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btNFC"
+            style="@style/ButtonNavigation"
+            android:text="@string/score_nfc"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btEnterTime"
+            style="@style/ButtonNavigation"
+            android:text="@string/score_time"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btOK"
+            style="@style/ButtonNavigation"
+            android:text="OK"
+            />
+    </LinearLayout>
+</RelativeLayout>

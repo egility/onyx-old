@@ -1,0 +1,64 @@
+
+
+
+.page-title!= title
+
+
+if (loggedIn)
+    hr
+    +button("link", "Live & Imminent Shows", "bolt", {href: "/live?root=true", panel: true})
+    +button("link", "My Household", "home", {href: "/household?root=true", panel: true})
+    +button("link", "My Account", "calculator", {href: "/account?root=true", panel: true})
+    +button("link", "My Emails (from Plaza)", "envelope", {href: "/emails?root=true", panel: true})
+    +button("link", "Shows I have entered", "thumbs-up", {href: "/competition/entries?root=true", panel: true})
+    +button("link", "Enter a show", "ticket-alt", {href: "/competition/open?root=true", panel: true})
+    if isNotMe
+        +button("link", "Add paper entry", "ticket-alt", {href: "/competition/open_paper?root=true", panel: true})
+
+    +button("link", "Results", "trophy", {href: "/results?root=true", panel: true})
+    +button("link", "Show diary", "calendar", {href: "/competition/active?root=true", panel: true})
+
+if api.user && api.user.competitionList
+    +button("link", "My shows", "clipboard", {href: "/competition/switchboards?root=true", panel: true})
+else if administrator
+    +button("link", "My shows", "clipboard", {href: "/competition/switchboards?root=true", panel: true})
+
+if (administrator )
+    +button("link", "Find Household", "search", {href: "/search?root=true", panel: true})
+    +button("link", "Manage System", "cogs", {href: "/system_switchboard?root=true", panel: true})
+    
+if session && session.systemAdministrator
+    +button("link", "Magazine", "newspaper", {href: "/magazine/", panel: true})
+
+//+button("link", "Training Clubs", "graduation-cap", {href: "/training/active?root=true", panel: true})
+
+if isSpoofed && api.user
+    div.spoofed.mb-half=api.user.fullName
+
+
+if (loggedIn || !home)
+    hr
+    .w-100 &nbsp;
+
+        if (!home)
+            +button("link", "Home", "home", {link: true, href: "/", inverted: true})
+        if isSpoofed
+            +button("link", "Revert", "sign-out", {link: true, href: "/revert?root=true", right: true, inverted: true})
+        else if loggedIn
+            +button("link", "Logout", "sign-out", {link: true, href: "/logout?root=true", right: true, inverted: true})
+        else if (!home)
+            +button("link", "Login", "sign-in", {link: true, href: "/", right: true, inverted: true})
+hr
+.list.font90
+    .list-item
+        +link("Terms & Conditions", "/terms?root=true", {inverted: true})
+    .list-item
+        +link("Privacy Policy", "/privacy?root=true", {inverted: true})
+    .list-item
+        +link("About Us", "/about?root=true", {inverted: true})
+    .list-item
+        +link("Contact", "/contact?root=true", {inverted: true})
+    if (loggedIn)
+        .list-item
+            +link("FAQs", "/faq?root=true", {inverted: true})
+

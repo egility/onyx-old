@@ -1,0 +1,112 @@
+extends _page
+
+prepend navigation
+    - crumb="Camping"
+    - icon="bed"
+    - title = api.competition.briefName + " - Camping Permit Application"
+
+append scripts
+
+    +bind_form()
+
+    script.
+        var second = 1000;
+        var openingTime = new Date().getTime() + apiData.competition.campingSecondsToGo * 1000;
+        var camping_state = $("#camping_state")
+        var apply_button = $("#apply_button")
+
+        function displayCountDown(timeLeft) {
+            var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+            if (days + hours + minutes + seconds > 0) {
+                camping_state.text("Opens in " +
+                    (days > 0 ? days + " days, " : "") +
+                    (days > 0 || hours > 0 ? hours + " hours, " : "") +
+                    (days > 0 || hours > 0 || minutes > 0 ? minutes + " minutes and " : "") +
+                    seconds + " seconds");
+            } else {
+                camping_state.text("Camping Open")
+                apply_button.prop("disabled", false)
+                apply_button.html("<i class='fa fa-check')></i> Apply for a camping permit")
+            }
+        }
+
+        function waitABit() {
+            var timeLeft = openingTime - new Date().getTime();
+            displayCountDown(timeLeft);
+            if (timeLeft > 0) {
+                timeLeft = openingTime - new Date().getTime();
+                var mSecs = second - (timeLeft % second);
+                setTimeout(function () {
+                    waitABit();
+                }, mSecs);
+            }
+        }
+
+        $(document).ready(function ($) {
+            $("#apply_button").click(function () {
+                apply_button.prop("disabled", true)
+                apply_button.html("<i class='fa fa-hourglass-half')></i> Please wait - sending request")
+                $("#main").submit()
+            });
+        });
+
+        waitABit()
+
+block content
+
+    
+
+    .max30
+        +card(title, "bed")
+            .alert.alert-info#camping_state &nbsp;
+            hr
+
+            +form()
+                .text-xs-center.mt-2.mb-2
+                    +button("submit", "Do not press yet", "times", {id: "apply_button", disabled: true})
+            hr
+            div.
+                To apply for a camping permit for #[strong #{api.competition.briefName}] just press the button above as soon as it
+                turns green. The countdown timer at the top will show you how long you have to wait. There is no need
+                to refresh this page, the button will #[strong automatically] go green at the correct time.
+            hr
+
+            .font90
+                strong Other things you should know:
+
+                ul.font90
+
+                    li.
+                        Camping will be allocated on a strict #[strong first come, first served] basis. This will be determined by
+                        the order in which requests are processed by our website.
+                    li.
+                        The first 200 successful applications will be allocated a provisional #[strong camping permit], this
+                        will be confirmed once the #[strong £30 fee] has been paid. The fee will be deducted from your Agility
+                        Plaza account as soon as sufficient funds are available.
+                    li.
+                        You will have #[strong 48 hours] to pay for your permit and if unpaid after this time it will be re-allocated.
+                    li.
+                        If you would like your camping permit confirmed straight away, you can pre-load your account with
+                        the £30 fee. If you do not get allocated a camping permit, the money can then be used for show
+                        entries or be refunded (subject to our usual conditions).
+                    li.
+                        Fees for camping permits are #[strong strictly non-refundable] except if the show is cancelled in which event
+                        refunds will be available as detailed in the schedule.
+                    li.
+                        Instructions about how to use your camping permit will be emailed to you when confirmed.
+                    li.
+                        If you are unable to use your camping permit, you may give (or sell) your permit to another
+                        competitor.
+                    li.
+                        We reserve the right to alter the allocation process (with or without notice) if technical
+                        considerations make any of the above impractical.
+                    li.
+                        We also reserve the right to refuse camping
+                        to anyone found to be using programming tools or technical methods to try to gain an unfair
+                        advantage.
+
+

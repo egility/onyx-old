@@ -1,0 +1,105 @@
+extends _page
+
+prepend navigation
+    - crumb="My Dogs"
+    - title = "My Dogs"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max35
+        +card("My Dogs", "paw")
+            if (!api.dogs)
+                .card-statement.mb-2 You haven't registered any dogs yet
+            else
+                -var hasActive=false
+                -var hasMore=false
+                +simpleHint.
+                    Click on dog to view or update full details
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Code
+                            th Pet Name
+                            th Registered Name
+                            th KC
+                            th UKA
+
+                    for dog in api.dogs
+                        if dog.retired || dog.gone
+                            - hasMore = true
+                        else
+                            - hasActive = true
+                            tbody
+                                tr.clickable-row(data-href='/dog/select/' + dog.idDog + '?destination=review')
+                                    td=dog.code
+                                    td=dog.petName
+                                    td=dog.registeredName
+                                    td!=dog.kcRegistered ? "&#10004;" : "&#10005;"
+                                    td!=dog.ukaState == 200 ? "&#10004;" : (dog.ukaState > 0 ? "?" : "&#10005;" )
+                    if (!hasActive)
+                        tbody
+                            tr
+                                td(colspan=99) No active dogs
+                if (hasMore)
+                    hr
+                    div
+                        - var first=true
+                        - var doneRetired = false
+                        - var doneGone = false
+
+                        for dog in api.dogs
+                            if (dog.retired)
+                                if !doneRetired
+                                    - doneRetired = true
+                                    - first=true
+                                    span.font80 #[strong Retired:] &nbsp;
+
+                                - var href = '/dog/select/' + dog.idDog + '?destination=review'
+                                if (first)
+                                    +link(dog.petName, href)
+                                    - first=false
+                                else
+                                    span= ", "
+                                    +link(dog.petName, href)
+                            if (dog.gone)
+                                if !doneGone
+                                    if !first
+                                        span &nbsp;&nbsp;
+                                    - doneGone = true
+                                    - first=true
+                                    span.font80 #[strong Not Forgotten:] &nbsp;
+
+                                - var href = '/dog/select/' + dog.idDog + '?destination=review'
+                                if (first)
+                                    +link(dog.petName, href)
+                                    - first=false
+                                else
+                                    span= ", "
+                                    +link(dog.petName, href)
+                if (hasGone)
+                    hr
+                    div
+                        - var first=true
+                        span #[strong Not forgotten:] &nbsp;
+                        for dog in api.dogs
+                            if (dog.gone)
+                                - var href = '/dog/select/' + dog.idDog + '?destination=review'
+                                if (first)
+                                    +link(dog.petName, href)
+                                    - first=false
+                                else
+                                    span= ", "
+                                    +link(dog.petName, href)
+
+            hr
+            +button("link", "Add a Dog", "plus", {href: "/dog/add", small: true})

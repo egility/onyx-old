@@ -1,0 +1,835 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Course Details"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loContent"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+        <TextView
+            android:id="@+id/tvClass"
+            style="@style/Text30"
+            android:text="{class}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loSimple"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loCourseTimeSimple"
+                >
+
+                <TextView
+                    android:id="@+id/tvDistanceSimple"
+                    style="@style/Text24"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Distance (m)"
+                    />
+
+                <EditText
+                    android:id="@+id/edDistanceSimple"
+                    style="@style/Text24"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="150"
+                    android:layout_width="80dp"
+                    android:layout_marginEnd="20dp"
+                    />
+
+                <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvCourseTimeSimple"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Course Time"
+                    />
+
+                <EditText
+                    style="@style/Text24"
+                    android:id="@+id/edCourseTimeSimple"
+                    android:layout_height="wrap_content"
+                    android:inputType="none"
+                    android:text="48"
+                    android:layout_width="80dp"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loBatonFaults"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:id="@+id/tvBatonFaults"
+                style="@style/Text24"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="Baton Faults"
+                />
+
+            <EditText
+                android:id="@+id/edBatonFaults"
+                style="@style/Text24"
+                android:layout_height="wrap_content"
+                android:inputType="none"
+                android:text="150"
+                android:layout_width="80dp"
+                android:layout_marginEnd="20dp"
+                />
+        </LinearLayout>
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:id="@+id/loRegular"
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loDistance"
+                >
+
+                <TextView
+                    android:id="@+id/tvDistance"
+                    style="@style/Text24"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Distance (m)"
+                    />
+
+                <EditText
+                    android:id="@+id/edDistance"
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="none"
+                    />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvHint"
+                style="@style/Text20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="{hint}"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loLarge"
+                >
+
+                <TextView
+                    android:id="@+id/tvLarge"
+                    style="@style/Text24"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Maxi/Std"
+                    />
+
+                <EditText
+                    android:id="@+id/edLarge"
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="none"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:id="@+id/loSmall"
+                >
+
+                <TextView
+                    android:id="@+id/tvSmall"
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Midi/Toy"
+                    android:layout_marginRight="10dp"
+                    />
+
+                <EditText
+                    android:id="@+id/edSmall"
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="4"
+                    android:inputType="none"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loObstacles"
+                android:layout_columnSpan="2"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvObstacles"
+                    android:layout_width="130dp"
+                    android:layout_height="wrap_content"
+                    android:text="Obstacles"
+                    android:layout_gravity="center_vertical"
+                    />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/rgObstacles"
+                    android:longClickable="false"
+                    android:layout_marginLeft="15dp"
+                    >
+
+                    <RadioButton
+                        style="@style/RadioButton"
+                        android:text="17"
+                        android:id="@+id/rb17"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="0dp"
+                        android:layout_marginEnd="20dp"
+                        />
+
+                    <RadioButton
+                        style="@style/RadioButton"
+                        android:text="18"
+                        android:id="@+id/rb18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="0dp"
+                        android:layout_marginEnd="20dp"
+                        />
+
+                    <RadioButton
+                        style="@style/RadioButton"
+                        android:text="19"
+                        android:id="@+id/rb19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="0dp"
+                        android:layout_marginEnd="20dp"
+                        />
+
+                    <RadioButton
+                        style="@style/RadioButton"
+                        android:text="20"
+                        android:id="@+id/rb20"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="0dp"
+                        android:layout_marginEnd="20dp"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+        </GridLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loGamblers"
+            android:visibility="visible"
+            android:orientation="vertical"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvOpeningTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Opening Time:"
+                    android:layout_marginEnd="20dp"
+                    />
+
+                <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/rgOpeningTime"
+                    android:longClickable="false"
+                    >
+
+                    <RadioButton
+                        android:text="25"
+                        android:id="@+id/rb25"
+                        android:layout_marginEnd="20dp"
+                        style="@style/RadioButtonNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <RadioButton
+                        android:text="30"
+                        android:id="@+id/rb30"
+                        android:layout_marginEnd="20dp"
+                        style="@style/RadioButtonNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <RadioButton
+                        android:text="35"
+                        android:id="@+id/rb35"
+                        android:layout_marginEnd="20dp"
+                        style="@style/RadioButtonNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+
+                    <RadioButton
+                        android:text="40"
+                        android:id="@+id/rb40"
+                        style="@style/RadioButtonNormal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                >
+
+                <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvGambleTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Gamble Time:"
+                    />
+
+                <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvGambleTimeLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Maxi/Std"
+                    android:layout_marginStart="20dp"
+                    />
+
+                <EditText
+                    style="@style/Text24"
+                    android:id="@+id/edGambleTimeLarge"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:layout_marginStart="10dp"
+                    android:inputType="none"
+                    />
+
+                <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvGambleTimeSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Midi/Toy"
+                    android:layout_marginStart="20dp"
+                    />
+
+                <EditText
+                    style="@style/Text24"
+                    android:id="@+id/edGambleTimeSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ems="2"
+                    android:layout_marginStart="10dp"
+                    android:inputType="none"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:id="@+id/loGamblersObstacles"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/yes_border"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                >
+
+                <GridLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:useDefaultMargins="true"
+                        android:columnCount="7"
+                        android:layout_gravity="center"
+                        android:id="@+id/loGamblePoints">
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Points"
+                            android:layout_marginRight="20dp"
+                    />
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="7"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvGamblers7"/>
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="5"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvGamblers5"/>
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="4"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvGamblers4"/>
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="3"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvGamblers3"/>
+                    />
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvGamblers2"/>
+                    />
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="1"
+                            android:layout_gravity="center"
+                            android:id="@+id/tvGamblers1"/>
+                    />
+
+                    <TextView
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Obstacles"
+                            android:layout_marginRight="20dp"
+                    />
+
+                    <EditText
+                            android:id="@+id/edGamblers7"
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="2"
+                            android:inputType="none"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="0"
+                    />
+
+                    <EditText
+                            android:id="@+id/edGamblers5"
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="2"
+                            android:inputType="none"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="0"
+                    />
+
+                    <EditText
+                            android:id="@+id/edGamblers4"
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="2"
+                            android:inputType="none"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="0"
+                    />
+
+                    <EditText
+                            android:id="@+id/edGamblers3"
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="2"
+                            android:inputType="none"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="0"
+                    />
+
+                    <EditText
+                            android:id="@+id/edGamblers2"
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="2"
+                            android:inputType="none"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="0"
+                    />
+
+                    <EditText
+                            android:id="@+id/edGamblers1"
+                            style="@style/Text24"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:ems="2"
+                            android:inputType="none"
+                            android:gravity="center_vertical|center_horizontal"
+                            android:text="0"
+                    />
+                </GridLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvGamblersCrib"
+                    android:text="#1,#2: Dogwalk, 12 Pole Weave; #3: A-Frame; #4,#5: See-Saw, 6 Pole Weave; #6-#11: Tunnels, Tyre, Spread, Long, Wall; #12+: Jumps"
+                    style="@style/Text20"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loLevel"
+            android:visibility="visible"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select one of the standard rates of travel (m/s) below or type in your own times:"
+                android:id="@+id/tvLevel"
+                style="@style/Text24"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lolevelContainer"
+                android:layout_below="@+id/tvLevel"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                >
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text20"
+                        android:id="@+id/tvLevel1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.500"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        android:text="Min"
+                        android:id="@+id/btLevel1"
+                        style="@style/ButtonStandard"
+                        android:layout_margin="0dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    >
+
+                    <TextView
+                        style="@style/Text20"
+                        android:id="@+id/tvLevel2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.500"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        android:text="Min"
+                        android:id="@+id/btLevel2"
+                        style="@style/ButtonStandard"
+                        android:layout_margin="0dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    >
+
+                    <TextView
+                        style="@style/Text20"
+                        android:id="@+id/tvLevel3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.500"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        android:text="Min"
+                        android:id="@+id/btLevel3"
+                        style="@style/ButtonStandard"
+                        android:layout_margin="0dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    >
+
+                    <TextView
+                        style="@style/Text20"
+                        android:id="@+id/tvLevel4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.500"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        android:text="Min"
+                        android:id="@+id/btLevel4"
+                        style="@style/ButtonStandard"
+                        android:layout_margin="0dp"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    >
+
+                    <TextView
+                        style="@style/Text20"
+                        android:id="@+id/tvLevel5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2.500"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                    <org.egility.android.views.QuickButton
+                        android:text="Min"
+                        android:id="@+id/btLevel5"
+                        style="@style/ButtonStandard"
+                        android:layout_margin="0dp"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:keepScreenOn="false"
+        android:layout_gravity="center"
+        android:id="@+id/loKeyboardGrid"
+        android:paddingTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginBottom="10dp"
+        android:columnCount="4"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/NumbericKeyboardButtonText"
+            android:id="@+id/btClear"
+            android:text="Clear"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt7"
+            style="@style/NumbericKeyboardButton"
+            android:text="7"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt8"
+            style="@style/NumbericKeyboardButton"
+            android:text="8"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt9"
+            style="@style/NumbericKeyboardButton"
+            android:text="9"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/NumbericKeyboardButtonText"
+            android:id="@+id/btDel"
+            android:text="Del"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt4"
+            style="@style/NumbericKeyboardButton"
+            android:text="4"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt5"
+            style="@style/NumbericKeyboardButton"
+            android:text="5"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt6"
+            style="@style/NumbericKeyboardButton"
+            android:text="6"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt0"
+            style="@style/NumbericKeyboardButton"
+            android:text="0"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt1"
+            style="@style/NumbericKeyboardButton"
+            android:text="1"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt2"
+            style="@style/NumbericKeyboardButton"
+            android:text="2"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt3"
+            style="@style/NumbericKeyboardButton"
+            android:text="3"
+            />
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btPrevious"
+            style="@style/ButtonNavigation"
+            android:text="Previous Class"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btNext"
+            style="@style/ButtonNavigation"
+            android:text="Next Class"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btDone"
+            style="@style/ButtonNavigation"
+            android:text="Done"
+            />
+    </LinearLayout>
+</RelativeLayout>

@@ -1,0 +1,48 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "shield"
+    -title = api.competition.name + " <small>(" + dateRange(api.competition.dateStart, api.competition.dateEnd) + ")</small>"
+
+block content
+
+    - var competition=api.competition
+
+    .max45
+        +card(title)
+            +cardSection("Details")
+                table.table.table-sm.mb-1
+                    tr
+                        td Venue
+                        td= competition.venue
+                    tr
+                        td Address
+                        td= competition.venueAddress
+                    tr
+                        td Entries
+                        td= competition.entryInfo
+                    tr
+                        td Class Fees
+                        td= competition.entryFeeText
+                    tr
+                        td Camping
+                        td= competition.campingText
+
+                +button("externallink", "Map", "map-marker", {small: true, href: competition.mapUrl})
+                    if competition.documents
+                        each document in competition.documents
+                            -var url = apiRoot + "/competition/" + competition.idCompetition + "/document/" + document + "/" + competition.uniqueName + "_" + document + ".pdf"
+                            +button("externallink", document, "file-pdf-o", {small: true, href: url})
+                if competition.documents
+                    each document in competition.documents
+                        if document!="Paper Entries"
+                            -var url = apiRoot + "/competition/" + competition.idCompetition + "/document/" + document + "/" + competition.uniqueName + "_" + document + ".pdf"
+                            +button("externallink", document, "file-pdf-o", {small: true, href: url})
+
+            if competition.days
+                +cardSection("Classes Offered")
+                    each day in competition.days
+                        p.font-bold.font80=dateFormat(day.date, 'ddd')
+                            each className in day.classes
+                                p.font80.ml-1=className

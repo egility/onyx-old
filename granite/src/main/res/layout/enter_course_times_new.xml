@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Course Details"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loContent"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_above="@+id/loNavigation"
+        >
+
+        <TextView
+            android:id="@+id/tvClass"
+            style="@style/Text30"
+            android:text="{class}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loRegular"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tvDistance"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Distance (m)"
+                android:layout_alignBaseline="@+id/edDistance"
+                />
+
+            <EditText
+                android:id="@+id/edDistance"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:layout_marginStart="160dp"
+                />
+
+            <TextView
+                android:id="@+id/tvHint"
+                style="@style/Text20"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/edDistance"
+                android:layout_marginStart="20dp"
+                android:text="{hint}"
+                android:layout_alignBaseline="@+id/edDistance"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:id="@+id/tvOpening"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maxi/Std"
+                android:layout_alignLeft="@+id/tvDistance"
+                android:layout_below="@+id/tvDistance"
+                android:layout_alignBaseline="@+id/edLarge"
+                />
+
+            <TextView
+                android:id="@+id/tvLarge"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maxi/Std"
+                android:layout_alignLeft="@+id/tvDistance"
+                android:layout_below="@+id/tvDistance"
+                android:layout_alignBaseline="@+id/edLarge"
+                />
+
+            <EditText
+                android:id="@+id/edLarge"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:layout_alignParentTop="false"
+                android:layout_toEndOf="@+id/tvLarge"
+                android:layout_alignLeft="@+id/edDistance"
+                android:layout_below="@+id/edDistance"
+                />
+
+            <TextView
+                android:id="@+id/tvSmall"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Midi/Toy"
+                android:layout_toRightOf="@+id/edLarge"
+                android:layout_marginStart="20dp"
+                android:layout_alignBaseline="@+id/edLarge"
+                />
+
+            <EditText
+                android:id="@+id/edSmall"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:layout_toRightOf="@+id/tvSmall"
+                android:layout_marginStart="10dp"
+                android:layout_alignBaseline="@+id/edLarge"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loGamblers"
+            android:layout_marginTop="10dp"
+            android:visibility="gone"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:id="@+id/tvOpeningTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Opening Time"
+                />
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" android:id="@+id/rgOpeningTime" android:longClickable="false"
+                android:layout_alignParentTop="true" android:layout_toEndOf="@+id/tvOpeningTime"
+                android:layout_marginLeft="15dp">
+
+                <RadioButton
+                    android:text="25"
+                    android:id="@+id/rb25"
+                    android:layout_marginEnd="20dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:text="30"
+                    android:id="@+id/rb30"
+                    android:layout_marginEnd="20dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:text="35"
+                    android:id="@+id/rb35"
+                    android:layout_marginEnd="20dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:text="40"
+                    android:id="@+id/rb40"
+                    android:layout_marginEnd="20dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <RadioButton
+                    android:text="45"
+                    android:id="@+id/rb45"
+                    android:layout_marginEnd="10dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:visibility="gone"/>
+
+                <RadioButton
+                    android:text="50"
+                    android:id="@+id/rb50"
+                    android:layout_marginEnd="10dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:visibility="gone"/>
+
+                <RadioButton
+                    android:text="55"
+                    android:id="@+id/rb55"
+                    android:layout_marginEnd="10dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:visibility="gone"/>
+
+                <RadioButton
+                    android:text="60"
+                    android:id="@+id/rb60"
+                    android:layout_marginEnd="10dp"
+                    style="@style/RadioButtonNormal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:visibility="gone"/>
+
+
+            </RadioGroup>
+
+            <TextView
+                style="@style/Text24"
+                android:id="@+id/tvGambleTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gamble Time:"
+                android:layout_below="@+id/rgOpeningTime"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:id="@+id/tvGambleTimeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Maxi/Std"
+                android:layout_below="@+id/tvGambleTime"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="20dp"
+                android:layout_alignBaseline="@+id/edGambleTimeLarge"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:id="@+id/edGambleTimeLarge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:layout_toRightOf="@+id/tvGambleTimeLarge"
+                android:layout_marginStart="10dp"
+                android:layout_below="@+id/tvGambleTime"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:id="@+id/tvGambleTimeSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Midi/Toy"
+                android:layout_toRightOf="@+id/edGambleTimeLarge"
+                android:layout_marginStart="20dp"
+                android:layout_alignBaseline="@+id/edGambleTimeLarge"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:id="@+id/edGambleTimeSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="4"
+                android:layout_toRightOf="@+id/tvGambleTimeSmall"
+                android:layout_alignBaseline="@+id/edGambleTimeLarge"
+                android:layout_marginStart="10dp"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loLevel"
+            android:visibility="visible"
+            android:layout_marginTop="30dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="How would you describe your course relative to grade &amp; conditions:"
+                android:id="@+id/tvLevel"
+                style="@style/Text20"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/lolevelContainer"
+                android:layout_below="@+id/tvLevel"
+                android:layout_centerHorizontal="true"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:text="Very Easy"
+                    android:id="@+id/btLevel1"
+                    style="@style/ButtonSmallText"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:text="Easy"
+                    android:id="@+id/btLevel2"
+                    style="@style/ButtonSmallText"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:text="Average"
+                    android:id="@+id/btLevel3"
+                    style="@style/ButtonSmallText"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:text="Hard"
+                    android:id="@+id/btLevel4"
+                    style="@style/ButtonSmallText"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:text="Very Hard"
+                    android:id="@+id/btLevel5"
+                    style="@style/ButtonSmallText"
+                    />
+            </LinearLayout>
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/progressBar2"
+                android:max="10"
+                android:progress="5"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:keepScreenOn="false"
+        android:layout_gravity="center"
+        android:id="@+id/loKeyboardGrid"
+        android:paddingTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginBottom="10dp"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt1"
+            style="@style/NumbericKeyboardButton"
+            android:text="1"
+            android:layout_row="2"
+            android:layout_column="1"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt2"
+            style="@style/NumbericKeyboardButton"
+            android:text="2"
+            android:layout_row="2"
+            android:layout_column="2"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt3"
+            style="@style/NumbericKeyboardButton"
+            android:text="3"
+            android:layout_row="2"
+            android:layout_column="3"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt4"
+            style="@style/NumbericKeyboardButton"
+            android:text="4"
+            android:layout_row="1"
+            android:layout_column="1"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt5"
+            style="@style/NumbericKeyboardButton"
+            android:text="5"
+            android:layout_row="1"
+            android:layout_column="2"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt6"
+            style="@style/NumbericKeyboardButton"
+            android:text="6"
+            android:layout_row="1"
+            android:layout_column="3"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt7"
+            style="@style/NumbericKeyboardButton"
+            android:text="7"
+            android:layout_row="0"
+            android:layout_column="1"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt8"
+            style="@style/NumbericKeyboardButton"
+            android:text="8"
+            android:layout_row="0"
+            android:layout_column="2"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt9"
+            style="@style/NumbericKeyboardButton"
+            android:text="9"
+            android:layout_row="0"
+            android:layout_column="3"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/bt0"
+            style="@style/NumbericKeyboardButton"
+            android:text="0"
+            android:layout_row="2"
+            android:layout_column="0"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/NumbericKeyboardButtonText"
+            android:id="@+id/btClear"
+            android:text="Clear"
+            android:layout_row="0"
+            android:layout_column="0"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/NumbericKeyboardButtonText"
+            android:id="@+id/btDel"
+            android:text="Del"
+            android:layout_row="1"
+            android:layout_column="0"
+            />
+    </GridLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btPrevious"
+            style="@style/ButtonNavigation"
+            android:text="Previous Class"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btNext"
+            style="@style/ButtonNavigation"
+            android:text="Next Class"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btDone"
+            style="@style/ButtonNavigation"
+            android:text="Done"
+            />
+    </LinearLayout>
+</RelativeLayout>

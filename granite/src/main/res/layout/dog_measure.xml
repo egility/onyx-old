@@ -1,0 +1,263 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+        android:id="@+id/loPage"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
+
+    <TextView
+            style="@style/TextPageHeader"
+            android:id="@+id/tvPageHeader"
+            android:text="Ring 4 - Champion Agility (Large)"
+    />
+
+    <LinearLayout
+            android:id="@+id/loTopText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:layout_below="@+id/tvPageHeader"
+            android:layout_alignParentEnd="true"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+    >
+
+        <TextView
+                android:id="@+id/tvCompetitor"
+                style="@style/Text40"
+                android:text="Mike Brickman"
+                android:layout_marginTop="10dp"
+        />
+
+        <TextView
+                android:id="@+id/tvDog"
+                style="@style/Text30"
+                android:text="Bingley"
+                android:layout_marginBottom="10dp"
+        />
+
+        <View style="@style/LineLight"/>
+
+        <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:columnCount="3"
+                android:id="@+id/loData"
+        >
+            <TextView
+                    android:text="Previous: "
+                    android:id="@+id/tvPreviousLabel"
+                    style="@style/Text24" android:layout_marginStart="10dp"
+                    android:gravity="center_vertical" 
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"/>
+            <TextView
+                    android:text="[previous measurements]"
+                    android:id="@+id/tvPrevious"
+                    style="@style/Text24" android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_columnSpan="2" android:layout_marginTop="10dp"/>
+
+            <TextView
+                    android:text="Date of Birth: "
+                    android:id="@+id/tvDateOfBirthLabel"
+                    style="@style/Text24" android:layout_marginStart="10dp"
+                    android:layout_marginBottom="20dp"
+                    android:gravity="center_vertical"/>
+            <EditText
+                    android:id="@+id/edDateOfBirth"
+                    style="@style/Text24"
+                    android:ems="5"
+                    android:inputType="date"
+                    android:focusable="true"/>
+            <TextView
+                    android:text="(dd/mm/yy)"
+                    android:id="@+id/tvDateOfBirthHint"
+                    style="@style/Text24" android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"/>
+            <TextView
+                    android:text="Measurement: "
+                    android:layout_marginBottom="20dp"
+                    android:id="@+id/tvMeasurement"
+                    style="@style/Text24" android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"/>
+            <EditText
+                    android:id="@+id/edMeasurement"
+                    style="@style/Text24"
+                    android:ems="5"
+                    android:inputType="number"
+                    android:focusable="true"/>
+            <TextView
+                    android:text="[height]"
+                    android:id="@+id/tvHeightText"
+                    style="@style/Text24" android:layout_marginStart="10dp"
+                    android:gravity="center_vertical"/>
+            <TextView
+                    android:text="Disputed: "
+                    android:id="@+id/tvDisputedLabel"
+                    style="@style/Text24" 
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"/>
+            <CheckBox
+                    android:id="@+id/xbDisputed"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    style="@style/CheckBox24"
+                    />
+            <TextView
+                    android:text="DISPUTED"
+                    android:id="@+id/tvDisputed"
+                    style="@style/Text24" 
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center_vertical"/>
+        </GridLayout>
+        >
+    </LinearLayout>
+
+    <GridLayout
+            android:id="@+id/loButtonGrid"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:useDefaultMargins="true"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentTop="false" android:layout_above="@+id/loNavigation"
+            android:layout_centerVertical="false">
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btDelAll"
+                style="@style/PinButtonSmall"
+                android:layout_column="0"
+                android:layout_marginLeft="0dp"
+                android:layout_row="0"
+                android:text="Clear"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btSeven"
+                style="@style/PinButtonStandard"
+                android:layout_column="1"
+                android:layout_row="0"
+                android:text="7"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btEight"
+                style="@style/PinButtonStandard"
+                android:layout_column="2"
+                android:layout_row="0"
+                android:text="8"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btNine"
+                style="@style/PinButtonStandard"
+                android:layout_column="3"
+                android:layout_marginRight="0dp"
+                android:layout_row="0"
+                android:text="9"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btFour"
+                style="@style/PinButtonStandard"
+                android:layout_column="1"
+                android:layout_row="1"
+                android:text="4"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btFive"
+                style="@style/PinButtonStandard"
+                android:layout_column="2"
+                android:layout_row="1"
+                android:text="5"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btSix"
+                style="@style/PinButtonStandard"
+                android:layout_column="3"
+                android:layout_marginRight="0dp"
+                android:layout_row="1"
+                android:text="6"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btDel"
+                style="@style/PinButtonSmall"
+                android:layout_column="0"
+                android:layout_marginLeft="0dp"
+                android:layout_row="1"
+                android:text="Del"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btOne"
+                style="@style/PinButtonStandard"
+                android:layout_column="1"
+                android:layout_row="2"
+                android:text="1"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btTwo"
+                style="@style/PinButtonStandard"
+                android:layout_column="2"
+                android:layout_row="2"
+                android:text="2"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btThree"
+                style="@style/PinButtonStandard"
+                android:layout_column="3"
+                android:layout_marginRight="0dp"
+                android:layout_row="2"
+                android:text="3"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btZero"
+                style="@style/PinButtonStandard"
+                android:layout_column="0"
+                android:layout_marginLeft="0dp"
+                android:layout_row="2"
+                android:text="0"
+        />
+    </GridLayout>
+
+
+    <LinearLayout
+            android:id="@+id/loNavigation"
+            style="@style/PanelNavigation"
+    >
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btBack"
+                style="@style/ButtonNavigation"
+                android:drawableLeft="@drawable/back"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btCancel"
+                style="@style/ButtonNavigation"
+                android:text="Cancel"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btFinished"
+                style="@style/ButtonNavigation"
+                android:text="Finished"
+        />
+    </LinearLayout>
+    
+</RelativeLayout>
+

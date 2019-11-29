@@ -1,0 +1,650 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="{Competition}"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@color/Tint"
+            android:baselineAligned="true"
+            >
+
+            <TextView
+                style="@style/Text24Heading"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Takings"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Cash"
+                android:gravity="right"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Cheques"
+                android:gravity="right"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:gravity="right"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Late Entries"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvLateCash"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvLateCheques"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvLateTotal"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Masters"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvSpecialCash"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvSpecialCheques"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvSpecialTotal"
+                />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="On Account"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvAccountCash"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvAccountCheques"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvAccountTotal"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Misc Sales"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvOtherCash"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvTotalCash"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvTotalCheques"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvTotalTotal"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/Tint"
+            android:baselineAligned="true"
+            >
+
+            <TextView
+                style="@style/Text24Heading"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView13"
+                android:text="Reconciliation"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Cash"
+                android:gravity="right"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Cash Box"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvCashInHand"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Removed"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvRemoved"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Float"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvFloat"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="Difference"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvDifferenceCash"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="*** Cheques ***"
+                android:id="@+id/tvDifferenceCheque"
+                android:layout_marginLeft="30dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/Tint"
+            android:baselineAligned="true"
+            >
+
+            <TextView
+                style="@style/Text24Heading"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView14"
+                android:text="UKA Cash Share"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Qty"
+                android:gravity="right"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Amount"
+                android:gravity="right"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Late Entries (Cash)"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:gravity="right"
+                android:id="@+id/tvLateEntriesSold"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvLateEntryCut"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Complimentary (999-120)"
+                android:id="@+id/tvComplimentaryRunsLabel"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:gravity="right"
+                android:id="@+id/tvComplimentaryRuns"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvComplimentaryCut"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Masters (Cash)"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:gravity="right"
+                android:id="@+id/tvSpecialEntriesCash"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvSpecialCut"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Cash On Account"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:id="@+id/textView17"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvAccountCut"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Cash to UKA"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:id="@+id/textView18"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvUKACut"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:text="Cash Retained"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:id="@+id/textView21"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="£0.00"
+                android:gravity="right"
+                android:id="@+id/tvCashRetained"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back"
+            />
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btFinished"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Exit"
+            />
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btPrint"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Trial Print"
+            />
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btAccept"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept &amp; Print"
+            />
+    </LinearLayout>
+</RelativeLayout>

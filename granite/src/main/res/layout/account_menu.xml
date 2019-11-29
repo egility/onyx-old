@@ -1,0 +1,258 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+        android:id="@+id/loPage"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+>
+
+    <TextView
+            style="@style/TextPageHeader"
+            android:id="@+id/tvPageHeader"
+            android:text="Ring 4 - Champion Agility (Large)"
+    />
+
+    <ScrollView
+            android:layout_height="match_parent"
+            android:layout_width="fill_parent"
+            android:layout_below="@+id/tvPageHeader"
+            android:layout_above="@+id/tvUnregistered"
+            android:id="@+id/svAccount" android:layout_marginLeft="8dp" android:layout_marginRight="8dp">
+        <LinearLayout
+                android:id="@+id/loTopText"
+                android:layout_width="fill_parent"
+                android:orientation="vertical"
+                android:layout_height="match_parent"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+        >
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loAccount"
+            >
+                <TextView
+                        android:id="@+id/tvAccountLabel"
+                        style="@style/Text30"
+                        android:text="Account: "
+                />
+                <TextView
+                        android:id="@+id/tvAccountCode"
+                        style="@style/Text30"
+                        android:text="ZZZ-9999-AAA"
+                />
+
+
+            </LinearLayout>
+
+
+            <View
+                    style="@style/LineLight"
+            />
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loBasket"
+            >
+
+                <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:text="Items in Basket"
+                        android:id="@+id/tvBasketLabel"
+                        style="@style/Text24"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Not available"
+                        android:id="@+id/tvBasket"
+                        style="@style/Text24"
+                />
+            </LinearLayout>
+
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/loLateEntries"
+            >
+
+                <TextView
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:text="Late Entries Available:"
+                        android:id="@+id/tvLateEntriesLabel"
+                        style="@style/Text24"
+                />
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="0"
+                        android:id="@+id/tvLateEntries"
+                        style="@style/Text24"
+                />
+            </LinearLayout>
+
+            <View
+                    style="@style/LineLight"
+            />
+            <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:layout_gravity="center_horizontal"
+                    android:useDefaultMargins="true"
+                    android:id="@+id/loMembers"
+            >
+
+                <org.egility.android.views.QuickButton
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:text="Michael Francis Brickman"
+                        android:id="@+id/btMember1"
+                        style="@style/MenuButton"
+                />
+                <org.egility.android.views.QuickButton
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:text="member 2"
+                        android:id="@+id/btMember2"
+                        style="@style/MenuButton"
+                />
+                <org.egility.android.views.QuickButton
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:text="member 3"
+                        android:id="@+id/btMember3"
+                        style="@style/MenuButton"
+                />
+
+            </GridLayout>
+
+            <View
+                    style="@style/LineLight"
+            />
+
+            <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="3"
+                    android:layout_gravity="center_horizontal"
+                    android:useDefaultMargins="true"
+                    android:id="@+id/loDogs"
+            >
+
+                <org.egility.android.views.QuickButton
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:text="dog 1"
+                        android:id="@+id/btDog1"
+                        style="@style/MenuButton"
+                />
+                <org.egility.android.views.QuickButton
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:text="dog 2"
+                        android:id="@+id/btDog2"
+                        style="@style/MenuButton"
+                />
+                <org.egility.android.views.QuickButton
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:text="dog 3"
+                        android:id="@+id/btDog3"
+                        style="@style/MenuButton"
+                />
+
+            </GridLayout>
+            <View
+                    style="@style/LineLight"
+            />
+            <TextView
+                    style="@style/Text24"
+                    android:id="@+id/tvSubTitle"
+                    android:text="Options"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="5dp" android:paddingTop="20dp"/>
+
+            <GridLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:columnCount="2"
+                    android:layout_gravity="center_horizontal"
+                    android:useDefaultMargins="true"
+                    android:id="@+id/loMenu"
+            >
+
+                <org.egility.android.views.QuickButton
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="sample 1"
+                        android:id="@+id/btSample1"
+                        style="@style/MenuButton"
+                />
+
+                <org.egility.android.views.QuickButton
+                        style="@style/MenuButton"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:text="sample 2"
+                        android:id="@+id/btSample2"
+                />
+            </GridLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <TextView
+            style="@style/Text24"
+            android:id="@+id/tvUnregistered"
+            android:text="* = unregistered/expired, + = other handler"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_alignParentStart="true"
+            android:layout_above="@+id/loNavigation" android:gravity="center_horizontal"/>
+
+    <LinearLayout
+            android:id="@+id/loNavigation"
+            style="@style/PanelNavigation"
+    >
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btBack"
+                style="@style/ButtonNavigation"
+                android:drawableLeft="@drawable/back"
+        />
+
+        <org.egility.android.views.QuickButton
+                style="@style/ButtonNavigation"
+                android:id="@+id/btCheckout"
+                android:text="Checkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+
+        <org.egility.android.views.QuickButton
+                android:id="@+id/btFinished"
+                style="@style/ButtonNavigation"
+                android:text="Finished"
+        />
+    </LinearLayout>
+</RelativeLayout>
+

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout android:id="@+id/loFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <TextView
+        style="@style/Text36"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="{walking note}"
+        android:id="@+id/tvWalkingNote"
+        android:layout_centerInParent="true"
+        android:background="@drawable/yes_border"
+        android:padding="10dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        />
+
+    <org.egility.android.views.DbCursorListView
+        android:id="@+id/lvRunners"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_above="@+id/tvNotes"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        />
+
+    <TextView
+        android:text="{notes}"
+        android:id="@+id/tvNotes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/loNavigationFrame"
+        android:singleLine="false"
+        android:background="@drawable/yes_border"
+        style="@style/Text30"
+        android:gravity="center_horizontal"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvPageFooter"
+        android:id="@+id/loNavigationFrame"
+        >
+
+        <LinearLayout
+            android:id="@+id/loNavigation"
+            style="@style/PanelNavigation"
+            >
+
+            <org.egility.android.views.QuickButton
+                style="@style/ButtonNavigation"
+                android:id="@+id/btBack"
+                android:drawableLeft="@drawable/back"
+                />
+        </LinearLayout>
+    </FrameLayout>
+
+    <TextView
+        android:text="Class progress text here"
+        android:id="@+id/tvPageFooter"
+        style="@style/TextPageFooter"
+        />
+</RelativeLayout>

@@ -1,0 +1,59 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Enter " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+block content
+
+            .max40
+                +card(title)
+                    +hint("Guidance here", true)
+                    .mb-1
+                    +form()
+
+                        each dog in api.dogs
+                            - var bind = "dogs." + api.dogs.indexOf(dog) + "."
+                            mixin class_row(agilityClass)
+                                td #{agilityClass.name}
+                                    each classDay in agilityClass.days
+                                        td.text-xs-center
+                                            if (classDay.available)
+                                                - var bind = "dogs." + api.dogs.indexOf(dog) + ".agilityClasses." + dog.agilityClasses.indexOf(agilityClass) + ".days." + agilityClass.days.indexOf(classDay) + ".confirmed"
+                                                input(type='checkbox' data-group=dog.petName data-api-bind=bind)
+                                td.text-xs-right #{toMoney(agilityClass.fee)}
+
+                            +cardSection(dog.petName, "paw")
+                                +fieldset("General")
+                                    if (dog.ukaMeasuredHeight > 0)
+                                        +input("readonly", "UkaHeightCode",bind + "ukaHeightText", "Height Category", {label: 50})
+                                    else
+                                        +select("UkaHeightCode",bind + "UkaHeightCode", "Height Category", ukaHeights, {label: 50})
+                                    +select("ukaPerformanceLevel",bind + "ukaPerformanceLevel", "Performance Grade", ukaGrades, {label: 50})
+                                    +select("ukaSteeplechaseLevel",bind + "ukaSteeplechaseLevel", "Steeplechase Grade", ukaGrades, {label: 50})
+                                +fieldset("Preferred Jump Heights")
+                                    +select("ukaHeightCodePerformance",bind + "ukaHeightCodePerformance", "Performance", ukaHeights, {label: 50})
+                                    +select("ukaHeightCodeSteeplechase",bind + "ukaHeightCodeSteeplechase", "Steeplechase", ukaHeights, {label: 50})
+                                    +select("ukaHeightCodeNursery",bind + "ukaHeightCodeNursery", "Nursery Classes", ukaCasualHeights, {label: 50})
+                                    +select("ukaHeightCodeCasual",bind + "ukaHeightCodeCasual", "Casual Classes", ukaCasualHeights, {label: 50})
+
+
+                                +fieldset("Classes to be highlighted")
+                                    +checkbox("ukaPerformance",bind + "ukaPerformance", "Performance", {label: 50})
+                                    +checkbox("ukaSteeplechase",bind + "ukaSteeplechase", "Steeplechase", {label: 50})
+                                    +checkbox("ukaCasual",bind + "ukaCasual", "Casual", {label: 50})
+                                    +checkbox("ukaNursery",bind + "ukaNursery", "Nursery", {label: 50})
+                                    +checkbox("ukaJunior",bind + "ukaJunior", "Junior", {label: 50})
+
+
+                        +button("submit", "Next", "")
+
+
+

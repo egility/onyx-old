@@ -1,0 +1,83 @@
+extends _page
+
+block head
+    - var closed = api && api.agilityClass && api.agilityClass.closed
+    if (!closed)
+        - refresh = 120
+        - imageIndex = 3
+
+prepend navigation
+    if (api & api.agilityClass)
+        - crumb=api.agilityClass.className
+    if (api & api.competition)
+        - title = api.competition.name + " - " + dateFormat(api.agilityClass.classDate, "dd mmm yyyy")
+
+block content
+
+    if (error==1)
+        +card("Sorry")
+            h4 No results yet for this class
+    else if (!api || !api.agilityClass)
+        +card("Sorry")
+            h4 Can't get the results at the moment - Will try again shortly.
+    else
+        - var agilityClass = api.agilityClass
+
+        .max65
+            +card(agilityClass.className + " (Judge: " + agilityClass.judge + ")")
+
+                if agilityClass.investigation
+                    .alert.alert-danger.
+                        This class is currently the subject of a Kennel Club investigation so the results are
+                        provisional and will be confirmed once the Kennel Club rules.
+
+                table.table.table-sm.table-striped
+                    each subClass in agilityClass.subClasses
+                        if (agilityClass.heightRunningOrder.includes(","))
+                            thead
+                                val
+                                tr
+                                    if (subClass.courseTime>0)
+                                        th.group(colspan=99) #{subClass.description} #[small (course time: #{subClass.courseTime} secs/#{agilityClass.courseLength}m)]
+                                    else
+                                        th.group(colspan=99) #{subClass.description} #[small (course time: n/a)]
+                        else if(subClass.courseTime>0)
+                            thead
+                                tr
+                                    th.group(colspan=99) Course time: #{subClass.courseTime} secs/#{agilityClass.courseLength}m
+                        tbod
+                            if (subClass.entries!=undefined)
+                                tr
+                                    each heading in agilityClass.headings.split(",")
+                                        if (["Prize", "Rank", "Place", "Competitor", "Team", "Pair", "Run Data"].indexOf(heading) >= 0)
+                                            th=heading
+                                        else
+                                            th.text-sm-right=heading
+
+                                each entry in subClass.entries
+                                    - var attributes = {}
+                                    if (entry.highlight)
+                                        - attributes.class="highlight"
+                                    tr&attributes(attributes)
+                                        each column in agilityClass.columns.split(",")
+                                            - var data=entry[column]
+                                            if (["prize", "rank", "place", "competitor", "team", "pair", "runData"].indexOf(column) >=0)
+                                                td=data
+                                            else
+                                                td.text-sm-right=data
+
+                            if (subClass.eliminated && subClass.eliminated != "")
+                                tr
+                                    td(colspan=99) #[strong Eliminations]: #{subClass.eliminated}
+
+
+                            if (subClass.nfc && subClass.nfc!="")
+                                tr
+                                    td(colspan=99) #[strong NFC]: #{subClass.nfc}
+                            if (subClass.entries==undefined && subClass.nfc=="")
+                                tr
+                                    td(colspan=99) #[strong NFC]: No Runners
+
+                if (agilityClass.closed && !agilityClass.historic)
+                    - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/results/pdf/results_"+ agilityClass.idAgilityClass + ".pdf"
+                    +button("externallink", "Download PDF", "file-pdf-o", {href: url, secondary: true})

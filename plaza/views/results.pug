@@ -1,0 +1,49 @@
+extends _page
+
+prepend navigation
+    - crumb=api.years.thisYear
+    - title = "Results"
+    - icon="search"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+
+block content
+    .max30
+        .mb-1
+        +card("")
+            .row
+                each year in api.years.all
+                    if (year == api.years.thisYear)
+                        span.col-xs-2= year
+                    else
+                        - var url="/results/" + year
+                        span.col-xs-2
+                            +link(year, url)
+        +card(api.years.thisYear, "trophy")
+            if !api.months
+                .card-statement Sorry no results yet for #{api.years.thisYear}, try an earlier year.
+            else
+                table.table.table-sm.table-clickable.font90
+                    each month in api.months
+                        thead
+                            tr
+                                th.group(colspan="99") #{dateFormat(month.baseDate, "mmmm yyyy")}
+                            tr
+                                th Dates
+                                th Name
+                        each competition in month.competitions
+                            - var href = '/competition/' + competition.idCompetition + '/results'
+                            - var attributes ={class: "organization" + competition.idOrganization}
+                            tr.clickable-row&attributes(attributes)(data-href=href)
+                                td #{dateRange(competition.dateStart, competition.dateEnd, true)}
+                                if competition.idOrganization == 2 && !competition.name.startsWith("UKA")
+                                    td UKA #{competition.name}
+                                else
+                                    td #{competition.name}

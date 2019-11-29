@@ -1,0 +1,62 @@
+extends _page
+
+prepend navigation
+    -crumb = "Shows"
+    -icon = "clipboard"
+    -title = "My Shows"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max30
+
+        if api.bands
+            each band in api.bands
+                - var month=""
+                - var week = 0
+                +card(title + " (" + band.name + ")", icon, {collapsible: true, collapse: !band.open})
+                    +simpleHint("Click on show name below to open switchboard")
+                    table.table.table-sm.table-clickable.font90
+                        each competition in band.competitions
+                            - var competitionName= competition.name
+                            if competition.idOrganization == 2 && !competitionName.startsWith("UKA")
+                                - competitionName = "UKA " + competitionName
+                            if band.open
+                                if beforeToday(competition.dateEnd)
+                                    - competitionName += " (ended)"
+                                else if isOrBeforeToday(competition.dateStart)
+                                    - competitionName += " (in progress)"
+                                else if competition.processed
+                                    - competitionName += " (processed)"
+                                else if competition.closed
+                                    - competitionName += " (closed " + dateFormat(competition.dateStart, "dd mmm") + ")"
+                            - href = '/competition/' + competition.idCompetition + '/switchboard_' + competition.organization_suffix
+                            -var monthStart=dateFormat(competition.dateStart, "mmmm")
+                            if (monthStart != month)
+                                - month = monthStart
+                                - week = competition.weekNumber
+                                thead
+                                    tr
+                                        th.group(colspan="99") #{dateFormat(competition.dateStart, "mmmm yyyy")}
+                                    tr
+                                        th Dates
+                                        th Name
+                            if competition.weekNumber != week
+                                - week = competition.weekNumber
+                                tr.separator
+                                    td(colspan=99)
+                            - var attributes ={class: "organization" + competition.idOrganization}
+                            tr.clickable-row&attributes(attributes)(data-href=href)
+                                td #{dateRange(competition.dateStart, competition.dateEnd, true)}
+                                td=competitionName
+        else
+            .card-statement  You don't have any shows
+
+

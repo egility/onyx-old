@@ -1,0 +1,47 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="SingOn"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Sign On"
+
+block content
+    .max60
+        +card(title, icon)
+            if (!api.signOn)
+                .card-statement.mb-2 There are no signons yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th Time
+                            th Tag
+                            th Tablet
+                            th Use
+                            th Bat
+                            th Sig
+                            th ACU
+                            th Boot
+                            th Up
+                    - var day = ""
+                    each item in api.signOn
+                        - var thisDay=dateFormat(item.signOnTime, "dddd")
+                        if thisDay!=day
+                            - day=thisDay
+                            thead
+                                tr
+                                    th.group(colspan="99")=thisDay
+                        tbody.font90
+                            tr
+                                td=dateFormat(item.signOnTime, "HH:MM")
+                                td=item.tag
+                                td=item.model
+                                td=item.activity
+                                td=item.battery
+                                td=item.signal
+                                td=item.accessPoint
+                                td=dateFormat(item.bootTime, "HH:MM")
+                                td=dateFormat(item.upTime, "HH:MM")

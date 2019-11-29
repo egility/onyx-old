@@ -1,0 +1,30 @@
+extends _page
+
+prepend navigation
+    - crumb="Refund"
+    - title = "Request Refund"
+
+append scripts
+    +bind_form()
+
+    script(src="https://cdn.jsdelivr.net/npm/autonumeric@4.0.1")
+    script.
+        $(document).ready(function () {
+            new AutoNumeric("#amount", 0).british();
+        })
+
+block content
+
+    .max35
+        +card(title, "pound-sign")
+            +form()
+                +fieldset("Bank Details")
+                    +input("text", "accountName", "account.bankAccountName", "Account Name")
+                    +input("text", "sortCode", "account.bankSortCode", "Sort Code")
+                    +input("text", "accountNumber", "account.bankAccountNumber", "Account Number")
+                +fieldset("Refund")
+                    +simpleHint You may request up to #{api.account.maxRefundText} to be refunded
+                    .mb-1
+                    +input("text", "amount", "refund.amount", "Amount")
+                hr
+                +button("submit", "Confirm", "check")

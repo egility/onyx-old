@@ -1,0 +1,62 @@
+extends _page
+
+prepend navigation
+    - crumb="Breakdown"
+    - icon="gbp"
+    - title = "Account Summary"
+
+block content
+
+    .max40
+        +card("Open Items")
+            if (error == 1 || api.salesLedgers == undefined)
+                h3 Nothing Owed
+            else
+                -var balance=0
+                -var due=0
+
+                mixin table_body()
+                    - balance=0
+                    - due=0
+                    tr
+                        th Date
+                        th Description
+                        th Amount
+                        th Due
+                    if (api.salesLedgers != undefined)
+                        each item in api.salesLedgers
+                            if (item.unAllocated != 0)
+                                - balance += item.unAllocated
+                                tr
+                                    td #{dateFormat(item.date, "dd/mm/yy")}
+                                    td #{item.description}
+                                        if (item.allocated != 0)
+                                            | &nbsp;(part)
+                                    td.money #{toMoney(item.unAllocated)}
+                                    if (new Date(item.dateDue) < new Date())
+                                        - due += item.unAllocated
+                                        if (item.amount < 0)
+                                            td #[a.fa.fa-asterisk]
+                                        else
+                                            td
+                                    else
+                                        td
+
+                table.table.table-sm.table-striped.table-responsive.xs-down
+                    +table_body()
+                table.table.table-sm.table-striped.sm-up
+                    +table_body()
+
+                div
+                    if (balance > 0)
+                        | Your account is #{toMoney(balance)} in credit
+                    else if (balance == 0)
+                        | Your account is in balance
+                    else if (due < 0 && due != balance)
+                        | You owe #{toMoney(-balance)} with #{toMoney(-due)} overdue for payment
+                    else if (due < 0 && due == balance)
+                        | You owe #{toMoney(-balance)} which is overdue for payment
+                    else
+                        | You owe #{toMoney(-balance)}
+
+

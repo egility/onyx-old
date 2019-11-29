@@ -1,0 +1,26 @@
+// Navbar
+
+- var a1 =bannerColor ? {style: "background-color: " + bannerColor} :  {}
+
+.top-bar&attributes(a1)
+    a(href="javascript:showLoading();location.reload()")
+        img.sm-up.navLogo(src="/img/logo.svg")
+        img.xs-down.navLogo(src="/img/logo_small.svg")
+
+    .md-up
+        each breadcrumb in breadcrumbs
+            if (breadcrumbs.indexOf(breadcrumb) < breadcrumbs.length - 1)
+                if (breadcrumb.name != "Home")
+                    +button("link", breadcrumb.name, breadcrumb.icon, {navLink: true, href: breadcrumb.path})
+    if (!home)
+        +button("back", "Back", "arrow-left", {navLink: true})
+
+
+    .nav-panel-toggle
+        +button("navbar", "Menu", "bars", {navLink: true, right: true})
+
+.title-bar
+    if isSpoofed
+        .spoofed=title
+    else
+        span!= title

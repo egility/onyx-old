@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+              android:layout_width="400dp"
+              android:layout_height="match_parent"
+              android:paddingBottom="10dp"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp"
+              android:paddingTop="10dp"
+              android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="We have a problem"
+        android:id="@+id/tvTitle"
+        android:gravity="center_horizontal"
+        style="@style/Text30"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="e-giliy has encountered an issue and will reset itself. Please note down the last thing you did as you may need to re-enter it"
+        android:id="@+id/tvMessage"
+        style="@style/Text24"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <org.egility.android.views.QuickButton
+        android:text="OK"
+        android:id="@+id/btOK"
+        style="@style/ButtonStandard"
+        android:layout_width="100dp"
+        />
+</LinearLayout>

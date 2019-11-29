@@ -1,0 +1,168 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Register"
+
+append scripts
+    +bind_form("register_uka")
+    +bind_form("register_new")
+
+    script(src="https://maps.googleapis.com/maps/api/js?sensor=false")
+    script.
+        function getLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                        processPosition(position)
+                    }, function (positionError) {
+                        $("#country").val("GB")
+                    }
+                );
+            } else {
+                $("#country").val("GB")
+            }
+        }
+
+        function processPosition(position) {
+            var geocoder = new google.maps.Geocoder();
+            var latlong = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+            var countryCode = "GB";
+            geocoder.geocode({'latLng': latlong}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[0]) {
+                        apiData.geoData = results[0]
+                        for (var i = 0; i < results[0].address_components.length; i++) {
+                            var shortName = results[0].address_components[i].short_name;
+                            var type = results[0].address_components[i].types;
+                            if (type.indexOf("country") != -1) {
+                                countryCode = shortName
+                            }
+                        }
+                    }
+                }
+                $("#country").val(countryCode)
+            });
+        }
+
+        getLocation()
+
+        $("#option1").hide()
+        $("#option2").hide()
+
+        function doChoice() {
+            var choice = $('input[name=choice]:checked').val()
+            switch (choice) {
+                case undefined:
+                    alert("You must choose one of the options");
+                    break;
+                case "1":
+                    $("#question").hide()
+                    $("#option1").show()
+                    break;
+                case "2":
+                    $("#question").hide()
+                    $("#option2").show()
+                    break;
+            }
+        }
+
+
+block content
+
+    .max35
+        #question
+            +card("Registration Question", "question")
+                .mb-1.
+                    Which of these applies to you?
+
+                table.mb-1.ml-1
+                    tr
+                        td(style="width: 2rem")
+                            input#choice1(type="radio" name="choice" value=1)
+                        td
+                            label(for="choice1") I do not have a UKA account and have never been a UKA member
+                    tr
+                        td
+                            input#choice2(type="radio" name="choice" value=2)
+                        td
+                            label(for="choice2") I have a UKA account (transfer my details to Agility Plaza)
+                +button("action", "Continue", "check", {onClick: "doChoice()"})
+        #option1
+            +card("Start a new Agility Plaza registration")
+                +hint("Select the country where you live and enter your email address and the password you would like to use and we will set-up a new account")
+                +form({id: "register_new"})
+                    +select("country", "register.countryCode", "Country of Residence", countries, {label: 0})
+                    +input("email", "email", "register.email", "Email Address", {label: 0, icon: "envelope"})
+                    +input("password", "password", "register.password", "Preferred Password", {label: 0, icon: "lock"})
+
+                    .alert.alert-terms
+                        .font-weight-bold What am I Confirming?
+                        .font90.
+                            By pressing the 'Confirm' button you agree to the Data Protection Statement below.
+
+                    +button("submit", "Confirm", "check")
+
+                    .mb-1
+                    +cardSection("Data Protection", "balance-scale")
+
+                        .font90
+                            p.font-weight-bold Data Protection Statement
+                                p.
+                                    Agility Plaza is operated by #[strong e-gility].
+                                    Over the years various show processors including UK Agility, Agility Shows Online, Agility Aid and
+                                    SWAP Live have provided e-gility with the necessary data to run paperless shows.
+                                p.
+                                    To offer you a better service and to re-unite you with your results information, we will attempt to merge all these
+                                    details into your account. However before we can do this, we need your permission for Agility Plaza
+                                    to access this data.
+                                p.
+                                    By pressing confirm, you are giving us permission to do this and
+                                    for any of the show processors listed above as well as e-gility to supply this
+                                    information to Agility Plaza.
+                                p.
+                                    If you do not agree to the transfer of this data to Agility Plaza then DO NOT press
+                                    confirm and email support@agilityplaza.com instead.
+                                p.
+                                    Agility Plaza is registered with the Information Commissioner (see our Privacy Policy for more details)
+
+        #option2
+            +card("Transfer my UKA account")
+                +hint.
+                    Enter your UK Agility logon details below and we will import all your information across to Agility
+                    Plaza. #[strong If you do not know your UKA logon details, email support@agilityplaza.com].
+                .alert.alert-danger.
+                    If you do not know your UKA details, email support@agilityplaza.com
+                +form({id: "register_uka"})
+                    +input("text", "ukaUserName", "register.ukaUserName", "UKA User Name", {label: 0, icon: "user"})
+                    +input("password", "ukaPassword", "register.ukaPassword", "UKA Password", {label: 0, icon: "lock"})
+                    .alert.alert-terms
+                        .font-weight-bold What am I Confirming?
+                        .font90.
+                            By pressing the 'Confirm' button you agree to the Data Protection Statement below.
+
+                    +button("submit", "Confirm", "check")
+
+                    .mb-1
+                    +cardSection("Data Protection", "balance-scale")
+
+                        .font90
+                            p.font-weight-bold Data Protection Statement
+                                p.
+                                    Agility Plaza is operated by #[strong e-gility].
+                                    Over the years various show processors including UK Agility, Agility Shows Online, Agility Aid and
+                                    SWAP Live have provided e-gility with the necessary data to run paperless shows.
+                                p.
+                                    To save you having to re-enter all your data and  and to re-unite you with your
+                                    results information, we will attempt to merge all these
+                                    details into your account. However before we can do this, we need your permission for Agility Plaza
+                                    to access this data.
+                                p.
+                                    By pressing confirm, you are giving us permission to do this and
+                                    for any of the show processors listed above as well as e-gility to supply this
+                                    information to Agility Plaza.
+                                p.
+                                    If you do not agree to the transfer of this data to Agility Plaza then DO NOT press
+                                    confirm and email support@agilityplaza.com instead.
+                                p.
+                                    Agility Plaza is registered with the Information Commissioner (see our Privacy Policy for more details)
+

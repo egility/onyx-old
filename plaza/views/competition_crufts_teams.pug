@@ -1,0 +1,38 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="SingOn"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Crufts Teams"
+
+block content
+    - var teamSize = 4
+    .max45
+        each team in api.teams
+            +cardSection(team.teamName + " (" + team.height + ")", icon)
+                p Club Name: #{team.clubName}
+                p Entered By: #{team.enteredBy} (#{team.accountCode})
+                table.table.table-sm
+                    tr
+                        th Role
+                        th Handler
+                        th Dog
+                        th Pet Name
+                        th KC Name
+                    each member in team.members
+                        - var index = team.members.indexOf(member)
+                        - var dogTitle = index < teamSize ? "Dog " + (index + 1) : "Reserve " + (index + 1 - teamSize)
+
+                        tr
+                            td=dogTitle
+                            td=member.competitorName
+                            td=member.dogCode
+                            td=member.petName
+                            td=member.registeredName
+                
+                -url="/competition/" + api.competition.idCompetition + "/team/" + team.idTeam + "/crufts_team"
+                .mb-half
+                +button("link", "Edit Team", "pencil-alt", {href: url, small: true})

@@ -1,0 +1,46 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    - icon="thumbs-up"
+    if (beforeToday(api.competition.dateCloses))
+        - title = api.competition.name + " <small>(Closed)</small>"
+    else
+        - title = api.competition.name
+
+block content
+
+    if (error == 100)
+        h3.mt-2 You have not entered this show
+    else
+        .max30
+            +card(api.competition.name)
+                if api.entries
+                    +cardSection("Entries", "paw")
+                        each entry in api.entries
+                            if entry.nation
+                                p #{entry.handler} & #{entry.petName} (#{entry.heightText}) - #{entry.nation}
+                            else
+                                p #{entry.handler} & #{entry.petName} (#{entry.heightText})
+
+                +cardSection("Camping", "bed")
+                    case api.pitchType
+                        when 1
+                            p Camping without hook-up
+                        when 2
+                            p Camping with hook-up
+                        default
+                            p No camping booked
+
+                if (api.competition.items != undefined)
+                    +cardSection("Options", "shopping-basket")
+                        each item in api.competition.items
+                            div= item.quantity + " x " + item.description
+
+                if ((!api.competition.paper && !api.competition.locked) || (api.user && (api.user.systemAdministrator || api.user.ukaSuperUser)))
+                    .mt-1
+                        -url="/competition/" + api.competition.idCompetition + "/enter_uk_open"
+                        +button("link", "Edit Entry", "pencil-alt", {href: url})
+                        -url2="/competition/" + api.competition.idCompetition + "/cancel"
+                        +button("link", "Cancel Entry", "trash-o", {href: url2})
+

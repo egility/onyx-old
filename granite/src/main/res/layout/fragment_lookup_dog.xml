@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:id="@+id/loData"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical"
+        android:layout_marginTop="8dp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/loEditFields"
+            >
+
+            <TextView
+                android:id="@+id/tvDogName"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dog name"
+                android:layout_marginRight="5dp"
+                />
+
+            <EditText
+                android:id="@+id/edDogName"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:focusable="true"
+                />
+
+            <TextView
+                android:id="@+id/tvFamilyName"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Surname"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                />
+
+            <EditText
+                android:id="@+id/edFamilyName"
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="5"
+                android:focusable="true"
+            />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/hrData"
+            style="@style/LineLight"
+            android:layout_margin="0dp"
+            />
+    </LinearLayout>
+
+    <org.egility.android.views.DbCursorListView
+        android:id="@+id/lvDogs"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:fadeScrollbars="false"
+        android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+        android:layout_below="@+id/loData"
+        android:layout_above="@+id/loKeyboard"
+        />
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btBack"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btClear"
+            android:text="Clear"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btLookup"
+            android:text="Search"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/loKeyboard"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginBottom="20dp"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="false"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/loRow1"
+            android:paddingTop="10dp"
+            >
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btQ"
+                style="@style/KeyboardButton"
+                android:text="Q"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btW"
+                style="@style/KeyboardButton"
+                android:text="W"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btE"
+                style="@style/KeyboardButton"
+                android:text="E"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btR"
+                style="@style/KeyboardButton"
+                android:text="R"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btT"
+                style="@style/KeyboardButton"
+                android:text="T"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btY"
+                style="@style/KeyboardButton"
+                android:text="Y"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btU"
+                style="@style/KeyboardButton"
+                android:text="U"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btI"
+                style="@style/KeyboardButton"
+                android:text="I"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btO"
+                style="@style/KeyboardButton"
+                android:text="O"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btP"
+                style="@style/KeyboardButton"
+                android:text="P"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/loRow2"
+            android:paddingTop="10dp"
+            >
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btA"
+                style="@style/KeyboardButton"
+                android:text="A"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btS"
+                style="@style/KeyboardButton"
+                android:text="S"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btD"
+                style="@style/KeyboardButton"
+                android:text="D"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btF"
+                style="@style/KeyboardButton"
+                android:text="F"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btG"
+                style="@style/KeyboardButton"
+                android:text="G"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btH"
+                style="@style/KeyboardButton"
+                android:text="H"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btJ"
+                style="@style/KeyboardButton"
+                android:text="J"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btK"
+                style="@style/KeyboardButton"
+                android:text="K"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btL"
+                style="@style/KeyboardButton"
+                android:text="L"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:keepScreenOn="false"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"
+            android:id="@+id/loRow3"
+            android:paddingTop="10dp"
+            >
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btZ"
+                style="@style/KeyboardButton"
+                android:text="Z"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btX"
+                style="@style/KeyboardButton"
+                android:text="X"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btC"
+                style="@style/KeyboardButton"
+                android:text="C"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btV"
+                style="@style/KeyboardButton"
+                android:text="V"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btB"
+                style="@style/KeyboardButton"
+                android:text="B"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btN"
+                style="@style/KeyboardButton"
+                android:text="N"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btM"
+                style="@style/KeyboardButton"
+                android:text="M"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btDel"
+                style="@style/KeyboardButton"
+                android:text="del"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

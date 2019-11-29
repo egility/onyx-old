@@ -1,0 +1,130 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Supplementary"
+    else
+        -crumb="Extra " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Enter " +  api.competition.name + " - Extra Information"
+
+append scripts
+    +bind_form()
+
+    script.
+        $(".dogCode").keyup(function (event) {
+            var dogCode = this.value
+            var dogIndex=this.name.substr(7)
+            if (dogCode.length==5) {
+                fetch(apiData.lookup + dogCode, function(data) {
+                    $("#idDog" + dogIndex).val(data.idDog)
+                    $("#dogName" + dogIndex).val(data.petName)
+                    $("#dogHandler" + dogIndex).val(data.handler)
+                })
+            } else {
+                $("#dogName" + dogIndex).val("")
+                $("#dogHandler" + dogIndex).val("")
+            }
+        })
+
+        function swapDogs(pairIndex) {
+            var idDog0 = $("#idDog" + pairIndex + "0").val()
+            var dogCode0 = $("#dogCode" + pairIndex + "0").val()
+            var dogName0 = $("#dogName" + pairIndex + "0").val()
+            var dogHandler0 = $("#dogHandler" + pairIndex + "0").val()
+            var readOnly0 = $("#dogCode" + pairIndex + "0").attr("readOnly")!=undefined
+
+            $("#idDog" + pairIndex + "0").val($("#idDog" + pairIndex + "1").val())
+            $("#dogCode" + pairIndex + "0").val($("#dogCode" + pairIndex + "1").val())
+            $("#dogName" + pairIndex + "0").val($("#dogName" + pairIndex + "1").val())
+            $("#dogHandler" + pairIndex + "0").val($("#dogHandler" + pairIndex + "1").val())
+            $("#dogCode" + pairIndex + "0").attr("readonly", $("#dogCode" + pairIndex + "1").attr("readonly")!=undefined)
+
+            $("#idDog" + pairIndex + "1").val(idDog0)
+            $("#dogCode" + pairIndex + "1").val(dogCode0)
+            $("#dogName" + pairIndex + "1").val(dogName0)
+            $("#dogHandler" + pairIndex + "1").val(dogHandler0)
+            $("#dogCode" + pairIndex + "1").attr("readonly", readOnly0)
+
+        }
+
+
+
+
+block content
+
+    if (error == 1)
+        .page-warning No data available
+        .m-2
+            +button("back", "Finished", "arrow-left")
+    else if beforeToday(api.competition.dateCloses) && !api.competition.openForPaper && api.user.access!=9 && api.user.access != 2
+        .page-warning Closed for Entries
+        .m-2
+            +button("back", "Finished", "arrow-left")
+    else
+
+        .max40
+            +card(title, icon)
+                .mb-1
+                +form()
+                    if api.ukaTeams
+                        each ukaTeam in api.ukaTeams
+                            - var teamIndex = api.ukaTeams.indexOf(ukaTeam)
+                            - var section = api.ukaTeams.length == 1 ? "Team Details" : "Team " + (teamIndex + 1) + " Details"
+                            +cardSection(section)
+                                +hint.
+                                    Choose your team name and select dogs 2 & 3 by entering their 5 digit code in the
+                                    space provided. If you wish to change a dog, replace the old dog's code with the
+                                    new dog's code. Each of your dog's 5 digit codes is shown on the 'My Household' page. If
+                                    you do not have this information available now, you can still enter the show and
+                                    fill out the details later.
+
+                                - var teamBind = "ukaTeams." + teamIndex + ".team"
+                                +input("text", "teamName", teamBind + ".teamName", "Team Name")
+                                each member in ukaTeam.team.members
+                                    - var index = ukaTeam.team.members.indexOf(member)
+                                    - var memberBind = teamBind + ".members." + index
+                                    +fieldset("Dog " + (index + 1))
+                                        +input("hidden", "idDog" + index, memberBind + ".idDog", "")
+                                        if (index == 0)
+                                            +input("readonly", "dogCode" + index, memberBind + ".dogCode", "Code")
+                                        else
+                                            +input("text", "dogCode" + index, memberBind + ".dogCode", "Code", {class: "dogCode", noautocomplete: true})
+                                        +input("readonly", "dogName" + index, memberBind + ".petName", "Pet Name")
+                                        +input("text", "dogHandler" + index, memberBind + ".competitorName", "Handler")
+                    if api.ukaPairs
+                        each ukaPair in api.ukaPairs
+                            - var pairIndex = api.ukaPairs.indexOf(ukaPair)
+                            - var section = api.ukaPairs.length == 1 ? "Pair Details" : "Pair " + (pairIndex + 1) + " Details"
+                            +cardSection(section)
+                                +hint.
+                                    Choose your pair name by entering their 5 digit code in the
+                                    space provided. If you wish to change your, replace the old dog's code with the
+                                    new dog's code. Each of your dog's 5 digit codes is shown on the 'My Household' page. If
+                                    you do not have this information available now, you can still enter the show and
+                                    fill out the details later.
+
+                                - var pairBind = "ukaPairs." + pairIndex + ".team"
+                                each member in ukaPair.team.members
+                                    - var index = ukaPair.team.members.indexOf(member)
+                                    - var memberBind = pairBind + ".members." + index
+                                    +fieldset((index == 0 ? "Agility Dog" : "Jumping Dog"))
+                                        - var dogActivity = index==0? "Agility" : "Jumping"
+                                        +hint().
+                                            if this is not the #[strong #{dogActivity} dog], then press the "#[strong Swap Agility/Jumping Dogs]" button below.
+
+                                        +input("hidden", "idDog" + pairIndex + index, memberBind + ".idDog", "")
+                                        +input((member.idDog==ukaPair.idDog? "readonly": "text"), "dogCode" + pairIndex + index, memberBind + ".dogCode", "Code", {
+                                                class: "dogCode",
+                                                noautocomplete: true
+                                            })
+                                        +input("readonly", "dogName" + pairIndex + index, memberBind + ".petName", "Pet Name")
+                                        +input("text", "dogHandler" + pairIndex + index, memberBind + ".competitorName", "Handler")
+                                
+                                +button("action", "Swap Agility/Jumping Dogs", "exchange", {secondary: true, onClick: "swapDogs(+" + pairIndex + ")"})
+
+
+                    +button("submit", "Continue", "check")
+
+
+

@@ -1,0 +1,15 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Login"
+
+block content
+
+    .max30
+        +card("Not registered")
+            p.
+                You cannot login unless you have completed the registration process.
+            p.
+                We have emailed #[strong= session.email] with a special link that allows you to register with a few 
+                quick clicks.  

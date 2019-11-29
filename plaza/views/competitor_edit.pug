@@ -1,0 +1,36 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit Details"
+    - title = "Edit Details"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max35
+        +card(title, "contact")
+            +form()
+                +fieldset("Name")
+                    +input("text", "givenName", "competitor.givenName", "Given Name")
+                    +input("text", "familyName", "competitor.familyName", "Family Name")
+                +fieldset("Contact")
+                    +input("text", "email", "competitor.email", "Email")
+                    +input("tel", "phoneMobile", "competitor.phoneMobile", "Phone (Mobile)")
+                    +input("tel", "phoneOther", "competitor.phoneOther", "Phone (Other)")
+                +fieldset("Other")
+                    +hint("Please give your date of birth if you intend to enter age related events eg. YKC or Junior classes")
+                    +input("date", "dateOfBirth", "competitor.dateOfBirth", "Date of Birth")
+                    +input("text", "ykc", "competitor.ykc", "YKC Number")
+                +button("submit", "Save", "check")
+                //+button("link", "Change Password", "lock", {href: "/", secondary: true, small: true})
+
+            if session && (session.plazaSuperUser || session.ukaSuperUser)
+                +cardSection("System Administration", "user-secret", {protected: true})
+                    div
+                        a(href=api.competitor.quickLink) Quick registration link
+                    if session && (session.systemAdministrator)
+                        hr.mb-1.mt-1
+                        div
+                            a(href="/split_from_account") Split from account (CAREFUL)

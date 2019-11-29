@@ -1,0 +1,200 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.uniqueName))
+        -crumb="Enter"
+    else
+        -crumb="Enter " +  api.competition.uniqueName;
+    - icon="ticket-alt"
+    - title = "Enter " +  api.competition.name
+
+append scripts
+    +bind_form()
+
+    script.
+        function tickHighlighted(dataGroup) {
+            jQuery("[data-group = '" + dataGroup + "']").each(function (index) {
+                if (jQuery(this).closest("tr").hasClass("highlight")) {
+                    jQuery(this).prop('checked', true);
+                }
+            })
+        }
+
+        function tick(dataGroup) {
+            jQuery("[data-group = '" + dataGroup + "']").each(function (index) {
+                jQuery(this).prop('checked', true);
+            })
+        }
+
+        function untick(dataGroup) {
+            jQuery("[data-group = '" + dataGroup + "']").prop('checked', false);
+        }
+
+
+block content
+
+        if (error == 1)
+            .page-warning No classes available
+            .m-2
+                +button("back", "Finished", "arrow-left")
+        else if beforeToday(api.competition.dateCloses) && !api.competition.openForPaper && api.user.access!=9 && api.user.access != 2
+            .page-warning Closed for Entries
+            .m-2
+                +button("back", "Finished", "arrow-left")
+        else
+
+            .max40
+                +card(title, icon)
+                    if api.competition.grandFinals && !api.competition.invited
+                        .alert.alert-danger.mt-1.
+                            Sorry, entries for this show are by invitation only.
+
+                    else
+                        if api.competition.grandFinals
+                            .alert.alert-info.mt-1.
+                                Please tick the classes below to confirm your entry and choose at least one item of 
+                                clothing. If you are entering Team or Split Pairs, you must order clothing for the other
+                                competitor(s) unless they can do so themselves on a separate entry of their own.
+                        if !api.competition.grandFinals
+                            +simpleHint.
+                                You can change the highlighted classes for each of your dogs or the pre-set jump
+                                heights offered (where UKA rules permit) by returning to the previous page (back) and
+                                pressing the 'Edit Preferences' option for your dog.
+    
+                        if api.competition.hasTeam && !api.competition.grandFinals
+                            .alert.alert-info.mt-1.
+                                #[strong To enter team -] just tick the box for the first dog in the team and
+                                you will be asked to provide details of the remaining dogs when you press 'continue'
+    
+    
+    
+                        .mb-1
+                        +form()
+    
+                            each dog in api.dogs
+                                if !api.competition.grandFinals || dog.agilityClasses != undefined
+                                    mixin class_row(agilityClass)
+                                        if (agilityClass.isTeam)
+                                            td.align-middle #{agilityClass.name} (see notes above)
+                                        else
+                                            td.align-middle #{agilityClass.name}
+        
+                                        each classDay in agilityClass.days
+                                            td.text-xs-center
+                                                if classDay.available
+                                                    - var bind = "dogs." + api.dogs.indexOf(dog) + ".agilityClasses." + dog.agilityClasses.indexOf(agilityClass) + ".days." + agilityClass.days.indexOf(classDay) + ".confirmed"
+                                                    if classDay.readOnly && classDay.hasEntered
+                                                        span!="&#10004;"
+                                                    else
+                                                        +checkbox(dog.petName, bind, "")
+                                        td.align-middle.text-xs-right #{toMoney(agilityClass.fee)}
+        
+                                    - var dogName = dog.petName
+                                    if api.user.access != 0
+                                        - dogName = dog.idUka + " " + dogName
+                                    +cardSection(dogName, "paw")
+                                        if (dog.agilityClasses == undefined)
+                                            h5 No classes available
+                                        else
+                                            table.table.table-xs
+                                                tr
+                                                    th Class
+                                                    each day in api.days
+                                                        th.text-xs-center #{dateFormat(day, "ddd")}
+                                                    th.text-xs-right Fee
+                                                each agilityClass in dog.agilityClasses
+                                                    if (agilityClass.preferred)
+                                                        tr.highlight(class={pickout: agilityClass.isSpecial})
+                                                            +class_row(agilityClass)
+                                                each agilityClass in dog.agilityClasses
+                                                    if (!agilityClass.preferred)
+                                                        tr.un-highlight(class={pickout: agilityClass.isSpecial})
+                                                            +class_row(agilityClass)
+                                            if !api.competition.grandFinals
+                                                .ml-1.mt-1
+                                                    - var click="tickHighlighted('" + dog.petName + "')"
+                                                    +button("action", "Tick highlighted", "check-square-o", {
+                                                        onClick: click,
+                                                        small: true,
+                                                        secondary: true
+                                                    })
+                                                    - var click="untick('" + dog.petName + "')"
+                                                    +button("action", "Un-tick all", "square-o", {
+                                                        onClick: click,
+                                                        small: true,
+                                                        secondary: true
+                                                    })
+    
+                            if api.clothing
+                                - var last=""
+                                +cardSection("Clothing", "tshirt")
+                                    table.table.table-xs
+                                        tr
+                                            th Item
+                                            th Size
+                                            th.text-xs-center.width5 Quantity
+                                            th.text-xs-right.width4 Fee
+                                        each item in api.clothing
+                                            - var bind = "clothing." + api.clothing.indexOf(item) + ".quantity"
+                                            tr
+                                                if item.description!=last
+                                                    td.align-middle= item.description
+                                                    - last = item.description
+                                                else
+                                                    td
+                                                td.align-middle= item.sizeText
+                                                td.text-xs-center
+                                                    +input("text", "quantity", bind, "", {})
+                                                td.align-middle.text-xs-right #{toMoney(item.unitPrice)}
+                                
+                            if (api.camping != undefined)
+                                +cardSection("Camping", "bed")
+                                    if api.camping.terms
+                                        .alert.alert-info.font90!=api.camping.terms
+                                        
+                                    if api.camping.note
+                                        .alert.alert-info.font90!=api.camping.note
+                                        
+                                    if api.camping.blockNote
+                                        .alert.alert-info.font90!=api.camping.blockNote
+    
+                                    if api.camping.blocks
+                                        table.table.table-xs
+                                            tr
+                                                th Night
+                                                th.text-xs-center.width5 Booked
+                                                th.text-xs-right.width4 Fee
+                                            each block in api.camping.blocks
+                                                - var bind = "camping.blocks." + api.camping.blocks.indexOf(block) + ".confirmed"
+                                                tr
+                                                    if block.end
+                                                        td.align-middle.clickable-cell(data-link="camping" + index) #{dateFormat(block.start, "ddd, dd mmm")} - #{dateFormat(block.end, "ddd, dd mmm")}
+                                                    else
+                                                        td.align-middle.clickable-cell(data-link="camping" + index) #{dateFormat(block.start, "ddd, dd mmm")}
+                                                    td.text-xs-center
+                                                        +checkbox("camping" + index, bind, "")
+                                                    td.align-middle.text-xs-right.clickable-cell(data-link="camping" + index) #{toMoney(block.rate)}
+    
+                            if api.options
+                                +cardSection("Options", "shopping-basket")
+                                    table.table.table-xs
+                                        tr
+                                            th Item
+                                            th.text-xs-center.width5 Selected
+                                            th.text-xs-right.width4 Fee
+                                        each option in api.options
+                                            - var bind = "options." + api.options.indexOf(option) + ".confirmed"
+                                            tr
+                                                td.align-middle= option.description
+                                                td.text-xs-center
+                                                    if option.readOnly
+                                                        span!=option.confirmed ? "&#10004;" : "&#10005;"
+                                                    else
+                                                        +checkbox("option", bind, "")
+                                                td.align-middle.text-xs-right #{toMoney(option.unitPrice)}
+    
+    
+                            +button("submit", "Continue", "check")
+
+
+

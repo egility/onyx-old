@@ -1,0 +1,201 @@
+extends _page
+
+prepend navigation
+    - crumb="Breakdown"
+    - icon="gbp"
+    - title = "Account Summary"
+
+append scripts
+    script.
+        function showEarlyCharges() {
+            jQuery("._all_charges").removeClass("invisible");
+            jQuery("._current_charges").addClass("invisible");
+        }
+        function hideEarlyCharges() {
+            jQuery("._all_charges").addClass("invisible");
+            jQuery("._current_charges").removeClass("invisible");
+        }
+
+        function showEarlyPayments() {
+            jQuery("._all_payments").removeClass("invisible");
+            jQuery("._current_payments").addClass("invisible");
+        }
+
+        function hideEarlyPayments() {
+            jQuery("._all_payments").addClass("invisible");
+            jQuery("._current_payments").removeClass("invisible");
+        }
+
+
+block content
+
+    .max40
+        +card(title)
+            +cardSection("Summary")
+                - paymentsUnused= api.summary.paymentsUnused ? api.summary.paymentsUnused : 0
+                - chargesOwed= api.summary.chargesOwed ? api.summary.chargesOwed : 0
+                - balance= paymentsUnused - chargesOwed
+                div.mb-1
+                    if (balance > 0)
+                        b Your account is #{toMoney(balance)} in credit as follows:
+                    else if (balance == 0)
+                        b Your account is in balance
+                    else
+                        b You owe #{toMoney(-balance)} as follows:
+                .font80
+                    each item in api.sales
+                        if (item.unAllocated && item.unAllocated != 0)
+                            .pl-1= dateFormat(item.date, "dd/mm/yy") + ", " + item.description + " - " + toMoney(-item.unAllocated) + " owed"
+                    each item in api.payments
+                        if (item.unAllocated && item.unAllocated != 0)
+                            .pl-1= dateFormat(item.date, "dd/mm/yy") + ", " + item.description + " - " + toMoney(item.unAllocated) + " unused"
+                if (balance < 0)
+                    h5.mt-1 How to settle your account
+                    p #[i.fa.fa-wrench] Work In Progress - Coming soon
+
+            +cardSection("Show Fees and Other Charges", "", {info: true})
+                if (api.summary.earlyCharges)
+                    ._all_charges.invisible
+                        - var click="hideEarlyCharges()"
+                        +button("action", "Hide earlier...", "", {
+                            onClick: click,
+                            anchor: true
+                        })
+                        table.table.table-sm.table-striped
+                            tr
+                                th Date
+                                th Description
+                                th.text-xs-right Amount
+                                th.text-xs-right Paid
+                                th.text-xs-right Owed
+                            if (api.sales != undefined)
+
+                                each item in api.sales
+                                    - unAllocated= item.unAllocated ? item.unAllocated : 0
+                                    - allocated= item.allocated ? item.allocated : 0
+                                    - amount= item.amount ? item.amount : 0
+                                    tr
+                                        td #{dateFormat(item.date, "dd/mm/yy")}
+                                        td #{item.description}
+                                        td.text-xs-right #{toMoney(-amount)}
+                                        if (unAllocated == 0)
+                                            td.text-xs-right #[i.fa.fa-check]
+                                        else if (unAllocated != amount)
+                                            td.text-xs-right #{toMoney(-allocated)}
+                                        else
+                                            td
+                                        if (unAllocated != 0)
+                                            td.text-xs-right #{toMoney(-unAllocated)}
+                                        else
+                                            td
+                ._current_charges
+                    if (api.summary.earlyCharges)
+                        - var click="showEarlyCharges()"
+                        +button("action", "Show earlier...", "", {
+                            onClick: click,
+                            anchor: true
+                        })
+
+                    table.table.table-sm.table-striped
+                        tr
+                            th Date
+                            th Description
+                            th.text-xs-right Amount
+                            th.text-xs-right Paid
+                            th.text-xs-right Owed
+                        if (api.sales != undefined)
+
+                            each item in api.sales
+                                - unAllocated= item.unAllocated ? item.unAllocated : 0
+                                - allocated= item.allocated ? item.allocated : 0
+                                - amount= item.amount ? item.amount : 0
+                                if (!item.early)
+                                    tr
+                                        td #{dateFormat(item.date, "dd/mm/yy")}
+                                        td #{item.description}
+                                        td.text-xs-right #{toMoney(-amount)}
+                                        if (unAllocated == 0)
+                                            td.text-xs-right #[i.fa.fa-check]
+                                        else if (unAllocated != amount)
+                                            td.text-xs-right #{toMoney(-allocated)}
+                                        else
+                                            td
+                                        if (unAllocated != 0)
+                                            td.text-xs-right #{toMoney(-unAllocated)}
+                                        else
+                                            td
+
+            +cardSection("Payments", "", {info: true})
+                if (api.summary.earlyPayments)
+                    ._all_payments.invisible
+                        - var click="hideEarlyPayments()"
+                        +button("action", "Hide earlier...", "", {
+                            onClick: click,
+                            anchor: true
+                        })
+                        table.table.table-sm.table-striped
+                            tr
+                                th Date
+                                th Description
+                                th.text-xs-right Amount
+                                th.text-xs-right Used
+                                th.text-xs-right Available
+                            if (api.payments != undefined)
+
+                                each item in api.payments
+                                    - unAllocated= item.unAllocated ? item.unAllocated : 0
+                                    - allocated= item.allocated ? item.allocated : 0
+                                    - amount= item.amount ? item.amount : 0
+                                    tr
+                                        td #{dateFormat(item.date, "dd/mm/yy")}
+                                        td #{item.description}
+                                        td.text-xs-right #{toMoney(amount)}
+                                        if (unAllocated == 0)
+                                            td.text-xs-right #[i.fa.fa-check]
+                                        else if (unAllocated != amount)
+                                            td.text-xs-right #{toMoney(allocated)}
+                                        else
+                                            td
+                                        if (unAllocated != 0)
+                                            td.text-xs-right #{toMoney(unAllocated)}
+                                        else
+                                            td
+                ._current_payments
+                    if (api.summary.earlyPayments)
+                        - var click="showEarlyPayments()"
+                        +button("action", "Show earlier...", "", {
+                            onClick: click,
+                            anchor: true
+                        })
+
+                    table.table.table-sm.table-striped
+                        tr
+                            th Date
+                            th Description
+                            th.text-xs-right Amount
+                            th.text-xs-right Used
+                            th.text-xs-right Available
+                        if (api.sales != undefined)
+
+                            each item in api.payments
+                                - unAllocated= item.unAllocated ? item.unAllocated : 0
+                                - allocated= item.allocated ? item.allocated : 0
+                                - amount= item.amount ? item.amount : 0
+                                if (!item.early)
+                                    tr
+                                        td #{dateFormat(item.date, "dd/mm/yy")}
+                                        td #{item.description}
+                                        td.text-xs-right #{toMoney(amount)}
+                                        if (unAllocated == 0)
+                                            td.text-xs-right #[i.fa.fa-check]
+                                        else if (unAllocated != amount)
+                                            td.text-xs-right #{toMoney(allocated)}
+                                        else
+                                            td
+                                        if (unAllocated != 0)
+                                            td.text-xs-right #{toMoney(unAllocated)}
+                                        else
+                                            td
+
+
+

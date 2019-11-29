@@ -1,0 +1,71 @@
+extends _page
+
+prepend navigation
+    -crumb="Team"
+    - icon="ticket-alt"
+    - title = "Team"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-cell").click(function () {
+                var link = $(this).data("link");
+                var checkbox = $("#" + link)
+                checkbox.prop("checked", !checkbox.prop("checked"));
+            });
+        });
+
+        $(".dogCode").keyup(function (event) {
+            var dogCode = this.value
+            var dogIndex = this.name.substr(7)
+            if (dogCode.length == 5) {
+                fetch(apiData.lookup + dogCode, function (data) {
+                    $("#idDog" + dogIndex).val(data.idDog)
+                    $("#dogName" + dogIndex).val(data.petName)
+                    $("#dogHandler" + dogIndex).val(data.handler)
+                })
+            } else {
+                $("#dogName" + dogIndex).val("")
+                $("#dogHandler" + dogIndex).val("")
+            }
+        })
+
+
+block content
+    .max40
+        +card("KC Crufts Team", icon)
+            - var teamSize = 4
+            +form()
+                - var team = api.team
+                - var members = api.team.members
+                +hint.
+                    Select your team's dogs by entering their 5 digit code in the
+                    space provided. If you wish to change a dog, replace the old dog's code with the
+                    new dog's code. Each of your dog's 5 digit codes is shown on your 'My Household' page. If
+                    you do not have this information available now, you can still enter the show and
+                    fill out the details later.
+                +fieldset("Team")
+                    +input("text", "teamName", "team.teamName", "Team Name")
+                    +input("text", "clubName", "team.clubName", "Club Name")
+                hr
+
+                each member in members
+                    - var index = members.indexOf(member)
+                    - var memberBind = "team.members." + index
+                    - var dogTitle = index < teamSize ? "Dog " + (index + 1) : "Reserve " + (index + 1 - teamSize)
+                    +fieldset(dogTitle)
+                        +input("hidden", "idDog" + teamIndex + index, memberBind + ".idDog", "")
+                        +input("text", "dogCode" + teamIndex + index, memberBind + ".dogCode", "Code", {
+                            class: "dogCode",
+                            noautocomplete: true
+                        })
+                        +input("readonly", "dogName" + teamIndex + index, memberBind + ".petName", "Pet Name")
+                        +input("text", "dogHandler" + teamIndex + index, memberBind + ".competitorName", "Handler")
+
+
+                +button("submit", "Save Changes", "check")
+
+
+

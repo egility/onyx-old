@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="{Competition}"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        style="@style/Text24"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Content of Cash Box"
+            android:id="@+id/textView4"
+            style="@style/Text24Bold"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="£50"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="4"
+                        android:text="999"
+                        style="@style/Text24"
+                        android:id="@+id/edCash5000"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="£9,999.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash5000"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="£20"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash2000"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash2000"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="£10"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash1000"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash1000"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="£5"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash500"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash500"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="£2"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash200"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash200"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="£1"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash100"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash100"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="40dp"
+                android:layout_gravity="right"
+                android:id="@+id/loColumn2"
+                >
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="50p"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash50"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="£999.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash50"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="20p"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash20"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash20"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="10p"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash10"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash10"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="5p"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash5"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash5"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="2p"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash2"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash2"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    >
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:text="1p"
+                        />
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:ems="10"
+                        style="@style/Text24"
+                        android:id="@+id/edCash1"
+                        />
+
+                    <TextView
+                        style="@style/Text24"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:text="£0.00"
+                        android:gravity="right"
+                        android:id="@+id/tvCash1"
+                        />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:text="Total Cash"
+                android:id="@+id/textView6"
+                />
+
+            <TextView
+                style="@style/Text24Bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="£99,999.99"
+                android:id="@+id/tvTotalCash"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Float"
+                android:id="@+id/textView8"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/edFloat"
+                style="@style/Text24"
+                android:text="9999.99"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Misc Cash Sales"
+                android:id="@+id/textView5"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/edCashOther"
+                android:text="9999.99"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="&apos;Misc Cash Sales&apos; includes all items eg. camping that are not shared with UKA"
+            android:id="@+id/textView7"
+            style="@style/TextSmallPrint"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center_horizontal"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginTop="20dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cash Removed"
+                android:id="@+id/textView9"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/edCashRemoved"
+                android:text="9999.99"
+                />
+        </LinearLayout>
+
+        <org.egility.android.views.QuickButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add £9.99 to Cash Removed"
+            android:id="@+id/btCashRemoved"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            style="@style/ButtonStandard"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/back"
+            />
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btNext"
+            style="@style/ButtonNavigation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Next"
+            />
+    </LinearLayout>
+</RelativeLayout>

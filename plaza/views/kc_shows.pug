@@ -1,0 +1,58 @@
+extends _page
+
+prepend navigation
+    - crumb="Show Diary"
+    - icon="calendar"
+    - title="Show Diary"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    -var month=""
+    - var week = 0
+    - var loggedIn=session && session.authenticated && session.registrationComplete
+
+    .max45
+        +card(title)
+            +simpleHint.
+                Click on show to see more details
+            table.table.table-sm.table-clickable.font80
+                each kc_show in api.kc_shows
+                    - var href='/kc_show_kc/' + kc_show.idKcShow
+                    - var monthStart=dateFormat(kc_show.dateStart, "mmmm")
+                    - var processor = kc_show.processorConfirmed ? kc_show.processorConfirmed : kc_show.processorHistoric? kc_show.processorHistoric : "NA"
+                    if (monthStart != month)
+                        - month = monthStart
+                        - week = kc_show.weekNumber
+                        thead
+                            tr
+                                th.group(colspan="99") #{dateFormat(kc_show.dateStart, "mmmm yyyy")}
+                            tr
+                                th.xs-down.width5 Dates
+                                th.sm-up.width7 Dates
+                                th Name
+                                th Processor
+                                th
+                                th.sm-up Venue
+                    - var attributes ={class: "processor" + processor}
+                    if kc_show.weekNumber != week
+                        - week = kc_show.weekNumber
+                        tr.separator
+                            td(colspan=99)
+                    - attributes.class += " clickable-row"
+
+                    tr&attributes(attributes)(data-href=href)
+                        td.sm-up=dateRange(kc_show.dateStart, kc_show.dateEnd, true)
+                        td.xs-down=dateRange(kc_show.dateStart, kc_show.dateEnd, true, true)
+                        td=kc_show.name
+                        td=processor
+                        td!=kc_show.processorConfirmed ? "&#10004;" : "&#10005;"
+                        td.sm-up!=kc_show.venue
+

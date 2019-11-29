@@ -1,0 +1,363 @@
+// Forms
+
+mixin form(options)
+    - var id=options && options.id ? options.id : "main"
+    - var autocomplete=options && options.autocomplete ? options.autocomplete : false
+    if (autocomplete)
+        form(method='post' id=id autocomplete="true")
+            block
+    else
+        form(method='post' id=id autocomplete = "false")
+            block
+
+mixin fieldset(legend, type)
+    fieldset.form-group
+        legend(class={minor: type == "minor"})= legend
+        block
+
+mixin form_item(type, label, options, inputId)
+    if !label
+        span.form-group
+            block
+    else
+        - var labelAttr={}
+        - var inputAttr={}
+        - var groupAttr={}
+        - var icon = options ? options.icon : undefined
+        - icon = undefined
+
+        if (options && options.simple)
+            - labelAttr.class = "col-form-label ml-1 mr-1"
+            - groupAttr.class="row"
+        else if (!options || !options.label || options.label == 30)
+            - labelAttr.class = type=="checkbox" ? "col-sm-3" : "col-xs-12 col-sm-3 col-form-label"
+            - inputAttr.class = type=="checkbox" ? "col-sm-9" : "col-xs-12 col-sm-9"
+            - groupAttr.class="row"
+        else if (options.label == 50)
+            - labelAttr.class = type=="checkbox" ? "col-sm-5" : "col-xs-12 col-sm-5 col-form-label"
+            - inputAttr.class = type=="checkbox" ? "col-sm-5" : "col-xs-12 col-sm-5"
+            - groupAttr.class = "row"
+
+        - labelAttr.id = inputId + "Label"
+        - groupAttr.id = inputId + "Group"
+
+        .form-group&attributes(groupAttr)
+            label.form-control-label&attributes(labelAttr)(for=inputId)
+                if (icon && icon != "")
+                    -var icon_class="fa-" + icon
+                    i.fa.prefix(class=icon_class)
+                else
+                    span= label
+            span&attributes(inputAttr)
+                block
+
+mixin input(type, inputId, bind, label, options)
+
+    - var attributes={class: "form-control"}
+    if (options && options.class)
+        - attributes.class += " " + options.class
+    if (options && options.noautocomplete)
+        - attributes.autocomplete = "off"
+
+    +form_item(type, label, options, inputId)
+        if (type == "readonly")
+            input&attributes(attributes)(type="text", id=inputId, name=inputId, data-api-bind=bind readonly tabindex="-1")
+        else if (type == "money")
+            input&attributes(attributes)(type="text", id=inputId, name=inputId, data-api-bind=bind)
+        else if (type == "multiline")
+            textarea(rows=5)&attributes(attributes)(type="text", id=inputId, name=inputId, data-api-bind=bind)
+        else if (type == "date")
+            input&attributes(attributes)(type="text", id=inputId, name=inputId, data-api-bind=bind, data-type="date")
+        else
+            input&attributes(attributes)(type=type, id=inputId, name=inputId, data-api-bind=bind)
+
+mixin checkbox(inputId, bind, label, options)
+    - var extra={}
+    if options && options.extra
+        - extra=options.extra
+    if label
+        +form_item("checkbox2", label, options, inputId)
+            label.container.absolute
+                input.form-check-input&attributes(extra)(type='checkbox', id=inputId, data-api-bind=bind)
+                span.checkmark
+    else
+        label.relative.container
+            input&attributes(extra)(type='checkbox' id=inputId data-group=inputId data-api-bind=bind)
+            span.checkmark
+
+mixin textarea(rows, inputId, bind, label, options)
+    +form_item("textarea", label, options, inputId)
+        textarea.form-control(id=inputId, data-api-bind=bind, rows="4")
+
+mixin select(inputId, bind, label, items, options)
+    +form_item("select", label, options, inputId)
+        select.form-control.tight(id=inputId, data-api-bind=bind)
+            if items
+                each item in items
+                    - var value=item.value
+                    - var permitted=true
+                    if (options && options.startsWith)
+                        - permitted = (value.indexOf(options.startsWith)==0)
+                    if (options && options.lessThan)
+                        - permitted = (value < options.lessThan)
+                    if (options && options.notLessThan)
+                        - permitted = (value >= options.notLessThan)
+                    if (permitted)
+                        option(value=value) #{item.description}
+
+
+mixin radio(group, inputId, bind, label, labelWidth)
+    - var value = inputId
+    if label
+        label.form-radio-label
+            input.form-radio-input(type='radio', id=inputId, name=group, value=value, data-api-bind=bind)
+            !="&nbsp;" + label
+    else
+        input.form-group.form-radio-input(type='radio', id=inputId, name=group, value=value, data-api-bind=bind)
+
+mixin radioInLine(group, inputId, bind, label, labelWidth)
+    label
+        input.radio-inline(type='radio' id=inputId name=group value=inputId, data-api-bind=bind)
+        =inputId
+
+// Buttons & Links
+
+mixin button(type, caption, icon, options)
+    - var right = options && options.right
+    - var iconCode=""
+    - var inverted = options && options.inverted
+    - var selected = options && options.selected
+    - var id = options ? options.id : undefined
+    - var buttonClass="btn mr-1"
+    if (options && options.secondary)
+        - buttonClass += " btn-secondary"
+    else if (options && options.tab)
+        - buttonClass += " btn-tab"
+    else
+        - buttonClass += " btn-primary"
+    if (options && options.small)
+        - buttonClass += " btn-sm"
+    if (options && options.selected)
+        - buttonClass += " selected"
+    if (options && options.anchor)
+        - buttonClass="mr-1"
+    if (options && options.navButton)
+        - buttonClass="navbar-button" + (right ? " float-right" : "")
+    if (options && options.navLink)
+        - buttonClass="navbar-link" + (right ? " float-right" : "")
+    if (options && options.link)
+        - buttonClass=(right ? " float-right" : "") + (inverted ? " inverted" : "")
+
+    if (options && options.panel)
+        - buttonClass = "btn-panel"
+
+    - var buttonAttr = {}
+    if (buttonClass != "")
+        - buttonAttr.class=buttonClass
+
+    if (id)
+        - buttonAttr.id=id
+
+    if options && options.disabled
+        - buttonAttr.disabled=true
+
+    if (icon && icon != "")
+        - iconCode="<i class='fa fa-" + icon + "')></i> "
+    if (type == "submit")
+        button(type='submit')&attributes(buttonAttr)!= iconCode + caption
+    else if (type == "back")
+        if (breadcrumbs.length > 1)
+            - var onClick = "javascript:showLoading();window.location='" + breadcrumbs[breadcrumbs.length-2].path + "'"
+        else
+            - var onClick = "javascript:showLoading();window.location='/'"
+        a(href=onClick)&attributes(buttonAttr)!= iconCode + caption
+
+    else if (type == "link")
+        -var href="javascript:showLoading();window.location='" + options.href + "'"
+        a(href=href)&attributes(buttonAttr)!= iconCode + caption
+    else if (type == "externallink")
+        -var href="javascript:window.location='" + options.href + "'"
+        a(href=href)&attributes(buttonAttr)!= iconCode + caption
+    else if (type == "newtab")
+        -var href="javascript:window.open('" + options.href + "')"
+        a(href=href)&attributes(buttonAttr)!= iconCode + caption
+    else if (type == "action")
+        -var href="javascript:" + options.onClick
+        a(href=href)&attributes(buttonAttr)!= iconCode + caption
+    else if (type == "navbar")
+        -var href="javascript:toggleNavPanel()"
+        if (caption != "")
+            a(href=href)&attributes(buttonAttr)!= iconCode + "<span>" + caption + "</span>"
+        else
+            a(href=href)&attributes(buttonAttr)!= iconCode
+
+
+mixin link(caption, href, options, icon)
+    - var inverted = options && options.inverted
+    - var external = options && options.external
+    - var iconCode=""
+    - var href="javascript:" + (external ? "" : "showLoading();") + "window.location='" + href + "'"
+    if (icon)
+        - iconCode="<i class='fa fa-" + icon + "')></i> "
+    if (caption != "")
+        a(href=href class={inverted: inverted})!= iconCode + "<span>" + caption + "</span>"
+    else
+        a(href=href class={inverted: inverted})!= iconCode
+
+mixin uploadXml(caption, url)
+    - var id = "upload_file" + (nextId++)
+    input.navbar-link(id=id type="file" style="display:none" accept=".xls" onchange="javascript:uploadFile(event, '" + url + "');")
+    a(href="javascript:$('#" + id + "').trigger('click');")!= caption
+
+mixin uploadPdf(caption, url)
+    - var id = "upload_file" + (nextId++)
+    input.navbar-link(id=id type="file" style="display:none" accept=".pdf" onchange="javascript:uploadFile(event, '" + url + "');")
+    a(href="javascript:$('#" + id + "').trigger('click');")!= caption
+
+mixin uploadCsv(caption, url)
+    - var id = "upload_file" + (nextId++)
+    input.navbar-link(id=id type="file" style="display:none" accept=".csv" onchange="javascript:uploadFile(event, '" + url + "');")
+    a(href="javascript:$('#" + id + "').trigger('click');")!= caption
+
+mixin doFunction(caption, url)
+    a(href="javascript:getJSON('" + url + "', function(){location.reload()});")!= caption
+
+// Grids and Cards
+
+mixin card(caption, icon, options)
+    - var infoOption = options && options.info
+    - var protected = options && options.protected
+    - var collapse = options && options.collapse
+    - var collapsible = options && options.collapsible
+    - var compact = options && options.compact
+    if (!caption || caption == "")
+        .card(class={info: infoOption}).card-block
+            block
+    else
+        - var iconCode=icon != undefined && icon!="" ? "<i class='fa fa-" + icon + "')></i>&ensp;" : ""
+        - var id = "card" + (nextId++)
+        .card(id=id class={info: infoOption, collapse: collapse, collapsible: collapsible, protected: protected})
+            if (collapsible)
+                - var href = "javascript:unCollapsecard('" + id + "')"
+                a.card-header(href=href)!= iconCode + caption
+                    .caret-down.float-right
+                        i.fa.fa-caret-down
+                    .caret-up.float-right
+                        i.fa.fa-caret-up
+            else
+                .card-header!= iconCode + caption
+            .card-block(class={compact: compact})
+                block
+
+mixin cardSection(caption, icon, options)
+    - var iconCode=icon && icon!="" ? "<i class='fa fa-" + icon + "')></i>&ensp;" : ""
+    - var infoOption = options && options.info
+    - var protected = options && options.protected
+
+
+    .card-section(class={info: infoOption, protected: protected})
+        .title!= iconCode + caption
+        .block
+            block
+
+
+mixin gridcard(caption, icon, options)
+    .grid-item
+        +card(caption, icon, options)
+            block
+
+mixin gridcard2(caption, icon, options)
+    .grid-item.grid-item--width2
+        +card(caption, icon, options)
+            block
+
+mixin gridcard3(caption, icon, options)
+    .grid-item.grid-item--width3
+        +card(caption, icon, options)
+            block
+
+mixin grid(gridWidth)
+    if (gridWidth == 400)
+        .grid.grid-width-400
+            .grid-sizer
+            block
+    else
+        .grid
+            .grid-sizer
+            block
+
+
+// Misc
+
+mixin hint(hintText, noHr)
+    .hint!= '<i class="fa fa-info-circle"></i> ' + (hintText ? hintText : '')
+        block
+    if (noHr == undefined || !noHr)
+        hr
+
+mixin tick(hintText, noHr)
+    .tick!= '<i class="fa fa-check"></i> ' + (hintText ? hintText : '')
+        block
+    if (noHr == undefined || !noHr)
+        hr
+
+
+
+mixin important(hintText, noHr)
+    .important!= '<i class="fa fa-star"></i> ' + (hintText ? hintText : '')
+        block
+    if (noHr == undefined || !noHr)
+        hr
+
+mixin simpleHint(hintText)
+    .hint!= '<i class="fa fa-info-circle"></i> ' + (hintText ? hintText : '')
+        block
+
+mixin question(questionText)
+    .card.question
+        - var id = "faq" + Math.floor(Math.random() * 1000000) + 1
+        - var anchor={"data-toggle": "collapse" ,"data-parent": "#questions", href: "#" + id ,"aria-expanded": "false", "aria-controls": id}
+        - var answer={id: id}
+        a.q1&attributes(anchor)
+            .question!= questionText + "?"
+        .collapse.answer.font80&attributes(answer)
+            block
+
+
+mixin warning(hintText)
+    .important-warning #[i.fa.fa-exclamation-triangle] !{hintText}
+        block
+
+mixin goodnews(hintText)
+    .important-goodnews #[i.fa.fa-check] !{hintText}
+        block
+
+// Script mixins
+
+mixin bind_form(id)
+    - var formId=id? id : "main"
+    script.
+        var apiData = bindForm("#{formId}", "!{resource}", !{toJson(api)})
+
+mixin use_grids()
+    script.
+        $(window).on("load", function () {
+            $('.grid').masonry({itemSelector: '.grid-item', columnWidth: '.grid-sizer', percentPosition: true});
+        })
+
+mixin use_popover()
+    script.
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+
+mixin use_tooltips()
+    script.
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+mixin use_card_js()
+    script(src="https://code.jquery.com/jquery-1.11.3.min.js")
+    script(src="/cardjs/card-js.min.js")
+

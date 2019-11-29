@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_view_item"
+    >
+
+    <TextView
+        android:id="@+id/tvFullName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Full Name"
+        style="@style/Text24"
+        android:background="@color/colorPrimaryInverse"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_toStartOf="@+id/tvCheque"
+        />
+
+    <TextView
+        style="@style/Text24"
+        android:id="@+id/tvCheque"
+        android:layout_width="140dp"
+        android:layout_height="wrap_content"
+        android:text="£9,999.99"
+        android:background="@color/colorPrimaryInverse"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentEnd="true"
+        android:gravity="right"
+        />
+</RelativeLayout>

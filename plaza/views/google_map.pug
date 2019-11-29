@@ -1,0 +1,45 @@
+extends _document
+
+append scripts
+    script.
+
+        var markers = !{JSON.stringify(api.markers)}
+
+        function initMap() {
+            var center = {lat: 52.5385571, lng: -1.378264};
+
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    uluru = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(center);
+
+                });
+            }
+
+            var map = new google.maps.Map(document.getElementById('map-canvas'), {zoom: 8, center: center})
+            var offset=0
+            var postcode = ""
+            
+            for (var i in markers) {
+                var marker = markers[i]
+                if (marker.latitude && marker.latitude!=0 && marker.longitude && marker.longitude!=0) {
+                    if (marker.postcode==postcode) {
+                        offset -= 0.001
+                    } else {
+                        postcode = marker.postcode
+                        offset = 0
+                    }
+                    var icon = {url: marker.icon, labelOrigin: new google.maps.Point(16,10)}
+                    new google.maps.Marker({position: {lat: marker.latitude+offset, lng: marker.longitude+offset}, icon: icon, map: map, title: marker.name, label: marker.label});
+                }
+            }
+        }
+
+
+
+    script(async defer src='https://maps.googleapis.com/maps/api/js?key=AIzaSyAFuZc4J5val-feBGR3TnDlwuoFDwpk8HI&callback=initMap')
+
+
+block body
+
+    div#map-canvas

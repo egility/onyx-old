@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/loFragment"
+    >
+
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="{Page Title}"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/loMain"
+        android:layout_above="@+id/loNavigation"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loStaff"
+            android:layout_margin="2dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Judge:"
+                android:id="@+id/tvJudgeLabel"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/edJudge"
+                android:background="@drawable/yes_border"
+                android:inputType="text|none"
+                android:layout_gravity="bottom"
+                android:padding="4dp"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RM:"
+                android:id="@+id/tvRMLabel"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/edRingManager"
+                android:background="@drawable/yes_border"
+                android:inputType="text|none"
+                android:layout_gravity="bottom"
+                android:padding="4dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Note:"
+                android:id="@+id/tvNoteLabel"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <EditText
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/edNote"
+                android:maxLines="3"
+                android:minLines="1"
+                android:background="@drawable/yes_border"
+                android:layout_marginTop="10dp"
+                style="@style/Text24"
+                android:padding="4dp"
+                android:text="{note goes here}"
+                android:gravity="top"
+                android:inputType="textMultiLine"
+                />
+        </LinearLayout>
+
+        <View style="@style/LineLight"
+              android:layout_marginTop="10dp"
+              android:layout_marginBottom="5dp"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="{Alert}"
+            android:id="@+id/tvAlert"
+            style="@style/TextMinorBold"
+            android:singleLine="false"
+            />
+
+        <View style="@style/LineLight"
+              android:layout_marginTop="5dp"
+              android:layout_marginBottom="5dp"
+            />
+
+        <org.egility.android.views.DbCursorListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvClasses"
+            android:fadeScrollbars="false"
+            android:scrollbarThumbVertical="@drawable/custom_scroll_style"
+            android:background="@drawable/yes_border"
+            android:padding="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btBack"
+            android:drawableLeft="@drawable/back"
+            />
+    </LinearLayout>
+</RelativeLayout>

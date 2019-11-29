@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout android:id="@+id/loFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/loNavigation"
+        >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This competitor is blocked from competing at the moment. Please contact the show secretary to resolve"
+                android:id="@+id/tvNote"
+                style="@style/Text24"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginBottom="30dp"
+                />
+
+
+            <LinearLayout
+                android:id="@+id/loNormal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <org.egility.android.views.QuickButton
+                    style="@style/MenuButtonMain"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:text="Name Confirmed"
+                    android:id="@+id/btNameConfirmed"
+                    />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:id="@+id/spNotReady"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    style="@style/MenuButton"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:text="Return to Queue"
+                    android:id="@+id/btNotReady"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/loCentre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yes_border"
+                android:orientation="vertical"
+                android:padding="10dp"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <TextView
+                    android:id="@+id/tvSubTitle"
+                    style="@style/Text20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Scrime Options"
+                    />
+
+                <GridLayout
+                    android:id="@+id/loMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:columnCount="1"
+                    >
+                    <org.egility.android.views.QuickButton
+                        android:id="@+id/btOption1"
+                        style="@style/CalculatorButtonStandard"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="{option 1}"
+                        />
+
+                </GridLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btRun"
+            style="@style/ButtonNavigation"
+            android:text="List Scrimed"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btNotRun"
+            style="@style/ButtonNavigation"
+            android:text="List Not Scrimed"
+            />
+    </LinearLayout>
+</RelativeLayout>

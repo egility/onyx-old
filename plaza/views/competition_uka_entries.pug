@@ -1,0 +1,79 @@
+extends _page
+
+append scripts
+    script.
+
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var email = $(this).data("email");
+                $("#email").val(email)
+                $("#password").val("system")
+                $("#token").val($(this).data("token"))
+                $("#loginForm").submit()
+
+            });
+        });
+        
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Entries"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Entries"
+
+block content
+    .max35
+        +card(title, icon)
+            if (!api.entries)
+                .card-statement.mb-2 There are no entries yet
+            else
+                p Total entries: #{api.entries.length} &nbsp;
+                    if api.competition.owing > 0
+                        span.emphasize (including #{api.competition.owing} not paid)
+                
+                - var clickable = session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser ? {class: "table-clickable"} : {}
+                table.table.table-sm&attributes(clickable)
+                    thead
+                        tr
+                            th Account Holder
+                            th.text-xs-right Runs
+                            th.text-xs-right Camping
+                            th.text-xs-right Postage
+                            th.text-xs-right Entrered
+                    each entry in api.entries
+                        - var extra = entry.owed ? {class: "emphasize"} : {}
+                        if session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser
+                            - extra.class += " clickable-row"
+                            - extra["data-email"] = entry.idCompetitor + "@ap"
+                            - extra["data-token"] = session.token
+                        tbody.font90
+                            tr&attributes(extra)
+                                td=entry.account
+                                td.text-xs-right=toMoney(entry.runs)
+                                if entry.camping>0
+                                    td.text-xs-right=toMoney(entry.camping)
+                                else
+                                    td
+                                if entry.postage>0
+                                    td.text-xs-right=toMoney(entry.postage)
+                                else
+                                    td
+                                if entry.paper
+                                    td.text-xs-right Paper
+                                else
+                                    td.text-xs-right=dateFormat(entry.date, "dd/mm/yy hh:MM")
+                    tfoot
+                        tr
+                            th Total
+                            th.text-xs-right=toMoney(api.competition.totalRuns)
+                            th.text-xs-right=toMoney(api.competition.totalCamping)
+                            th.text-xs-right=toMoney(api.competition.totalPostage)
+                            th
+                            
+                .hidden
+                    +form({id: "loginForm"})
+                        +input("text", "email", "authenticate.email", "")
+                        +input("text", "password", "authenticate.password", "")
+                        +input("text", "token", "authenticate.token", "")
+                        +button("submit", "Login", "sign-in", {small: true})

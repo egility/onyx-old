@@ -1,0 +1,39 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Register using your UKA Account"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max30
+        +card("Registration Step 3 - Kennel Club Details")
+            - var inActive=true
+
+            if (error==1)
+                .card-statement You have not registered any dogs
+            else
+                +hint.
+                    Please enter your #[strong Kennel Club] registration details for each of your active
+                    dogs. Just leave blank if your dog is not registered.
+                +form()
+                    if (api.dogs)
+                        for dog in api.dogs
+                            if (dog.dogState==0)
+
+                                - var idKC = "dogs." + api.dogs.indexOf(dog) + ".idKC"
+                                - var registeredName = "dogs." + api.dogs.indexOf(dog) + ".registeredName"
+                                - var kcHeightCode = "dogs." + api.dogs.indexOf(dog) + ".kcHeightCode"
+                                - var kcGradeCode = "dogs." + api.dogs.indexOf(dog) + ".kcGradeCode"
+
+                                +cardSection(dog.petName)
+                                    +input("text", "idKC", idKC, "Registration Number")
+                                    +input("text", "registeredName", registeredName, "Registered Name")
+                                    +select("kcHeightCode", kcHeightCode, "Height", kcHeights, {label: 30})
+                                    +select("kcGradeCode", kcGradeCode, "Grade", kcGrades, {label: 30})
+
+                    div.mt-2
+                        +button("submit", "Complete Registration Process", "check")

@@ -1,0 +1,117 @@
+extends _page
+
+block head
+    - refresh = 120
+    - imageIndex = 1
+
+prepend navigation
+    if (api && api.ringPlan)
+        - crumb=dateFormat(api.ringPlan.date, "dd mmm")
+        - title = api.ringPlan.name + " (" + dateFormat(api.ringPlan.date, "ddd, dd mmm") + ")"
+
+
+block content
+
+    if (!api || !api.competition || !api.ringPlan)
+        h2 Sorry
+        h4 Something has gone wrong
+    else if (error == 1)
+        h2 Sorry
+        h4 Nothing is happening today
+    else
+
+        if (api.competition && api.competition.days && api.competition.days.length > 1)
+            .tabBlock
+                each day in api.competition.days
+                    - var url="/competition/" + api.competition.idCompetition + "/ringPlan/" + dateFormat(day, 'yyyymmdd')
+                    - var caption = isToday(day)? "Today" : dateFormat(day, 'dddd')
+                    +button("link", caption, "", {tab: true, href: url, selected: day==api.ringPlan.date})
+
+        if (api.ringPlan.announcement && api.ringPlan.announcement != "")
+            .alert.alert-danger #{api.ringPlan.announcement}
+        if api.ringPlan.restDay
+            .mygrid
+                .grid-item
+                    +card("All Rings")
+                        p Rest Day
+        else
+            .mygrid
+                each ring in api.ringPlan.rings
+                    .grid-item
+                        - var cardTitle = "Ring " + ring.ringNumber + (api.competition.isUkOpen? "" : " - " + ring.judge)
+
+                        +card(cardTitle)
+                            - if (ring.note && ring.note!="")
+                                +hint(ring.note, true)
+
+                            each agilityClass in ring.agilityClasses
+
+                                - var caption = agilityClass.className + (agilityClass.status && agilityClass.status != "" ? " - " + agilityClass.status : "")
+                                -var url = "/agilityClass/" + agilityClass.idAgilityClass + "/results"
+                                .card-heading
+                                    if (agilityClass.run>0)
+                                        +link(caption, url)
+                                    else
+                                        =caption
+                                if api.competition.isUkOpen || agilityClass.judge && agilityClass.judge != ring.judge
+                                    .row.ml-1.font90.
+                                        Judge: #{agilityClass.judge}
+                                - if (agilityClass.notes && agilityClass.notes!="")
+                                    +hint(agilityClass.notes, true)
+
+                                each group in agilityClass.groups
+                                    if agilityClass.hasGroups
+                                        .row
+                                            .card-heading.font80 Group #{group.group}
+                                    if (api.competition.isUka || api.competition.isUkOpen)
+                                        .row
+                                            each height in group.heights
+                                                - var progress = height.text == undefined ? "(0)" : height.text
+                                                .col-xs-3(class={active_border: height.active}) #{height.name}<BR>#{progress}
+                                    else
+                                        .font80
+                                            if (agilityClass.status)=="Closed"
+                                                - var line=""
+                                                each height in group.heights
+                                                    - var run = height.run?height.run:0
+                                                    if (line != "")
+                                                        - line+=",&nbsp;"
+                                                    if (group.heights.length == 1)
+                                                        - line =run
+                                                    else
+                                                        - line += height.name + "&nbsp;(" + run + ")"
+                                                .ml-1!=line
+        
+                                            else if (agilityClass.active)
+                                                each height in group.heights
+                                                    - var progress = height.run>0 ? "Run " + height.run + " of " + height.entered : height.entered
+                                                    if (height.active)
+                                                        if (height.run >0 && height.waitingFor>0 )
+                                                            - progress +=  " (" + height.waitingFor + ")"
+                                                        if (height.callingTo==-1)
+                                                            - progress +=  ", Call to end"
+                                                        if (height.callingTo > 0)
+                                                            - progress +=  ", Call to " + height.callingTo
+                                                    .row.ml-1(class={active_border: height.active})
+                                                        if (group.heights.length==1)
+                                                            .col-xs-12=progress
+                                                        else
+                                                            .col-xs-2=height.name
+                                                            .col-xs-10=progress
+                                            else
+                                                - var line=""
+                                                - var total=0
+                                                each height in group.heights
+                                                    - total= total+height.entered
+                                                    if (line!="")
+                                                        - line+=",&nbsp;"
+                                                    - line += height.name + "&nbsp;(" + height.entered + ")"
+                                                if (group.heights.length==1)
+                                                    .ml-1!=total
+                                                else
+                                                    .ml-1!=line
+
+                                if agilityClass.active && agilityClass.info
+                                    .emphasize.font80.mt-1=agilityClass.info
+
+                                hr

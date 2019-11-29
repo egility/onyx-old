@@ -1,0 +1,43 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="SingOn"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Mobile Network"
+
+block content
+    .max35
+        +card(title, icon)
+            if (!api.dongles)
+                .card-statement.mb-2 There are no observations yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th.sm-up Asset
+                            th Net
+                            th Number
+                            th Type
+                            th Bars
+                            th.text-xs-right Send
+                            th.text-xs-right Receive
+                    - var day = ""
+                    each item in api.dongles
+                        - var thisDay=dateFormat(item.day, "dddd")
+                        if thisDay!=day
+                            - day=thisDay
+                            thead
+                                tr
+                                    th.group(colspan="99")=thisDay
+                        tbody.font90
+                            tr
+                                td.sm-up=item.assetCode
+                                td=item.networkProvider
+                                td=item.phoneNumber
+                                td=item.networkType
+                                td=item.signalAverage
+                                td.text-xs-right=item.send
+                                td.text-xs-right=item.receive

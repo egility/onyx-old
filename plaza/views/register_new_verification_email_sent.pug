@@ -1,0 +1,11 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Register using your UKA Account"
+
+block content
+
+    .max30
+        +card("Nearly there!")
+            p We have sent an email to #[strong= query.email] to make sure that it is correct. To complete the registration process, please check your inbox, then follow the instructions.

@@ -1,0 +1,17 @@
+extends _page
+
+prepend navigation
+    - crumb="Error"
+    - title = "System Fault"
+
+block content
+    .max45
+        +card("System Error", "ban")
+            p
+                | Oh dear! Something has gone wrong.
+                | Please try again and if you keep getting the problem you can email
+                a(href="mailto:support@agilityplaza.com") support@agilityplaza.com
+                | . Ignore the diagnostics below - this is just for our geeks.
+
+            +cardSection("Diagnostics")
+                pre #{apiData}

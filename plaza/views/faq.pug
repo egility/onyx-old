@@ -1,0 +1,156 @@
+extends _page
+
+prepend navigation
+    - crumb="FAQ"
+    - title="Frequently Asked Questions"
+
+block content
+
+    .max40
+        +card(title, "question-circle")
+            +hint.
+                Click on one of the questions below to see the answer.
+
+            #questions
+                +question("How can I pay for show entries")
+                    p.
+                        Show entries are paid out of your Agility Plaza account. As each show closes, we deduct the fees
+                        from this account. You can transfer money into your account whenever you like using any of the options
+                        shown below.
+                    p.
+                        If there are insufficient funds in your account to cover the fees when the show
+                        closes, your entry may be deleted. It is your responsibility to ensure that you have funds
+                        available at this time. You must take into account the time delays in the banking system to
+                        make sure that transfers reach your Agility Plaza account in time.
+
+                    p.
+                        We recommend buying #[strong Instant Top-Ups] as (for a small processing fee) funds are immediately available - very important if
+                        you enter shows on (or shortly before) the closing date.
+
+                    .heading Instant Top-Ups
+                    p.
+                        You can buy #[strong Instant Top-Ups] using your debit/credit card. Just press the 'Buy Instant Top-up'
+                        button when you enter a show (or via the 'My Account' menu option).
+                    p.
+                        Payments are kept completely secure by our credit card processing partners (Stripe) and we do not
+                        store your credit card details on this site.  Stripe can accept Visa, Mastercard and American Express.
+                    p.
+                        We charge a small processing fee of #{api.card.rate * 100}% + #{api.card.fixed}p
+                        for this service. Please note that this fee is for use of the service and is the same regardless
+                        of the payment method used.
+
+                    .heading On-line/Telephone Banking
+                    - var reference = api.account.code.replace("-", " ").replace("-", " ")
+                    p
+                        | Setup a BACS/FPS transfer using the details shown below. Do make sure that this information
+                        | is used exactly as shown and take particular care with your unique reference (
+                        span.font-weight-bold=reference
+                        |).
+
+                    p
+                        table
+                            tr
+                                td.pr-1 Pay
+                                td Agility Plaza
+                            tr
+                                td.pr-1 Reference
+                                td #[strong #{reference}]
+                            tr
+                                td.pr-1 Sort Code
+                                td 60-83-71
+                            tr
+                                td.pr-1 Account Number
+                                td 05360428
+
+                    p
+                        span.
+                            We will credit your account and email a confirmation as soon as we receive the funds. This
+                            is normally within a few minutes of your bank sending them but can take up to one working
+                            day. If your transfer has not been received by the next working day, please check with your
+                            bank that you used the correct details (above) and if so contact our support.
+
+                    .heading Standing Order
+                    p.
+                        If you want to spread the cost of entering shows, you can set up regular payments into
+                        your account using a standing order. Just quote the same information shown for
+                        On-line/Telephone banking (above).
+                    p.
+                        Remember though, that you must still ensure that there are sufficient funds in your account
+                        when each show closes so you may need to use one of the other top-up methods as well if
+                        your regular payments are not big enough.
+
+                    .heading Cheques
+                    p.
+                        Unfortunately we can not accept cheques on Agility Plaza. However cheques can be used to
+                        submit paper entries.
+                    .heading International Payments
+                    p.
+                        Simply buy #[strong Instant Top-Ups] using your Debit/Credit Card as described above.
+            +question("Can money in my account be refunded to my bank")
+                p.
+                    This is your money so of course. For security reasons we limit refunds to £100 at a
+                    time. We cannot refund "Instant Top-ups" until we have received the cash from your charge card
+                    company, this takes around 6 working days.
+                p.
+                    To get a refund, simply open your "My Account" page and press the "Request a Refund" button at the bottom
+                    of the page. This button is only shown if there are funds available. Once pressed, follow the instructions.
+                p.
+                    It can take a couple of days for refunds to be paid as we need to manually approve them. We will
+                    email you once this has been done.
+
+
+            +question("My dog has moved up a grade/level - Who do I need to tell")
+                p.
+                    No need to tell anyone. Just update the grade on the dog's details and we will take care
+                    of the rest. We will adjust all your show entries to reflect the new grade. If the show has already
+                    closed we can still make the modification if you enter the new grade at least 14 days before the show
+                    starts. After this period, your entry must stand for KC shows. However at UKA shows you can still
+                    compete at your new level by reporting to the show secretary who can make the necessary changes.
+
+
+            +question("Why can't I change my dog's UKA height")
+                p.
+                    UKA heights are based on actual measurements. We get this information from the UKA records and
+                    determine your 'Competition Height' accordingly. Your dog's measured height is shown on its record
+                    card ('My Household', click on dog's name). If your dog was measured when under 2, you must re-measure at
+                    the first show on or after its 2nd birthday. If your dog has never been measured, then Maxi height
+                    is assumed - if this is incorrect, you must have your dog measured at the next UKA show you attend.
+
+            +question("How do I update my dogs details")
+                p.
+                    Click on the "My Household" menu option. This will list all your dogs under the "My Dogs" heading - now click on your dog's name to
+                    see their full details. If these are not correct press the "Update" button and make the necessary
+                    changes remembering to press "Save" when you are done.
+            +question("Why am I not being offered KC Championship classes (my dog is Grade 7)")
+                p.
+                    Before you enter Kennel Club Championship classes, you must enter the details of your four qualifying
+                    wins on your dog's record. To do this, select "My Household" and click on your dog's name to view
+                    their details. Then press "Update" at the bottom of the page. If your dog is Grade 7, you will see
+                    a section to enter each of your qualifying wins
+            +question("Haven't credit card charges been banned")
+                p.
+                    On 13th January 2018 new regulations came into force that ban discriminatory pricing for credit cards
+                    (or indeed any payment method). Under the rules all goods and services must be priced the same
+                    regardless of how you pay. You will no longer be allowed to charge extra for using a credit
+                    card.
+                p.
+                    We were very careful to ensure that Agility Plaza would comply with these regulations from
+                    the day it was launched (ie ahead of time). We do not have discriminatory pricing. With Agility
+                    Plaza, you can only pay show fees from your personal Agility Plaza account. These are deducted on
+                    the day the show closes. There is no option to pay show fees by cheque or cash or credit
+                    cards – just from the balance in your personal account.
+                p.
+                    You can move money into your personal account using a variety of methods. One option is to buy
+                    an “Instant Top-Up”. This is a distinct product in exactly the same way that a store gift voucher
+                    is a distinct product or a mobile phone PAYG top-up purchased at a supermarket check-out is a
+                    distinct product. As a premium service you pay a little extra for the convenience much as first
+                    class stamps (premium) are more expensive than second class stamps (regular). We call
+                    the little extra a “handling fee”. We charge this fee irrespective of how you pay for your
+                    “Instant Top-Up” - so no discriminatory pricing is involved. However for practical purposes an
+                    “Instant Top-Up” needs an instant on-line payment method, so charge cards are currently the only
+                    practical option. If there was an alternative way of accepting payment by other means, the price
+                    would be the same.
+                p.
+                    You have the choice of using a cheaper, slower, less convenient means of putting money into your
+                    personal account (such as BACS) or paying a little extra for the simplicity and speed of buying
+                    an “Instant Top-Up”. Either way you pay for the level of service, not the payment method.

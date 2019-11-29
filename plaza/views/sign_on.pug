@@ -1,0 +1,44 @@
+extends _page
+
+prepend navigation
+    -crumb="SingOn"
+    - icon="cogs"
+    - title = "Sign On"
+
+block content
+    .max60
+        +card(title, icon)
+            if (!api.competition)
+                .card-statement.mb-2 There are no signons yet
+            else
+                table.table.table-sm.table-clickable
+                    - var day = ""
+                    each competition in api.competition
+                        thead
+                            tr
+                                th.group(colspan="99")=competition.briefName
+                        thead
+                            tr
+                                th Time
+                                th Tag
+                                th Tablet
+                                th Use
+                                th Bat
+                                th Sig
+                                th ACU
+                                th Boot
+                                th Up
+                                th Error
+                        each item in competition.signOn
+                            tbody.font90
+                                tr
+                                    td=dateFormat(item.signOnTime, "HH:MM")
+                                    td=item.tag
+                                    td=item.model
+                                    td=item.activity
+                                    td=item.battery
+                                    td=item.signal
+                                    td=item.accessPoint
+                                    td=dateFormat(item.bootTime, "HH:MM")
+                                    td=dateFormat(item.upTime, "HH:MM")
+                                    td.text-xs-center!=item.panic!="" ? "&#10004;" : ""

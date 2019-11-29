@@ -1,0 +1,40 @@
+extends _page
+
+prepend navigation
+    -crumb = "Ledger"
+    -icon = "pound-sign"
+    -title = "Ledger Account"
+
+append scripts
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max65
+        - var title = api.ledgerAccount.description + " (" + api.ledgerAccount.textCode + ") - " + api.competition.name
+        +card(title, icon)
+            table.table.table-sm.font80.table-bordered.table-clickable
+                tr
+                    th ID
+                    th Date
+                    th Description
+                    th.text-xs-right Debit
+                    th.text-xs-right Credit
+                    th.text-xs-right Balance
+                    th Other
+                each item in api.ledgerAccount.items
+                    - href = '/ledger_account/' + item.idLedgerAccount
+                    tr.clickable-row(data-href=href)
+                        td=item.idLedger
+                        td #{dateFormat(item.date, "dd/mm/yy")}
+                        td=item.description
+                        td.text-xs-right #{toMoney(item.debit)}
+                        td.text-xs-right #{toMoney(item.credit)}
+                        td.text-xs-right #{toMoney(item.balance)}
+                        td=item.other

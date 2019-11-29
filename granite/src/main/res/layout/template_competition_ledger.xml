@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fri 10:24"
+        android:id="@+id/tvTime"
+        style="@style/Text20"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="5dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="[Description]"
+        android:id="@+id/tvDescription"
+        style="@style/Text20"
+        android:layout_toLeftOf="@+id/tvAmount"
+        android:layout_toRightOf="@+id/tvTime"
+        android:singleLine="false"
+        />
+    <TextView
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="[Amount]"
+        android:id="@+id/tvAmount"
+        style="@style/Text20"
+        android:gravity="right"
+        android:layout_toLeftOf="@+id/tvPaid"
+        />
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:text="Cheque"
+        android:id="@+id/tvPaid"
+        style="@style/Text20"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dp"
+        android:gravity="right"
+        />
+
+</RelativeLayout>

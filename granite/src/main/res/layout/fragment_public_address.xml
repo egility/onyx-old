@@ -1,0 +1,121 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2018
+  -->
+<RelativeLayout android:id="@+id/loPage"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Virtual Radio"
+        />
+
+    <RelativeLayout
+        android:id="@+id/loBordered"
+        android:layout_width="match_parent"
+        android:layout_centerInParent="true"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/yes_border_thick"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_margin="20dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/loMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_centerInParent="true"
+            >
+
+            <TextView
+                android:id="@+id/tvRing"
+                style="@style/Text30"
+                android:text="{ring}"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                />
+
+            <TextView
+                android:id="@+id/tvClass"
+                style="@style/Text30"
+                android:text="{class}"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:id="@+id/tvMessage"
+                style="@style/Text30"
+                android:text="{message}"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvTime"
+            style="@style/Text20"
+            android:text="{time}"
+            />
+    </RelativeLayout>
+
+    <org.egility.android.views.DbCursorListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/loBordered"
+        android:id="@+id/lvMessages"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_alignParentBottom="true"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btRefresh"
+            style="@style/ButtonNavigation"
+            android:text="Refresh"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btRadio"
+            style="@style/ButtonNavigation"
+            android:text="Radio"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btDelete"
+            style="@style/ButtonNavigation"
+            android:text="Delete"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btOK"
+            style="@style/ButtonNavigation"
+            android:text="Done"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,197 @@
+extends _page
+
+prepend navigation
+    - crumb="household"
+    - title = "My Household"
+    - icon = "home"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+
+block content
+
+    .max40
+        +card(title, icon)
+            +cardSection("Household Account")
+                table.table.table-sm.mb-1
+                    tr
+                        td.width8 Code:
+                        td=api.account.code
+                    if false
+                        tr
+                            td Account Holder:
+                            td=api.account.holder
+                    tr
+                        td Address:
+                        td!=api.account.htmlAddress
+                    if session && (session.plazaSuperUser || session.ukaSuperUser)
+                        tr
+                            td Last on:
+                            td=api.account.lastLogon
+
+                +button("link", "Update Household Details", "pencil-alt", {href: "/household_edit", small: true})
+                if api.account.hasUka
+                    +button("link", "UKA membership", "id-card", {href: "/uka_membership", small: true})
+                else
+                    +button("link", "Join UK Agility", "id-card", {href: "/uka_membership", small: true})
+
+
+            +cardSection("Household Members", "user")
+                +simpleHint.
+                    Click on name to update details
+                table.table.table-sm.table-clickable.mb-1
+                    thead
+                        tr
+                            th.width5 Code
+                            th Name
+                            th.sm-up Mobile
+                            th.sm-up Email
+                            th.width2 UKA
+                            th.width2 YKC
+                    each competitor in api.competitors
+                        tr(class={strikeout: competitor.closed}).clickable-row(data-href='/competitor/edit/' + competitor.idCompetitor)
+                            td #{competitor.code}
+                            td #{competitor.givenName} #{competitor.familyName}
+                            td.sm-up #{competitor.phoneMobile}
+                            td.sm-up #{competitor.email}
+                            td.text-xs-center!=competitor.ukaState==200 ? "&#10004;" : (competitor.ukaState==100 ? "?" : "&#10005;")
+                            td.text-xs-center!=competitor.ykcMember ? "&#10004;" : "&#10005;"
+
+
+                +button("link", "Add Household Member", "plus", {href: "/household/add_member", small: true})
+                if !api.handlers
+                    +button("link", "Add Other Handler", "plus", {href: "/household/add_handler", small: true})
+
+            +cardSection("My Dogs", "paw")
+                if (!api.dogs)
+                    .card-statement.mb-2 You haven't registered any dogs yet
+                else
+                    -var hasActive=false
+                    -var hasMore=false
+                    -var hasShared=false
+                    -var notes=""
+                    +simpleHint.
+                        Click on dog to view or update full details
+                    table.table.table-sm.table-clickable
+                        thead
+                            tr
+                                th Code
+                                th Pet Name
+                                th Registered Name
+                                th KC
+                                th UKA
+
+                        for dog in api.dogs
+                            if dog.retired || dog.gone
+                                if !dog.shared
+                                    - hasMore = true
+                            else
+                                - hasActive = true
+                                tbody
+                                    tr(class={strikeout: dog.removed}).clickable-row(data-href='/dog/select/' + dog.idDog + '?destination=review')
+                                        td=dog.code
+                                        if dog.shared
+                                            - notes += ", " + dog.petName + " shared by owner"
+                                            td=dog.petName + "*"
+                                        else if dog.sharedWith
+                                            - notes += ", " + dog.petName + " has been shared"
+                                            td=dog.petName + "*"
+                                        else
+                                            td=dog.petName
+                                        td=dog.registeredName
+                                        td!=dog.kcRegistered ? "&#10004;" : "&#10005;"
+                                        td!=dog.ukaState == 200 ? "&#10004;" : (dog.ukaState > 0 ? "?" : "&#10005;" )
+                        if (!hasActive)
+                            tbody
+                                tr
+                                    td(colspan=99) No active dogs
+                    if notes
+                        .emphasize.font80.mt-1= "(*) " + notes.substr(2) + " (click on dog's name for details)."
+
+                    if (hasMore)
+                        hr
+                        div
+                            - var first=true
+                            - var doneRetired = false
+                            - var doneGone = false
+
+                            for dog in api.dogs
+                                if (dog.retired & !dog.shared)
+                                    if !doneRetired
+                                        - doneRetired = true
+                                        - first=true
+                                        span.font80 #[strong Retired:] &nbsp;
+
+                                    - var href = '/dog/select/' + dog.idDog + '?destination=review'
+                                    if (first)
+                                        +link(dog.petName, href)
+                                        - first=false
+                                    else
+                                        span= ", "
+                                        +link(dog.petName, href)
+                                if (dog.gone & !dog.shared)
+                                    if !doneGone
+                                        if !first
+                                            span &nbsp;&nbsp;
+                                        - doneGone = true
+                                        - first=true
+                                        span.font80 #[strong Not Forgotten:] &nbsp;
+
+                                    - var href = '/dog/select/' + dog.idDog + '?destination=review'
+                                    if (first)
+                                        +link(dog.petName, href)
+                                        - first=false
+                                    else
+                                        span= ", "
+                                        +link(dog.petName, href)
+                    if (hasGone)
+                        hr
+                        div
+                            - var first=true
+                            span #[strong Not forgotten:] &nbsp;
+                            for dog in api.dogs
+                                if (dog.gone)
+                                    - var href = '/dog/select/' + dog.idDog + '?destination=review'
+                                    if (first)
+                                        +link(dog.petName, href)
+                                        - first=false
+                                    else
+                                        span= ", "
+                                        +link(dog.petName, href)
+
+                hr
+                +button("link", "Add a Dog", "plus", {href: "/dog/add", small: true})
+
+            if api.handlers
+                +cardSection("Other Handlers", "user")
+                    table.table.table-sm.mb-1
+                        thead
+                            tr
+                                th.width5 Code
+                                th Name
+                                th.width3 UKA
+                                th.width3 YKC
+
+
+                        each competitor in api.handlers
+                            tr
+                                td #{competitor.code}
+                                td #{competitor.givenName} #{competitor.familyName}
+                                td.text-xs-center!=competitor.ukaState == 200 ? "&#10004;" : (competitor.ukaState == 100 ? "?" : "&#10005;")
+                                td.text-xs-center!=competitor.ykcMember ? "&#10004;" : "&#10005;"
+                +button("link", "Add Other Handler", "plus", {href: "/household/add_handler", small: true})
+            if session && session.systemAdministrator 
+                +cardSection("System Administration", "user-secret", {protected: true})
+                    if session.systemAdministrator
+                        div
+                            +doFunction("Merge Dogs", apiRoot + "/account/" + api.account.idAccount + "/do/merge_dogs")
+                        div
+                            +doFunction("Merge Names", apiRoot + "/account/" + api.account.idAccount + "/do/merge_names")

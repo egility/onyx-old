@@ -1,0 +1,82 @@
+extends _page
+
+prepend navigation
+    - crumb="Voucher"
+    - title = "Voucher"
+    - icon = "certificate"
+
+append scripts
+    +bind_form()
+
+    script(src="https://cdn.jsdelivr.net/npm/autonumeric@4.0.1")
+    script.
+
+        function visible(selector, state) {
+            if (state) {
+                $(selector).show()
+            } else {
+                $(selector).hide()
+            }
+        }
+
+        function checkVisible() {
+            var freeCamping = $("#allCampingFree").is(':checked')
+            var unlimitedRuns = $("#allRunsFree").is(':checked')
+            var isRingPary = $("#type").val() == 34
+            var isMember = $("#type").val() == 10 || $("#type").val() == 20
+
+            visible("#ringPartyNameGroup", isRingPary)
+            visible("#campingPriorityGroup", !freeCamping)
+            visible("#campingCreditGroup", !freeCamping)
+            visible("#memberRatesGroup", isMember && !unlimitedRuns)
+            visible("#freeRunsGroup", !unlimitedRuns)
+            visible("#generalCreditGroup", !unlimitedRuns)
+        }
+
+        $(document).ready(function () {
+            checkVisible();
+            new AutoNumeric("#generalCredit", apiData.voucher.generalCredit / 100.00).british();
+            new AutoNumeric("#campingCredit", apiData.voucher.campingCredit / 100.00).british();
+        })
+
+
+        $("*").change(function () {
+            checkVisible()
+        })
+
+block content
+
+    .max35
+        +card(title, "certificate")
+            if api.voucher.idVoucher>0
+                .alert.alert-danger.
+                    Any changes made here will not be automatically applied to entries that have already used
+                    this voucher.
+            +form()
+                +fieldset("General")
+                    +select("type", "voucher.type", "Type", voucherTypes, {label: 50})
+                    +input("text", "ringPartyName", "voucher.ringPartyName", "Ring Party Name", {label: 50})
+                    if api.voucher.idVoucher>0
+                        +simpleHint Tick the box below to delete this voucher, then press the "confirm" button.
+                        +checkbox("campingPriority", "voucher.delete", "Delete Voucher", {label: 50})
+                if api.includeCamping
+                    hr
+                    +fieldset("Camping Offer")
+                        +hint.
+                            Choose any camping benefits for this voucher. Free camping implies "Priority Camping". A
+                            "Camping Credit" can be redeemed against camping fees for this show only.
+                        +checkbox("allCampingFree", "voucher.allCampingFree", "Free Camping", {label: 50})
+                        +checkbox("campingPriority", "voucher.campingPriority", "Priority Camping", {label: 50})
+                        +input("text", "campingCredit", "voucher.campingCredit", "Camping Credit", {label: 50})
+                        +input("number", "campingNightsFree", "voucher.campingNightsFree", "Free Nights", {label: 50})
+                hr
+                +fieldset("Entries Offer")
+                    +hint.
+                        Select any special deals for entering runs. A "General Credit" can be used for both
+                        runs and camping, but is only valid for this show.
+                    +checkbox("memberRates", "voucher.memberRates", "Member Rates", {label: 50})
+                    +checkbox("allRunsFree", "voucher.allRunsFree", "Unlimited Free Runs", {label: 50})
+                    +input("number", "freeRuns", "voucher.freeRuns", "Total Free Runs", {label: 50})
+                    +input("text", "generalCredit", "voucher.generalCredit", "General Credit", {label: 50})
+                hr
+                +button("submit", "Confirm", "check")

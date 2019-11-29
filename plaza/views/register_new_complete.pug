@@ -1,0 +1,35 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Registration"
+
+append scripts
+    +bind_form("register")
+
+block content
+
+    .max30
+        +card("Complete registration process")
+            +form({id: "register"})
+                +fieldset("Name")
+                    +input("text", "givenName", "competitor.givenName", "Given Name")
+                    +input("text", "familyName", "competitor.familyName", "Family Name")
+                +fieldset("Address")
+                    +textarea(4, "streetAddress", "competitor.streetAddress", "Street Address")
+                    each char in api.competitor.country.addressFormat
+                        if char=="T"
+                            +input("text", "town", "competitor.town", api.competitor.country.townTitle)
+                        if char == "R" || char == "r"
+                            +select("region", "competitor.regionCode", api.competitor.country.regionTitle, regions, {label: 0, startsWith: api.competitor.country.countyCode})
+                        if char=="P"
+                            +input("text", "Postcode", "competitor.postcode", api.competitor.country.postcodeTitle)
+                +fieldset("Telephone")
+                    +hint("Please supply a mobile phone number so that we can text you in an emergency (eg if a show is cancelled)")
+                    +input("tel", "phoneMobile", "competitor.phoneMobile", "Phone (Mobile)")
+                    +input("tel", "phoneOther", "competitor.phoneOther", "Phone (Other)")
+                +fieldset("Other")
+                    +hint("Please give your date of birth if you intend to enter age related events eg. YKC or Junior classes")
+                    +input("date", "dateOfBirth", "competitor.dateOfBirth", "Date of Birth")
+                +button("submit", "Save my details", "check")
+

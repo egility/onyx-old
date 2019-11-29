@@ -1,0 +1,80 @@
+extends _page
+
+prepend navigation
+    - crumb="Club"
+    - title = "Club"
+
+append scripts
+    +bind_form()
+    
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    .max60
+        +card(title, "Club")
+            +cardSection("Details")
+                +form()
+                    +fieldset("Data")
+                        +input("text", "name", "entity.name", "Club Name")
+                        +input("text", "entityKey", "entity.entityKey", "Key")
+                        +input("number", "marketingPriority", "entity.marketingPriority", "Priority")
+                        +input("multiline", "notes", "entity.notes", "Notes")
+                    if api.entity.idKcClub>0
+                        +fieldset("KC Records")
+                            +input("readonly", "secretary", "entity.secretary", "Club Secretary")
+                            +input("readonly", "phone", "entity.phone", "Phone")
+                            +input("readonly", "kcContactDetails", "entity.kcContactDetails", "Other Contacts")
+                        
+                    +button("submit", "Save", "check")
+                    if api.entity.idKcClub
+                        - var kcUri="https://www.thekennelclub.org.uk/services/public/findaclub/display.aspx?id=" + api.entity.idKcClub
+                        +button("newtab", "KC Page", "hand-point-right", {secondary: true, href: kcUri})
+            if api.entity.idEntity>0
+                +cardSection("Officials")
+                    if api.entity.officials
+                        +simpleHint.
+                            Click on name to view or update full details
+                        table.table.table-sm.table-clickable.mb-1.font80
+                            thead
+                                tr
+                                    th Role
+                                    th Name
+                                    th email
+                                    th phone
+                            each official in api.entity.officials
+                                tr.clickable-row(data-href=path + '/official/' + official.idEntityOfficial)
+                                    td=official.role
+                                    td=official.name
+                                    td=official.email
+                                    td=official.phone                     
+                    +button("link", "Add Official", "plus", {href: path + "/official/add", small: true})
+            if api.entity.kcShows
+                +cardSection("KC Licences")
+                    table.table.table-sm.table-clickable.mb-1.font80
+                        thead
+                            tr
+                                th.width10 Date
+                                th Venue
+                        each kcShow in api.entity.kcShows
+                            tr
+                                td=kcShow.range
+                                td=kcShow.venue
+            if api.entity.competitions
+                +cardSection("Plaza Shows")
+                    table.table.table-sm.table-clickable.mb-1.font80
+                        thead
+                            tr
+                                th.width10 Date
+                                th Show
+                        each competition in api.entity.competitions
+                            tr
+                                td=competition.range
+                                td=competition.name
+                        
+                

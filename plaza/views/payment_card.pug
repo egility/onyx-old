@@ -1,0 +1,23 @@
+extends _page
+
+prepend navigation
+    - crumb="Payment Card"
+    - title="Payment Card"
+
+append scripts
+    +bind_form()
+    +use_card_js()
+
+block content
+    .max20
+        +card(title, "credit-card")
+
+            +form()
+                .card-js(data-capture-name="true" data-icon-colour="#158CBA")
+                    input.card-number(data-api-bind="card.number")
+                    input.name#the-card-name-element(data-api-bind="card.name")
+                    input.expiry-month(data-api-bind="card.month")
+                    input.expiry-year(data-api-bind="card.year")
+                    input.cvc(data-api-bind="card.security")
+                hr
+                +button("submit", "Add", "credit-card")

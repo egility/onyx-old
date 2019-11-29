@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/list_view_item"
+              android:orientation="vertical"
+              android:baselineAligned="true"
+    >
+
+    <TextView
+        android:id="@+id/headingText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heading"
+        style="@style/Text20"
+        android:background="#bcbcbc"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
+    <TextView
+        android:id="@+id/listText1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Line 1"
+        style="@style/Text24"
+        android:background="@color/colorPrimaryInverse"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        />
+</LinearLayout>

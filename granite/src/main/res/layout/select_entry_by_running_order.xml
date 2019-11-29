@@ -1,0 +1,178 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout android:id="@+id/loPage"
+                xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        android:layout_above="@+id/tvPageFooter"
+        android:layout_alignParentBottom="false"
+
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:text="Class progress text here"
+        android:id="@+id/tvPageFooter"
+        style="@style/TextPageFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_above="@+id/loNavigation"
+        >
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loMiddle"
+            android:layout_centerInParent="true"
+            >
+
+            <TextView
+                android:id="@+id/tvRunningOrder"
+                style="@style/Text40"
+                android:text="00000"
+                android:background="@drawable/yes_border"
+                android:layout_width="135dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                />
+
+            <TextView
+                style="@style/Text30"
+                android:id="@+id/tvHint"
+                android:text="Enter Running Order"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                />
+
+
+            <GridLayout
+                android:id="@+id/loButtonGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:useDefaultMargins="true"
+                android:layout_gravity="center_horizontal"
+                android:columnCount="4"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDelAll"
+                    style="@style/CalculatorButtonSmall"
+                    android:text="Clear"
+                    android:layout_marginLeft="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btSeven"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="7"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btEight"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="8"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btNine"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="9"
+                    android:layout_marginRight="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDel"
+                    style="@style/CalculatorButtonStandard"
+                    android:text="Del"
+                    android:layout_marginLeft="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFour"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="4"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFive"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="5"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btSix"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="6"
+                    android:layout_marginRight="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btZero"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="0"
+                    android:layout_marginLeft="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOne"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="1"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btTwo"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="2"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btThree"
+                    style="@style/CalculatorButtonLarge"
+                    android:text="3"
+                    android:layout_marginRight="0dp"
+                    />
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOK"
+                    style="@style/CalculatorButtonLargeWide"
+                    android:text="OK"
+                    android:layout_marginRight="0dp"
+                    android:layout_column="2"
+                    android:layout_columnSpan="2"
+                    />
+            </GridLayout>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>
+

@@ -1,0 +1,21 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Register using your UKA Account"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max30
+        +card("Confirm your email address")
+            if (api.email == "")
+                +hint("You do not seem to have an email address on your UKA record. We need this so that we can communicate with you. Please enter your email below and press the Submit button.")
+            else
+                +hint("Please check that your email address is correct and then press the Submit button.")
+
+            +form()
+                +input("email", "email", "email", "Your email", 0, "envelope")
+                +button("submit", "Submit", "check")

@@ -1,0 +1,94 @@
+extends _page
+
+prepend navigation
+    - crumb=api.dog.petName
+    - icon="paw"
+    - title = session.petName
+
+block content
+
+    .max30
+        +card(title)
+            +cardSection("General Details")
+                table.table.table-sm
+                    tr
+                        td Code
+                        td=api.dog.code
+                    tr
+                        td Pet Name
+                        td=api.dog.petName
+                    tr
+                        td Date of Birth
+                        td=dateFormat(api.dog.dateOfBirth, "dd-mmm-yyyy")
+                    tr
+                        td Gender
+                        td=api.dog.genderText
+                    tr
+                        td Breed
+                        td=api.dog.breedText
+                    tr
+                        td Handler
+                        td=api.dog.handler
+                    tr
+                        td Status
+                        td=api.dog.stateText
+                    if api.dog.sharedWith
+                        tr
+                            td Shared With
+                            td=api.dog.sharedWith
+
+            +cardSection("Owner")
+                table.table.table-sm
+                    tr
+                        td=api.dog.owner
+            +cardSection("Kennel Club")
+                if (api.dog.idKC)
+                    table.table.table-sm
+                        tr
+                            td Registration Number
+                            td=api.dog.idKC
+                        tr
+                            td Registered Name
+                            td=api.dog.registeredName
+                        tr
+                            td Height
+                            td=api.dog.kcHeightText
+                        tr
+                            td Grade
+                            if api.dog.hasKcChampWins
+                                td=api.dog.kcGradeText + " (Champ)"
+                            else
+                                td=api.dog.kcGradeText
+                else
+                    +warning.
+                        You have not provided a KC registration number for #{api.dog.petName}. If your dog is registered,
+                        press the 'Update' button below.
+
+
+
+            if (api.dog.ukaState>0)
+                +cardSection("UK Agility")
+                    table.table.table-sm.mb-1
+                        tr
+                            td Measured Height
+                            td=api.dog.ukaMeasuredHeightText
+                        tr
+                            td Competition Height
+                            td=api.dog.ukaHeightText
+                        tr
+                            td Performance Grade
+                            td=api.dog.ukaPerformanceText
+                        tr
+                            td Steeplechase Grade
+                            td=api.dog.ukaSteeplechaseText
+                        tr
+                            td Titles
+                            td=api.dog.ukaTitle
+
+                    +button("link", "Check UKA Progress", "star", {href: "/dog/points", small: true, secondary: true})
+
+            if api.dog.idAccount==api.user.idAccount
+                +button("link", "Update", "pencil-alt", {href: "/dog/edit", small: true})
+            +button("link", "View Results", "trophy", {href: "/dog/results", small: true})
+            if api.dog.idAccount == api.user.idAccount
+                +button("link", "Share With", "handshake", {href: "/dog/share_with", small: true})

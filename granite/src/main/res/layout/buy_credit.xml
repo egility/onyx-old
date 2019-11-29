@@ -1,0 +1,303 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:id="@+id/loTopText"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_alignParentEnd="true"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loAccount"
+        >
+            <TextView
+                    android:id="@+id/tvAccountLabel"
+                    style="@style/Text30"
+                    android:text="Account: "
+            />
+            <TextView
+                    android:id="@+id/tvAccountCode"
+                    style="@style/Text30"
+                    android:text="ZZZ-9999-AAA"
+            />
+
+
+        </LinearLayout>
+
+        <View
+            style="@style/LineLight"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/loLateEntries"
+            >
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="Late Entries Available:"
+                android:id="@+id/tvLateEntriesLabel"
+                style="@style/Text24"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:id="@+id/tvLateEntries"
+                style="@style/Text24"
+                />
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/hrTop"
+            style="@style/LineLight"
+            />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/loCredits"
+            android:visibility="visible"
+            >
+
+            <TextView
+                android:id="@+id/tvStatusLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="12dp"
+                android:paddingTop="6dp"
+                android:text="Credits:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentStart="true"
+                />
+
+            <TextView
+                android:id="@+id/tvCredits"
+                style="@style/Text40"
+                android:text="0"
+                android:layout_alignParentTop="true"
+                android:layout_toEndOf="@+id/tvStatusLabel"
+                />
+
+            <TextView
+                android:id="@+id/tvCostLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="12dp"
+                android:paddingTop="6dp"
+                android:text="Cost:"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="false"
+                android:layout_toLeftOf="@+id/tvBalance"
+                />
+
+            <TextView
+                style="@style/Text40"
+                android:id="@+id/tvBalance"
+                android:text="£999.99"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/loKeyboard"
+            android:layout_above="@+id/loNavigation"
+            android:layout_below="@+id/loTopText"
+            >
+
+            <TextView
+                style="@style/Text30"
+                android:id="@+id/tvHint"
+                android:text="Enter number of credits required"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/loButtonGrid"
+                android:layout_centerHorizontal="true"
+                />
+
+            <GridLayout
+                android:id="@+id/loButtonGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:useDefaultMargins="true"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDelAll"
+                    style="@style/CalculatorButtonSmall"
+                    android:layout_column="0"
+                    android:layout_row="0"
+                    android:text="Clear"
+                    android:layout_marginLeft="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btSeven"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="1"
+                    android:layout_row="0"
+                    android:text="7"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btEight"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="2"
+                    android:layout_row="0"
+                    android:text="8"
+                    />
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btNine"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="3"
+                    android:layout_row="0"
+                    android:text="9"
+                    android:layout_marginRight="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btDel"
+                    style="@style/CalculatorButtonStandard"
+                    android:layout_column="0"
+                    android:layout_row="1"
+                    android:text="Del"
+                    android:layout_marginLeft="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFour"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="1"
+                    android:layout_row="1"
+                    android:text="4"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFive"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="2"
+                    android:layout_row="1"
+                    android:text="5"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btSix"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="3"
+                    android:layout_row="1"
+                    android:text="6"
+                    android:layout_marginRight="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btZero"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="0"
+                    android:layout_row="2"
+                    android:text="0"
+                    android:layout_marginLeft="0dp"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btOne"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="1"
+                    android:layout_row="2"
+                    android:text="1"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btTwo"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="2"
+                    android:layout_row="2"
+                    android:text="2"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btThree"
+                    style="@style/CalculatorButtonLarge"
+                    android:layout_column="3"
+                    android:layout_row="2"
+                    android:text="3"
+                    android:layout_marginRight="0dp"
+                    />
+            </GridLayout>
+
+            <TextView
+                style="@style/Text30"
+                android:id="@+id/tvLock"
+                android:text="Press &apos;OK&apos; when done"
+                android:layout_gravity="center_horizontal|top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/loButtonGrid"
+                />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/loNavigation"
+            style="@style/PanelNavigation"
+            >
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btBack"
+                style="@style/ButtonNavigation"
+                android:drawableLeft="@drawable/back"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btUsed"
+                style="@style/ButtonNavigation"
+                android:text="Check Used"
+                />
+
+            <org.egility.android.views.QuickButton
+                android:id="@+id/btOK"
+                style="@style/ButtonNavigation"
+                android:text="OK"
+                />
+        </LinearLayout>
+</RelativeLayout>
+

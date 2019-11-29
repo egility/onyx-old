@@ -1,0 +1,25 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Register"
+
+block content
+    .max30
+        +card("All Done!")
+
+            if (api.user.isUkaRegistered)
+                p.
+                    #[strong Congratulations], you are now registered on the Agility Plaza system. All your
+                    details have been copied from your UK Agility account.
+                p.
+                    To login, use your email #[strong #{api.competitor.email}] and the password that you just created.
+            else
+                p.
+                    #[strong Congratulations], you are now registered on the Agility Plaza system. Please logon
+                    using the email address and password supplied.
+                p.
+                    Once you have done this, you can add your dogs by selecting the 'My Household' menu option.
+
+
+            +button("link", "Login Now", "sign-in", {href: "/"})

@@ -1,0 +1,35 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Results"
+    else
+        -crumb=api.competition.name;
+    - icon="trophy"
+    - title = api.competition.name + " - Results"
+
+append scripts
+    +use_grids()
+
+block content
+    .mygrid
+        if (!api.competition.dates)
+            .grid-item
+                +card("")
+                    div No classes have opened yet.
+        else
+            each day in api.competition.dates
+                .grid-item
+                    +card(dateFormat(day.classDate, "ddd, dd mmm yyyy"), "calendar")
+                        each agilityClass in day.agilityClasses
+                            div
+                                - var uri = "/agilityClass/" + agilityClass.idAgilityClass + "/results"
+                                - var className = agilityClass.className
+                                if agilityClass.presented
+                                    - className += " <small>(Presented)</small>"
+                                else if agilityClass.presentingTime
+                                    - className += " <small class=emphasize>(Presenting " + agilityClass.presentingTime + ")</small>"
+                                if agilityClass.inProgress
+                                    - className+=" <small>(In Progress)</small>"
+                                +link(className, uri)
+

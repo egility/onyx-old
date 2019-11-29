@@ -1,0 +1,120 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/loStatus"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        >
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UKA Dog Registration"
+                android:id="@+id/tvTitle"
+                style="@style/Text30"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+        />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loHeight"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                style="@style/Text30"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:text="Proposed Height:"
+                android:id="@+id/tvHeightLabel"
+                android:layout_marginRight="10dp"
+                />
+            <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/rgHeight"
+                    android:longClickable="false"
+                    android:layout_marginLeft="15dp"
+            />
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/loLevel"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="20dp"
+        >
+
+            <TextView
+                    style="@style/Text30"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:text="Proposed Level:"
+                    android:id="@+id/tvLevelLabel"
+                    android:layout_marginRight="10dp"
+            />
+
+            <RadioGroup
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:id="@+id/rgGrade"
+                    android:longClickable="false"
+                    android:layout_marginLeft="15dp"
+            />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btCancel"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <org.egility.android.views.QuickButton
+                style="@style/ButtonNavigation"
+                android:id="@+id/btOK"
+                android:text="Checkout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+        />
+    </LinearLayout>
+</RelativeLayout>
+

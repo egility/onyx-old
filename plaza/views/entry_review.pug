@@ -1,0 +1,145 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    - icon="thumbs-up"
+    if (beforeToday(api.competition.dateCloses))
+        - title = api.competition.name + " <small>(Closed)</small>"
+    else
+        - title = api.competition.name
+
+block content
+
+    if (error == 1)
+        h3.mt-2 You have not entered this show
+    else
+        .max30
+            - var superUser=api.user && (api.user.systemAdministrator || api.user.access==api.competition.idOrganization || (api.user.plazaSuperUser && api.competition.idOrganization==4))
+
+            +card(api.competition.name + (api.competition.paper ? " (PAPER ENTRY)" : ""))
+                if api.competition.hasManagedCamping && api.competition.camping && api.competition.camping.pending
+                    .alert.alert-danger Your camping application is on hold - see below.
+                if api.competition.entries
+                    each date in api.competition.entries
+                        +cardSection("Entries - " + dateFormat(date.date, "ddd, dd mmm"), "calendar")
+                            each dog in date.dogs
+                                if dog.entries
+
+                                    .card-heading= dog.petName + (dog.options ? " (" + dog.options + ")" : "")
+                                    .ml-1
+                                        each entry in dog.entries
+                                            - var line = entry.className
+                                            if entry.heightText
+                                                - line += " (" + entry.heightText + ")"
+                                            if entry.runsEntered > 1
+                                                - line += " (" + entry.runsEntered + " runs)"
+                                            if entry.runningOrder
+                                                - line += " - r/o " + entry.runningOrder
+                                            div=line
+                                            
+                            if (date.teams)
+                                each team in date.teams
+                                    .card-heading= "Team - " + team.name
+                                    if (team.heightText)
+                                        .ml-1 #{team.members} (#{team.heightText})
+                                    else
+                                        .ml-1 #{team.members}
+                            if (date.pairs)
+                                each pair in date.pairs
+                                    .card-heading= "Split Pair"
+                                    if (pair.heightText)
+                                        .ml-1 #{pair.members} (#{pair.heightText})
+                                    else
+                                        .ml-1 #{pair.members}
+                if api.competition.nfc
+                    +cardSection("Other", "paw")
+                        .ml-1 #[strong NFC: ] #{api.competition.nfc}
+
+                if api.competition.camping
+                    - var camping = api.competition.camping
+                    +cardSection("Camping", "bed")
+                        if camping.canNotCancel && !locked
+                            .alert.alert-danger.
+                                Camping fees are non-refundable.
+                        p=camping.description
+                        if camping.days
+                            each date in camping.days
+                                div.ml-1= dateFormat(date, "ddd, dd mmm")
+                        if camping.pending
+                            .emphasize.font90.
+                                In order for us to proceed with your camping application, you must pay the 
+                                #{toMoney(camping.deposit)} deposit in full. Your account balance is currently
+                                #{toMoney(camping.accountBalance)} so you need to top up your account by 
+                                at least #{toMoney(camping.paymentNeeded)}. We will process your camping application as
+                                soon at this is received.
+                        - var transferCutoff = new Date(api.competition.dateStart);
+                        - transferCutoff.setDate(transferCutoff.getDate() - 7);
+                        if api.user.systemAdministrator && api.competition.hasManagedCamping && camping.confirmed && !beforeToday(transferCutoff)
+                            -  var href_camping="/competition/" + api.competition.idCompetition + "/transfer_camping"
+                            +button("link", "Transfer to another competitor", "arrow-right", {href: href_camping, small: true, secondary: true})
+                            
+                if (api.competition.items != undefined)
+                    +cardSection("Options", "shopping-basket")
+                        each item in api.competition.items
+                            div= item.description
+
+                if !api.competition.paper && (!api.competition.locked || (superUser && !api.competition.processed) || api.user.systemAdministrator)
+
+                        case api.competition.idOrganization
+                            when 1
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_kc'
+                            when 2
+                                if api.competition.grandFinals
+                                    - href = '/competition/' + api.competition.idCompetition + '/enter_uka_finals'
+                                else
+                                    - href = '/competition/' + api.competition.idCompetition + '/enter_uka'
+                            when 3
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_uk_open'
+                            when 4
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_fab'
+                            when 100
+                                case api.competition.independentType
+                                    when "AA"
+                                        - href = '/competition/' + api.competition.idCompetition + '/enter_ind_aa'
+                                    default
+                                        - href = '/competition/' + api.competition.idCompetition + '/enter_ind'
+                        -  var href_cancel="/competition/" + api.competition.idCompetition + "/cancel"
+                        if api.competition.processed
+                            +button("link", "Edit*", "pencil-alt", {href: href, small: true, secondary: true})
+                            +button("link", "Cancel*", "trash-o", {href: href_cancel, small: true, secondary: true})
+                        else
+                            +button("link", "Edit Entry", "pencil-alt", {href: href})
+                            if !api.competition.grandFinals || api.user.systemAdministrator
+                                +button("link", "Cancel Entry", "trash-o", {href: href_cancel})
+
+                if api.competition.paper && (superUser && !api.competition.processed || api.user.systemAdministrator)
+                        case api.competition.idOrganization
+                            when 1
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_kc_paper'
+                            when 2
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_uka_paper'
+                            when 3
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_uk_open_paper'
+                            when 4
+                                - href = '/competition/' + api.competition.idCompetition + '/enter_fab_paper'
+                        - var href_cancel="/competition/" + api.competition.idCompetition + "/cancel"
+                        if (api.competition.processed)
+                            +button("link", "Edit Paper*", "pencil-alt", {href: href, small: true, secondary: true})
+                            +button("link", "Cancel Paper*", "trash-o", {href: href_cancel, small: true, secondary: true})
+                        else
+                            +button("link", "Edit Paper Entry", "pencil-alt", {href: href})
+                            +button("link", "Cancel Paper Entry", "trash-o", {href: href_cancel})
+
+                if api.competition.processed && !api.competition.holdItineraries
+                    if api.competition.idOrganization == 2
+                        - var url = apiRoot + "/account/" + api.user.idAccount + "/competition/" + api.competition.idCompetition + "/report/ring_cards/" + session.token + "/" + api.competition.uniqueName + "_ring_cards.pdf"
+                        +button("externallink", "Ring Card", "download", {href: url, small: true})
+                    else if api.competition.idOrganization != 3
+                        - var url = apiRoot + "/account/" + api.user.idAccount + "/competition/" + api.competition.idCompetition + "/report/itinerary/" + session.token + "/" + api.competition.uniqueName + "_documents.pdf"
+                        +button("externallink", "Documents", "download", {href: url, small: true})
+
+                    if api.competition.documents
+                        each document in api.competition.documents
+                            -var url = apiRoot + "/competition/" + api.competition.idCompetition + "/document/" + document + "/" + api.competition.uniqueName + "_" + document + ".pdf"
+                            +button("externallink",  document, "download", {href: url, small: true})
+

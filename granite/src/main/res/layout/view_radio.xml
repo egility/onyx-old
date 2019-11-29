@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@drawable/list_view_item"
+              android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tvHeading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Heading"
+        style="@style/Text20"
+        android:background="#bcbcbc"
+        android:gravity="center_horizontal"
+        android:visibility="gone"
+        />
+
+
+    <LinearLayout
+        android:id="@+id/loDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:orientation="horizontal"
+        >
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="12:59"
+            android:id="@+id/tvTime"
+            style="@style/Text20"
+            android:layout_width="60dp"
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="Ring 99"
+            android:id="@+id/tvRing"
+            style="@style/Text20"
+            android:layout_width="80dp"
+            />
+        <TextView
+            android:layout_height="wrap_content"
+            android:text="Message"
+            android:id="@+id/tvMessage"
+            style="@style/Text20"
+            android:layout_width="match_parent"
+            />
+    </LinearLayout>
+
+
+</LinearLayout>

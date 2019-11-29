@@ -1,0 +1,41 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Camping"
+    else
+        -crumb=api.competition.name;
+    - icon="ticket-alt"
+    - title = api.competition.name + " - Class Entries"
+
+block content
+    .max50
+        +card(title, icon)
+            table.table.table-sm
+                each day in api.competition.days
+                    tr
+                        td(colspan=3).group=dateFormat(day.date, 'ddd, d mmm')
+                    tr
+                        th Class
+                        th.text-sm-right Entries
+                        th Breakdown
+                    each agilityClass in day.classes
+                        - var breakdown= ""
+                        if agilityClass.subClasses.length>1
+                            each sub in agilityClass.subClasses
+                                if api.competition.idOrganization!=4 || sub.entries>0
+                                    - breakdown = commaAppend(breakdown, sub.description + " (" + sub.entries + ")")
+                        tr
+                            td= agilityClass.name
+                            td.text-sm-right.pr-1= agilityClass.entries
+                            td.font80.align-middle= breakdown
+
+                    tr.font-weight-bold
+                        td Total
+                        td.text-sm-right.pr-1=day.entries
+                        td
+                if api.competition.days.length > 1
+                    tr.font-weight-bold
+                        td TOTAL FOR SHOW
+                        td.text-sm-right.pr-1=api.competition.entries
+                        td

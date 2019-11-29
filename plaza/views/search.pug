@@ -1,0 +1,80 @@
+extends _page
+
+prepend navigation
+    - crumb=""
+    - title = "System Switchboard"
+
+block content
+
+    .max45
+        if session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser
+            +card("Find Household", "search")
+                form(method="get" action="/account/list")
+                    table
+                        tr
+                            td(colspan=99)
+                                .group2 Handler Details
+                        tr
+                            td.width10 Surname
+                            td
+                                +input("text", "familyName", "", "")
+                        tr
+                            td Postcode
+                            td
+                                +input("text", "postCode", "", "")
+                        tr
+                            td Email
+                            td
+                                +input("text", "email", "", "")
+                        tr
+                            td Phone
+                            td
+                                +input("text", "phone", "", "")
+                        tr
+                            td(colspan=99)
+                                hr
+                                .group2 Plaza Codes
+                        tr
+                            td Competitor
+                            td
+                                +input("text", "competitorCode", "", "")
+                        tr
+                            td Account
+                            td
+                                +input("text", "accountCode", "", "")
+                        if session.plazaSuperUser
+                            tr
+                                td(colspan=99)
+                                    hr
+                                    .group2 KC Details
+                            tr
+                                td Registered Name
+                                td
+                                    +input("text", "registeredName", "", "")
+                            tr
+                                td Pet Name
+                                td
+                                    +input("text", "petNameKc", "", "")
+                            tr
+                                td KC Code
+                                td
+                                    +input("text", "idKc", "", "")
+                        if session.ukaSuperUser
+                            tr
+                                td(colspan=99)
+                                    hr
+                                    .group2 UKA Details
+                            tr
+                                td Pet Name
+                                td
+                                    +input("text", "petNameUka", "", "")
+                            tr
+                                td UKA Dog Code
+                                td
+                                    +input("number", "idUkaDog", "", "")
+                            tr
+                                td UKA Member Code
+                                td
+                                    +input("number", "idUkaMember", "", "")
+                    hr
+                    +button("submit", "search", "search")

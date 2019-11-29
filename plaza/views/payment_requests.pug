@@ -1,0 +1,30 @@
+extends _page
+
+prepend navigation
+    -crumb = "Payments"
+    -icon = "pound-sign"
+    -title = "Payment Requests"
+
+block content
+
+    .max65
+        +card(title, icon)
+            table.table.table-sm.font80.table-bordered
+                tr
+                    th Account Name
+                    th.text-xs-right Amount
+                    th.sm-up Sort Code
+                    th.sm-up Account Number
+                    th Reference
+                    th Confirmed
+                    th.sm-up Requested
+                if api.requests
+                    each item in api.requests
+                        tr
+                            td=item.accountName
+                            td.text-xs-right=item.amount
+                            td.sm-up=item.sortCode
+                            td.sm-up=item.accountNumber
+                            td=item.transactionReference
+                            td=item.confirmed
+                            td.sm-up #{dateFormat(item.dateCreated, "dd mmm HH:MM")}

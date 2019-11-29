@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+<RelativeLayout android:id="@+id/loFragment"
+                xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+    >
+
+    <RelativeLayout
+        android:id="@+id/loDistanceTime"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/loNavigation"
+        >
+
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit Score"
+                android:id="@+id/tvHint"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                style="@style/Text30"
+                />
+
+            <GridLayout
+                android:id="@+id/loButtonGrid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:useDefaultMargins="true"
+                android:columnCount="3"
+                >
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btHandling"
+                    style="@style/CalculatorButtonLargeScore"
+                    android:text="@string/score_handling"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btClear"
+                    style="@style/CalculatorButtonLargeScore"
+                    android:text="@string/score_clear"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btElimination"
+                    style="@style/CalculatorButtonLargeScore"
+                    android:text="@string/score_elimination"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btRefusal"
+                    style="@style/CalculatorButtonHugeScore"
+                    android:text="R"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btScoreDelete"
+                    style="@style/CalculatorButtonStandardScore"
+                    android:text="@string/score_delete"
+                    />
+
+                <org.egility.android.views.QuickButton
+                    android:id="@+id/btFault"
+                    style="@style/CalculatorButtonHugeScore"
+                    android:text="@string/score_fault"
+                    />
+            </GridLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="For refusals just press R. Do not press both 5 and R"
+                android:id="@+id/tvHint2"
+                android:gravity="center"
+                style="@style/Text20"
+                />
+
+            <LinearLayout
+                android:id="@+id/loButtonGrid2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:useDefaultMargins="true"
+                android:layout_gravity="center_horizontal"
+                >
+                <org.egility.android.views.QuickButton
+                    style="@style/CalculatorButtonLargeWide"
+                    android:id="@+id/btBatonChange"
+                    android:text="CHANGE OVER"
+
+                    />
+
+                <org.egility.android.views.QuickButton
+                    style="@style/CalculatorButtonLargeWide"
+                    android:id="@+id/btEnterTime"
+                    android:text="Enter Time"
+
+                    />
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btCancel"
+            style="@style/ButtonNavigation"
+            android:text="Cancel"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btNFC"
+            style="@style/ButtonNavigation"
+            android:text="@string/score_nfc"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btOK"
+            style="@style/ButtonNavigation"
+            android:text="OK"
+            />
+    </LinearLayout>
+</RelativeLayout>

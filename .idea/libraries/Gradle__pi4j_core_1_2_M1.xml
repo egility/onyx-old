@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: pi4j-core-1.2.M1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../../network/config/.gradle/caches/modules-2/files-2.1/org.bidib.com.pi4j/pi4j-core/1.2.M1/d2aefd93eee595d43f9986391df0b374c87f93d8/pi4j-core-1.2.M1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/../../../../network/config/.gradle/caches/modules-2/files-2.1/org.bidib.com.pi4j/pi4j-core/1.2.M1/69dfa3146068a19b132b1d33e2377acffcc2dca4/pi4j-core-1.2.M1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,38 @@
+extends _page
+
+prepend navigation
+    - crumb="~"
+    - title = "Register using your UKA Account"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max30
+        +card("Registration Step 2 - Your dogs")
+            - var inActive=true
+
+            if (error==1)
+                .card-statement You have not registered any dogs
+            else
+                +simpleHint.
+                    If your dog is no longer active, then please select the appropriate state from the options below.
+                +form()
+                    if (api.dogs)
+                        table.table.table-sm
+                            tr
+                                th Pet Name
+                                th State
+                            each dog in api.dogs
+                                tr
+                                    td.align-middle #{dog.petName}
+                                    - var dogState = "dogs." + api.dogs.indexOf(dog) + ".dogState"
+                                    td
+                                        +select("dogState", dogState, "", dogStates)
+                    else
+                        p.
+                            You don't seem to have any dogs, please press continue.
+
+                    div.mt-2
+                        +button("submit", "Continue Registration Process", "check")

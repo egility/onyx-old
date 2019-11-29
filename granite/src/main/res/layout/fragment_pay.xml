@@ -1,0 +1,154 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvPageHeader"
+        android:layout_above="@+id/loNavigation"
+        android:id="@+id/loMain"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        >
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/loAccount"
+        >
+            <TextView
+                    android:id="@+id/tvAccountLabel"
+                    style="@style/Text30"
+                    android:text="Account: "
+            />
+            <TextView
+                    android:id="@+id/tvAccountCode"
+                    style="@style/Text30"
+                    android:text="ZZZ-9999-AAA"
+            />
+
+
+        </LinearLayout>
+        <View
+                style="@style/LineLight"
+        />
+
+        <TextView
+                android:id="@+id/tvInfo"
+                style="@style/Text30"
+                android:text="Confirm transaction as follows:"
+                android:layout_marginTop="40dp"
+                android:layout_marginLeft="20dp"
+        />
+
+        <View
+            style="@style/LineLight"
+            />
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loLines"
+            android:layout_gravity="center_horizontal"
+            >
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                >
+
+                <TextView
+                    android:id="@+id/tvSampleLabel"
+                    android:layout_width="370dp"
+                    android:layout_height="wrap_content"
+                    android:text="Total charge:"
+                    style="@style/Text30"
+                    android:gravity="right"
+                    />
+
+                <TextView
+                    style="@style/Text30"
+                    android:id="@+id/tvSampleItem"
+                    android:text="£999.99"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <View
+            style="@style/LineLight"
+            />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="[Hint]"
+            android:id="@+id/tvHint"
+            style="@style/ReverseText36"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:singleLine="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            />
+
+        <GridLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:columnCount="1"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:id="@+id/loMenu"
+            >
+
+            <org.egility.android.views.QuickButton
+                    style="@style/MenuButton"
+                    android:layout_margin="12dp"
+                    android:layout_width="240dp"
+                    android:layout_height="wrap_content"
+                    android:text="Sample"/>
+
+        </GridLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btBack"
+            style="@style/ButtonNavigation"
+            android:drawableLeft="@drawable/back"
+            />
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btCancel"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+</RelativeLayout>
+

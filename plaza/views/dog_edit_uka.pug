@@ -1,0 +1,55 @@
+extends _page
+
+prepend navigation
+    - crumb="Edit"
+    - title = session.petName + " - UK Agility"
+
+append scripts
+    +bind_form()
+
+block content
+
+    .max40
+        +card(session.petName + " - UK Agility")
+
+            +form()
+                - var organization = api.dogOrganization
+                +fieldset("General")
+                    +input("readonly", "measuredHeight", "dogOrganization.measuredHeight", "Measured Height", {label: 50})
+                    if (organization.measuredHeight > 0)
+                        +input("readonly", "UkaHeightCode", "dogOrganization.heightCodeText", "Height Category", {label: 50})
+                    else
+                        +select("UkaHeightCode", "dogOrganization.heightCode", "Height Category", ukaHeights, {label: 50})
+                    +select("gradeCode1", "dogOrganization.gradeCode1", "Performance Grade", ukaGrades, {label: 50})
+                    +select("gradeCode2", "dogOrganization.gradeCode2", "Steeplechase Grade", ukaGrades, {label: 50})
+                +fieldset("Preferred Jump Heights")
+                    +hint.
+                        UKA allows dogs to jump higher than their measured height. For example,
+                        if your dog measures 'Standard', but you would rather compete at 'Maxi' then select this in the
+                        boxes below. You may choose different heights for Performance and Steeplechase classes.
+                    +select("heightCodePerformance", "dogOrganization.heightCodePerformance", "Performance", ukaHeights, {label: 50})
+                    +select("heightCodeSteeplechase", "dogOrganization.heightCodeSteeplechase", "Steeplechase", ukaHeights, {label: 50})
+                    +hint.
+                        Enter your preferred height for Nursery classes below. UKA
+                        rules allow you to enter any height but 'Maxi' (see the UKA rule book for more details).
+                    +select("heightCodeNursery", "dogOrganization.heightCodeNursery", "Nursery Classes", ukaHeights, {label: 50})
+                    +hint.
+                        UKA rules allow you to enter Casual classes at lower than
+                        your measured height, but if you drop down more than one level your run will be treated as
+                        'Clear Round Only'. Select your chosen height for Casual classes below.
+                    +select("heightCodeCasual", "dogOrganization.heightCodeCasual", "Casual Classes", ukaHeights, {label: 50})
+
+
+                +fieldset("Classes to be highlighted")
+                    +hint.
+                        When you enter a show, your preferred classes will be highlighted
+                        to make it easier to pick out your choices. Here you can decide which classes get this
+                        treatment. So, for example, if your dog is semi-retired and only runs in 'Casual' then just
+                        tick the 'Casual' box and just casual classes will be highlighted.
+                    +checkbox("performance", "dogOrganization.performance", "Performance", {label: 50})
+                    +checkbox("steeplechase", "dogOrganization.steeplechase", "Steeplechase", {label: 50})
+                    +checkbox("casual", "dogOrganization.casual", "Casual", {label: 50})
+                    +checkbox("nursery", "dogOrganization.nursery", "Nursery", {label: 50})
+                    +checkbox("junior", "dogOrganization.junior", "Junior", {label: 50})
+
+                +button("submit", "Save Changes", "check")

@@ -1,0 +1,283 @@
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <TextView
+        style="@style/TextPageHeader"
+        android:id="@+id/tvPageHeader"
+        android:text="Ring 4 - Champion Agility (Large)"
+        />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/loStatus"
+        android:layout_above="@+id/loNavigation"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:orientation="vertical"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:layout_below="@+id/tvPageHeader"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register Member"
+            android:id="@+id/tvTitle"
+            style="@style/Text30"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Already Registered On-Line"
+            android:id="@+id/xbOnLine"
+            style="@style/CheckBox24"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <CheckBox
+            style="@style/CheckBox24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Junior Handler"
+            android:id="@+id/xbJuniorHandler"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loCode"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Member Code"
+                android:id="@+id/tvCode"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/edCode"
+                    android:ems="4"
+                    android:text="99999"
+                    android:inputType="number"
+                    android:gravity="right"
+                    android:layout_marginBottom="2dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loGivenName"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Given Name:"
+                android:id="@+id/tvGivenNameLabel"
+                style="@style/Text24"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edGivenName"
+                style="@style/Text24"
+                android:ems="10"
+                android:inputType="textNoSuggestions|textCapWords"
+                android:text="abc def ghi"
+                android:layout_marginBottom="2dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loFamilyName"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:text="Family Name:"
+                android:id="@+id/tvFamilyNameLabel"
+                style="@style/Text24"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edFamilyName"
+                style="@style/Text24"
+                android:ems="10"
+                android:inputType="textNoSuggestions|textCapWords"
+                android:text="abc def ghi"
+                android:layout_marginBottom="2dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loDog1"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dog 1"
+                android:id="@+id/Dog1Label"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edDog1Name"
+                android:ems="8"
+                android:inputType="textNoSuggestions|textCapWords"
+                android:text="abc def ghi"
+                android:layout_marginBottom="2dp"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code"
+                android:id="@+id/tvDog1Code"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edDog1Code"
+                android:ems="4"
+                android:text="99999"
+                android:inputType="number"
+                android:gravity="right"
+                android:layout_marginBottom="2dp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loDog2"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            >
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Dog 2"
+                android:id="@+id/Dog2Label"
+                android:layout_marginRight="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edDog2Name"
+                android:ems="8"
+                android:inputType="textNoSuggestions|textCapWords"
+                android:text="abc def ghi"
+                android:layout_marginBottom="2dp"
+                />
+
+            <TextView
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Code"
+                android:id="@+id/tvDog2Code"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                />
+
+            <EditText
+                style="@style/Text24"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/edDog2Code"
+                android:ems="4"
+                android:text="99999"
+                android:inputType="number"
+                android:gravity="right"
+                android:layout_marginBottom="2dp"
+                />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:id="@+id/spacer"
+            />
+
+        <org.egility.android.views.QuickButton
+            android:id="@+id/btOK"
+            style="@style/ButtonStandard"
+            android:text="OK"
+            android:layout_width="120dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/loNavigation"
+        style="@style/PanelNavigation"
+        >
+
+        <org.egility.android.views.QuickButton
+            style="@style/ButtonNavigation"
+            android:id="@+id/btCancel"
+            android:text="Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </LinearLayout>
+</RelativeLayout>
+

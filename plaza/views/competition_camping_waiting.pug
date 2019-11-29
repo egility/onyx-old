@@ -1,0 +1,64 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Camping"
+    else
+        -crumb=api.competition.name;
+    - icon="bed"
+    - title = api.competition.name + " - Camping"
+
+        
+append scripts
+    +bind_form()
+    
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var checkboxId = $(this).data("checkbox");
+                var checkbox = $("#" + checkboxId);
+                checkbox.prop('checked', !checkbox.prop('checked'))                
+            });
+        });
+
+
+block content
+    .max60
+        +card(title, icon)
+            if (!api.bookings)
+                .card-statement.mb-2 There are no bookings yet
+            else
+                .p.mb-1 Total pitches: #{api.bookings.length}
+                +form()
+                    table.table.table-sm.table-clickable
+                        thead
+                            tr
+                                th.width3.text-xs-right Rank
+                                th Camper
+                                th Days
+                                th Help
+                                th Note
+                                th.text-xs-center Approve
+                        each booking in api.bookings
+                            - var index = api.bookings.indexOf(booking)
+                            - var bind = "bookings." + index + ".confirmed"
+                            - var checkboxId = "confirmed" + index    
+                            tbody.font90
+                                tr.clickable-row(data-checkbox="confirmed" + index)
+                                    td.align-middle.text-xs-right=booking.rank
+                                    td.align-middle=booking.camper
+                                    td.align-middle=booking.days
+                                    td.align-middle=booking.help
+                                    if (booking.pending)
+                                        td.text-xs-center.align-middle Not Paid
+                                    else
+                                        td
+                                        
+                                    if (booking.rejected)
+                                        td.text-xs-center.align-middle Rejected
+                                    else
+                                        td.text-xs-center
+                                            +checkbox(checkboxId, bind, "")
+                                    
+                    hr
+                    +button("submit", "Save", "check")

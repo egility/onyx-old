@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<RelativeLayout
+    android:id="@+id/loPage"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:background="@color/colorPrimaryInverse"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    >
+    <TextView
+        android:id="@+id/tvPageHeader"
+        style="@style/TextPageHeader"
+        android:text="{Competition}"
+        />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvPageHeader"
+        android:id="@+id/loTop"
+        >
+
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ivLogo"
+            android:src="@drawable/logo"
+            android:contentDescription="Logo"
+            android:layout_marginTop="50dp"
+            android:clickable="false"
+            android:longClickable="true"
+            android:adjustViewBounds="false"
+            />
+
+        <View
+            android:id="@+id/hrTop"
+            style="@style/LineLight"
+            android:layout_marginTop="50dp"
+            />
+
+        <TextView
+            style="@style/Text36"
+            android:id="@+id/tvUsage"
+            android:text="{Usage}"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            />
+        <View
+            android:id="@+id/hrBottom"
+            style="@style/LineLight"
+            />
+    </LinearLayout>
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/loTop"
+            android:layout_above="@+id/tvPageFooter"
+            android:id="@+id/loBottom">
+
+        <LinearLayout
+                android:id="@+id/loCentre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/yes_border"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:padding="10dp"
+        >
+
+            <TextView
+                    android:id="@+id/tvSubTitle"
+                    style="@style/Text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="{sub-title}"
+            />
+
+            <GridLayout
+                    android:id="@+id/loMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:columnCount="1"
+            >
+
+                <org.egility.android.views.QuickButton
+                        android:id="@+id/btOption1"
+                        style="@style/CalculatorButtonStandard"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="{option 1}"
+                />
+
+                <org.egility.android.views.QuickButton
+                        android:id="@+id/btOption2"
+                        style="@style/CalculatorButtonStandard"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="{option 2}"
+                />
+
+                <org.egility.android.views.QuickButton
+                        android:id="@+id/btOption3"
+                        style="@style/CalculatorButtonStandard"
+                        android:layout_width="160dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_margin="10dp"
+                        android:text="{option 3}"
+                />
+            </GridLayout>
+        </LinearLayout>
+        <TextView
+                style="@style/Text20"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:id="@+id/tvError"
+                android:gravity="center"
+                android:singleLine="false"
+                android:layout_above="@+id/btOpenMenu"
+                android:layout_alignParentStart="true"
+        />
+
+
+        <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:id="@+id/loWait"
+                android:visibility="visible"
+                android:background="@drawable/yes_border_thick"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:padding="10dp"
+        >
+
+            <TextView
+                    style="@style/Text24Bold"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Connecting to System"
+                    android:id="@+id/tvConnecting"
+                    android:gravity="center"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+            />
+
+            <TextView
+                    style="@style/Text20"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvWaiting"
+                    android:gravity="center"
+                    android:singleLine="false"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+            />
+
+            <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/progressBar"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+            />
+        </LinearLayout>
+
+
+        <org.egility.android.views.QuickButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Use the System"
+                android:id="@+id/btOpenMenu"
+                style="@style/ButtonStandard"
+                android:layout_centerInParent="true"
+        />
+    </RelativeLayout>
+
+    <TextView
+        android:text="Device details here"
+        android:id="@+id/tvPageFooter"
+        style="@style/TextPageFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        />
+
+
+
+</RelativeLayout>

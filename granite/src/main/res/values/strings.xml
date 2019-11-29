@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) Mike Brickman 2014-2017
+  -->
+
+<resources>
+    <string name="app_name">e-gility</string>
+
+    <string name="score_exit">Menu</string>
+    <string name="score_time">Enter Time</string>
+    <string name="score_nfc">NFC</string>
+    <string name="score_fault">5</string>
+    <string name="score_refusal">R</string>
+    <string name="score_handling">H</string>
+    <string name="score_clear">C</string>
+    <string name="score_elimination">E</string>
+    <string name="score_delete">Del</string>
+
+    <string name="hint_score">Enter Score</string>
+    <string name="hint_time">Enter Time</string>
+    <string name="hint_wait">Wait for run to complete...</string>
+
+
+
+    <string name="button_main_menu">Main Menu</string>
+    <string name="button_back">Back</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_settings">System Settings</string>
+    <string name="button_setup">Set Up</string>
+
+
+
+
+
+
+
+
+
+
+    <string name="menu_main_title">Main Menu</string>
+    <string name="menu_main_subtitle">Choose a Job</string>
+    <string name="menu_old_title">Main Menu (OLD)</string>
+    <string name="menu_old_subtitle">Choose a Job</string>
+
+    <string name="option_job_ring_party">Ring Party</string>
+    <string name="option_job_show_manager">Show Manager</string>
+    <string name="option_score_board">Score Board</string>
+    <string name="option_old_menu">Other Options</string>
+
+    <string name="option_job_scrimer">Scrimer</string>
+    <string name="option_job_check_in">Check-In Helper</string>
+    <string name="option_job_ring_manager">Ring Manager</string>
+
+    <string name="menu_scrime_title">Scrime Options</string>
+    <string name="menu_scrime_subtitle">What would you like to do?</string>
+    <string name="option_scrime_start">Scrime</string>
+    <string name="option_scrime_change_class">Change Class</string>
+    <string name="option_scrime_check_results">Check Results</string>
+
+    <string name="menu_ring_party_title">Ring Party Options</string>
+    <string name="menu_ring_party_subtitle">What would you like to do?</string>
+
+
+    <string name="menu_ring_manager_title">Ring Manager Options</string>
+    <string name="menu_ring_manager_subtitle">What would you like to do?</string>
+    <string name="option_ring_manager_start">Monitor Progress</string>
+    <string name="option_ring_manager_change_class">Change Class</string>
+    <string name="option_ring_manager_check_results">Check Results</string>
+
+    <string name="menu_checkin_title">Check-in Options</string>
+    <string name="menu_checkin_subtitle">What would you like to do?</string>
+    <string name="option_checkin_confirm">Confirm Entries</string>
+    <string name="option_checkin_ringside">Check In</string>
+    <string name="option_checkin_ready">Next to Run</string>
+
+    <string name="menu_setup_title">Set-up Options</string>
+    <string name="menu_setup_subtitle">Choose one of the following:</string>
+    <string name="option_setup_show">Select Show</string>
+    <string name="option_setup_ring">Select Ring</string>
+    <string name="option_configure">Configure</string>
+    <string name="score_change_height">Change Height</string>
+    <string name="enter_course_times">Enter Course Times</string>
+
+    <string name="lookup_dog">Lookup Dog</string>
+    <string name="show_list">Show List</string>
+
+
+
+
+    <string name="act1">FirstActivity - Floating point division</string>
+    <string name="act2">SecondActivity - Integer division</string>
+
+    <string name="msgCrash">Exception <b>\"%1$s\"</b> has been successfully caught!\n</string>
+    <string name="msgCrashCause">Exception <b>\"%1$s\"</b> (caused by <b>\"%2$s\"</b>) has been successfully caught!\n</string>
+
+    <string-array name="msgMem">
+        <item>All your base are belong to us</item>
+        <item>I\'m sorry Dave, I\'m afraid I can\'t do that</item>
+        <item>Resistance is futile</item>
+        <item>Technically I was never alive, but I appreciate your concern</item>
+        <item>What do you want?</item>
+        <item>By your command</item>
+    </string-array>
+
+    <string name="btnCrash">Test Calc</string>
+    <string name="btnBackgroundCrash">Test Background Crash</string>
+    <string name="btnNext">Next Activity</string>
+
+    <string name="btnReport">Report It!</string>
+    <string name="btnClose">Close</string>
+    <string name="txtSendReportHint">Press <b>\"Report It!\"</b> to see the stuff</string>
+    <string name="txtCrashTitle">Crash Caught</string>
+    <string name="btnIgnore">Ignore</string>
+
+
+
+
+</resources>

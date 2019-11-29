@@ -1,0 +1,205 @@
+extends _page
+
+append scripts
+    +bind_form()
+
+    script(src = "https://cdn.jsdelivr.net/npm/autonumeric@4.0.1")
+
+    script.
+
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+        function setInitial(amount) {
+            new AutoNumeric("#printCost", amount).british();
+        }
+
+        var printCost = api.competition.printCost ? api.competition.printCost : 0
+        setInitial(printCost / 100.0)
+
+
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "clipboard"
+    -title =api.competition.name + " <small>(" + dateRange(api.competition.dateStart, api.competition.dateEnd) + ")</small>"
+
+block content
+
+    - var competition=api.competition
+
+    .max45
+        if administratorKc || api.user.showSecretary
+            +card(competition.briefName + " Switchboard", icon)
+                +cardSection("Quick Lists", "file-alt")
+                    .list-item
+                        - var url =  "/competition/" + competition.idCompetition + "/entries_kc"
+                        +link("Entries", url)
+                    .list-item
+                        - var url =  "/competition/" + competition.idCompetition + "/camping"
+                        +link("Camping Bookings", url)
+                    if competition.hasManagedCamping
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/campingWaiting"
+                            +link("Camping Waiting List", url)
+                    .list-item
+                        - var url =  "/competition/" + competition.idCompetition + "/entry_stats"
+                        +link("Individual Class Entries", url)
+                    .list-item
+                        - var url =  "/competition/" + competition.idCompetition + "/map"
+                        +link("Entry Map", url)
+                +cardSection("Downloads", "download")
+                    .list-item
+                        - var url = apiRoot + "/competition/" + competition.idCompetition + "/fabData/" + competition.uniqueName + "_data.xls"
+                        +link("Show Data Spreadsheet", url, {external: true})
+                    .list-item
+                        - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/ring_plan_provisional/" + session.token + "/" + competition.uniqueName + "_ring_plan_provisional.pdf"
+                        +link("Ring Plan (Provisional)", url, {external: true})
+                    if competition.processed
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/calling_sheets/" + session.token + "/" + api.competition.uniqueName + "_calling_sheets.pdf"
+                            +link("Calling Sheets", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/ring_boards/" + session.token + "/" + api.competition.uniqueName + "_ring_boards.pdf"
+                            +link("Ring Boards", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/camping_list/" + session.token + "/" + api.competition.uniqueName + "_camping_list.pdf"
+                            +link("Camping List", url, {external: true})
+                    if beforeToday(competition.dateEnd)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/results/zip/" + session.token + "/" + api.competition.uniqueName + "_results.zip"
+                            +link("All Results PDFs (.zip)", url, {external: true})
+
+
+                +cardSection("Documents", "file-pdf")
+                    if api.competition.documents
+                        each document in api.competition.documents
+                            -var url = apiRoot + "/competition/" + api.competition.idCompetition + "/document/" + document + "/" + api.competition.uniqueName + "_" + document + ".pdf"
+                            .list-item
+                                +link(document, url, {external: true})
+
+                +cardSection("Vouchers", "certificate")
+                    if competition.vouchers
+                        table.table.table-sm.font80.table-clickable
+                            tr
+                                th Type
+                                th Offer
+                                th Code
+                            each voucher in competition.vouchers
+                                if administratorKc
+                                    - href = '/voucher?idCompetition=' + api.competition.idCompetition + '&voucherCode=' + voucher.code
+                                    - extra={class: "clickable-row", "data-href": href}
+                                tr&attributes(extra)
+                                    td=voucher.type
+                                    td=voucher.specification
+                                    td=voucher.code
+                    if administratorKc
+                        .mt-half
+                            +button("link", "Add Voucher", "plus", {
+                                href: '/voucher?idCompetition=' + api.competition.idCompetition + '&voucherCode=add',
+                                small: true,
+                                secondary: true
+                            })
+        if administratorKc
+            +card("KC Management", "lock", {protected: true})
+                +cardSection("Download", "download")
+
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/template/" + session.token + "/" + competition.uniqueName + "_template.xls"
+                            +link("Show Template", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/awards/" + session.token + "/" + api.competition.uniqueName + "_awards.xls"
+                            +link("Awards Sheet", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/classes/" + session.token + "/" + competition.uniqueName + "_classes.xls"
+                            +link("Ring Planner", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/mailout_torbay/" + session.token + "/" + api.competition.uniqueName + "mailout_torbay.pdf"
+                            +link("Mailout Torbay", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/mailout/" + session.token + "/" + api.competition.uniqueName + "mailout.pdf"
+                            +link("Mailout DIY", url, {external: true})
+
+
+                        if beforeToday(competition.dateEnd)
+                            .list-item
+                                - var nextYear = parseInt(dateFormat(api.competition.dateStart, "yyyy")) + 1
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/template/" + session.token + "/" + api.competition.uniqueName + "_template_for_" + nextYear + ".xls?next_year=true"
+                                +link("Show Template for " + nextYear, url, {external: true})
+
+
+
+                +cardSection("Upload", "upload")
+                    .list.pl-1.mb-1
+
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Schedule"
+                            +uploadPdf("Schedule", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Entry Form"
+                            +uploadPdf("Entry Form", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Ring Plan"
+                            +uploadPdf("Ring Plan", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Running Orders"
+                            +uploadPdf("Running Orders", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Notes"
+                            +uploadPdf("Notes/Helpers List", url)
+                        .list-item
+                            - var url = apiRoot + "/spreadsheet/upload"
+                            +uploadXml("Plaza Spreadsheet", url)
+                            
+                +cardSection("e-gility Kit", "clipboard-list")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = "/competition/" + competition.idCompetition + "/stock_parameters"
+                            +link("Review Stock Parameters", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/picking_list/" + session.token + "/" + api.competition.uniqueName + "_picking_list.pdf"
+                            +link("Picking List", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/delivery_note/" + session.token + "/" + api.competition.uniqueName + "_delivery_note.pdf"
+                            +link("Delivery Note", url, {external: true})
+                        .list-item
+                            - var url = "/competition/" + competition.idCompetition + "/stock_out"
+                            +link("Check-out Stock", url)
+
+                if session && session.systemAdministrator
+                    +cardSection("System Administration", "user-secret")
+                        div
+                            +link("Open: Accounting System", "/competition_accounts/" + competition.idCompetition + "?root=true")
+                        div
+                            - var url = "/competition/" + competition.idCompetition + "/tablets"
+                            +link("Tablets", url)
+                        div
+                            - var url = "/competition/" + competition.idCompetition + "/sign_on"
+                            +link("Sign-ons", url)
+                        div
+                            - var url = "/competition/" + competition.idCompetition + "/signal"
+                            +link("Mobile Network", url)
+
+            +card("Details", "edit")
+                +form()
+                    +fieldset("Bank Details")
+                        +input("text", "bankAccountName", "competition.bankAccountName", "Account Name", {label: 30})
+                        +input("text", "bankAccountSort", "competition.bankAccountSort", "Sort Code", {label: 30})
+                        +input("text", "bankAccountNumber", "competition.bankAccountNumber", "Account Code", {label: 30})
+                    if competition.hasManagedCamping && session && session.systemAdministrator
+                        +fieldset("Camping")
+                            .alert.alert-danger If changed camping offers may be made - BE CAREFUL
+                            +input("text", "campingReleased", "competition.campingReleased", "Pitches Released", {label: 30})
+                    if session && session.systemAdministrator
+                        +fieldset("Print Run")
+                            +input("text", "printCost", "competition.printCostPound", "Print Cost", {label: 30})
+                            +input("number", "printQuantity", "competition.printQuantity", "Items Printed", {label: 30})
+                        +fieldset("Other")
+                            +input("number", "processingFeeSwap", "competition.processingFeeSwap", "SWAP Fee", {label: 30})
+
+
+                    +button("submit", "Save Changes", "check")

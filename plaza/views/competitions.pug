@@ -1,0 +1,80 @@
+extends _page
+
+prepend navigation
+    - crumb="Show Diary"
+    - icon="calendar"
+    - title="Show Diary"
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+        });
+
+block content
+
+    -var month=""
+    - var week = 0
+    - var loggedIn=session && session.authenticated && session.registrationComplete
+
+    .max45
+        +card(title)
+            +simpleHint.
+                Click on show to see more details
+            table.table.table-sm.table-clickable.font80
+                each competition in api.competitions
+                    - var href='/competition_kc/' + competition.idCompetition
+                    case competition.idOrganization
+                        when 1
+                            - var href='/competition_kc/' + competition.idCompetition
+                            - organization = "KC"
+                        when 2
+                            - href = '/competition_uka/' + competition.idCompetition
+                            - organization = "UKA"
+                        when 3
+                            - href = '/competition_uk_open/' + competition.idCompetition
+                            - organization = "Ind"
+                        when 4
+                            - href = '/competition_fab/' + competition.idCompetition
+                            - organization = "FAB"
+                        when 100
+                            - href = '/competition_ind/' + competition.idCompetition
+                            - organization = "Ind"
+
+                    -var monthStart=dateFormat(competition.dateStart, "mmmm")
+                    if (monthStart != month)
+                        - month = monthStart
+                        - week = competition.weekNumber
+                        thead
+                            tr
+                                th.group(colspan="99") #{dateFormat(competition.dateStart, "mmmm yyyy")}
+                            tr
+                                th.xs-down.width5 Dates
+                                th.sm-up.width7 Dates
+                                th.sm-up Org
+                                th Name
+                                th.sm-up Venue
+                                th.width5 Postcode
+                                th.width7 Entries
+                    - var attributes ={class: "organization" + competition.idOrganization}
+                    if competition.weekNumber != week
+                        - week = competition.weekNumber
+                        tr.separator
+                            td(colspan=99)
+                    if !competition.provisional || competition.systemManager || competition.showSecretary
+                        - attributes.class += " clickable-row"
+
+                    if competition.hidden
+                        - attributes.class += " font-italic red"
+
+                    tr&attributes(attributes)(data-href=href)
+                        td.sm-up #{dateRange(competition.dateStart, competition.dateEnd, true)}
+                        td.xs-down #{dateRange(competition.dateStart, competition.dateEnd, true, true)}
+                        td.sm-up=organization
+                        td #{competition.briefName}
+                        td.sm-up #{competition.venue}
+                        td=competition.venuePostcode
+                        td=competition.entryInfo
+

@@ -1,0 +1,156 @@
+extends _page
+
+prepend navigation
+    - crumb="UKA"
+    - icon="address-card"
+    - title = "UK Agility Membership"
+
+append scripts
+    +bind_form()
+
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                window.location = $(this).data("href");
+            });
+            $("#paper").click(function () {
+                checkPaper(this.checked);
+            });
+
+            checkPaper(apiData.paper)
+        });
+
+        function checkPaper(paper) {
+            if (paper) {
+                $(".local-paper").removeAttr("hidden")
+                $(".local-online").hide()
+                $(".local-paper").show()
+            } else {
+                $(".local-online").show()
+                $(".local-paper").hide()
+            }
+        }
+
+
+block content
+
+    .max35
+        +card(title, icon)
+            if api.competitors
+                +cardSection("UKA Members", "user")
+                    if false
+                        +hint Click on name to see full balance details
+                    table.table.table-sm.mb-1.table-clickable
+                        thead
+                            tr
+                                th.width5 Code
+                                th Name
+                                th Memebership
+                                if false
+                                    th Balance
+                        each competitor in api.competitors
+                            tr.clickable-row(data-href="/uka_ledger/" + competitor.idCompetitor)
+                                if competitor.idUka>0
+                                    td=competitor.idUka
+                                else
+                                    td
+                                td=competitor.fullName
+                                td=competitor.stateText
+
+            if api.dogs
+                +cardSection("Registered Dogs", "paw")
+                    table.table.table-sm.mb-1
+                        thead
+                            tr
+                                th.width5 Code
+                                th Name
+                                th Registration
+                        each dog in api.dogs
+                            tr
+                                td=dog.dogCode
+                                td=dog.petName
+                                td=dog.stateText
+
+            if api.actions
+                +cardSection("Registration Options", "pound-sign")
+
+                    +form()
+                        if api.actions.competitors
+                            +hint Tick the box(es) below to select your membership choice(es).
+                            .group2 Memberships
+                            table.table.table-xs.mb-1
+                                tr
+                                    th Name
+                                    th Option
+                                    th.text-xs-center.width5 Select
+                                    th.text-xs-right.width4 Fee
+                                each action in api.actions.competitors
+                                    - var index = api.actions.competitors.indexOf(action)
+                                    - var bind = "actions.competitors." + index + ".confirmed"
+                                    tr
+                                        td.align-middle.clickable-cell(data-link=index) #{action.name}
+                                        td.align-middle.clickable-cell(data-link=index) #{action.description}
+                                        td.text-xs-center
+                                            +checkbox("action" + index, bind, "")
+                                        td.align-middle.text-xs-right.clickable-cell(data-link=index)
+                                            span.local-online=toMoney(action.fee)
+                                            span.local-paper(hidden)=toMoney(action.paperFee)
+
+
+                        if api.actions.dogs
+                            if api.actions.competitors
+                                hr
+                            +simpleHint().
+                                Select any dogs you wish to register by ticking the box(es) below. Choose the height you think
+                                your dog is most likely to measure in and select your dog's current KC grade (Grade 1 if
+                                not registered for KC). The UKA level will be determined from your dog's KC grade using the table below:
+                            table(style="background: transparent;").table.table-xs.font80.width15
+                                tr
+                                    th.width6 KC Grade
+                                    th UKA Level
+                                tr
+                                    td G1, G2, G3
+                                    td Beginners
+                                tr
+                                    td G4, G5
+                                    td Novice
+                                tr
+                                    td G6, G7
+                                    td Senior
+                            hr
+                            .group2.mb-1 Dog Registrations
+
+                            table.table.table-xs.mb-1
+                                tr
+                                    th Name
+                                    th Height
+                                    th KC Grade
+                                    th.text-xs-center.width5 Select
+                                    th.text-xs-right.width4 Fee
+                                each action in api.actions.dogs
+                                    - var index = api.actions.dogs.indexOf(action)
+                                    - var bind = "actions.dogs." + index
+                                    tr
+                                        td.align-middle.clickable-cell(data-link=index) #{action.name}
+                                        td.align-middle
+                                            +select("ukaHeightCode", bind + ".ukaHeightCode", "", ukaHeights)
+                                        td.align-middle
+                                            +select("kcGradeCode", bind + ".kcGradeCode", "", kcGrades)
+                                        td.align-middle.text-xs-center
+                                            +checkbox("action" + index, bind + ".confirmed", "")
+                                        td.align-middle.text-xs-right.clickable-cell(data-link=index)
+                                            span.local-online=toMoney(action.fee)
+                                            span.local-paper(hidden)=toMoney(action.paperFee)
+                        hr
+                        if api.user && api.user.ukaSuperUser
+                            +checkbox("paper", "paper", "Paper Registration", {simple: true})
+                            hr
+
+
+                        +hint().
+                            Press the "Register" button below to complete the registration process.
+
+
+                        +button("submit", "Register", "check")
+
+

@@ -1,0 +1,76 @@
+extends _page
+
+append scripts
+    script.
+        jQuery(document).ready(function ($) {
+            $(".clickable-row").click(function () {
+                var email = $(this).data("email");
+                $("#email").val(email)
+                $("#password").val("system")
+                $("#token").val($(this).data("token"))
+                $("#loginForm").submit()
+
+            });
+        });
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Camping"
+    else
+        -crumb=api.competition.name;
+    - icon="bed"
+    - title = api.competition.name + " - Camping"
+
+block content
+    .max35
+        +card(title, icon)
+            if (!api.bookings)
+                .card-statement.mb-2 There are no bookings yet
+            else
+                if api.competition.hasManagedCamping
+                    if api.competition.campingCancelled
+                        .p.mb-1 Total applications: #{api.competition.campingApplications} (#{api.competition.campingAccepted} accepted, including #{api.competition.campingCancelled} cancelled)
+                    else
+                        .p.mb-1 Total applications: #{api.competition.campingApplications} (#{api.competition.campingAccepted} accepted)
+                else
+                    .p.mb-1 Total pitches: #{api.bookings.length}
+
+                - var clickable = session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser ? {class: "table-clickable"} : {}
+                table&attributes(clickable).table.table-sm
+                    thead
+                        tr
+                            if api.competition.hasGroups
+                                th Group
+                            th.width15 Camper
+                            each campingDate in api.competition.campingDates
+                                th.width3.text-xs-center=dateFormat(campingDate, "ddd")
+                            if api.competition.hasManagedCamping
+                                th.width3.text-xs-right Accepted
+                    each booking in api.bookings
+                        tbody.font90
+                            - var extra = api.competition.hasManagedCamping && booking.confirmed ? {class: "background_tint"} : {}
+                            if session.systemAdministrator || session.plazaSuperUser || session.ukaSuperUser
+                                - extra.class += " clickable-row"
+                                - extra["data-email"] = booking.idCompetitor + "@ap"
+                                - extra["data-token"] = session.token
+                            tr(class={strikeout: booking.cancelled})&attributes(extra)
+                                if api.competition.hasGroups
+                                    td=booking.groupName
+                                td=booking.camper
+                                each campingDate in api.competition.campingDates
+                                    - var index=api.competition.campingDates.indexOf(campingDate)
+                                    - var booked = (Math.pow(2, index) & booking.dayFlags) > 0
+                                    td.text-xs-center!=booked ? "&#10004;" : ""
+                                if api.competition.hasManagedCamping
+                                    if (booking.rejected)
+                                        td.text-xs-center.align-middle Rejected
+                                    else if (booking.pending)
+                                        td.text-xs-center.align-middle On Hold
+                                    else
+                                        td.re.text-xs-center!=booking.confirmed ? "&#10004;" : ""
+                .hidden
+                    +form({id: "loginForm"})
+                        +input("text", "email", "authenticate.email", "")
+                        +input("text", "password", "authenticate.password", "")
+                        +input("text", "token", "authenticate.token", "")
+                        +button("submit", "Login", "sign-in", {small: true})

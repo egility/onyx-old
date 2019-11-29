@@ -1,0 +1,21 @@
+extends _page
+
+prepend navigation
+    - crumb="Cancel"
+    - title = api.competition.name + " - Cancel Entry"
+    - icon = "trash-o"
+
+append scripts
+    +bind_form()
+
+block content
+        .max30
+            +card(api.competition.name + " - Cancel Entry", icon)
+                .heading Are You Sure?
+                p.mb-1.
+                    Do you really want to cancel your entry for the #{api.competition.name} show? Press 'Confirm' to
+                    go ahead and 'Abort' if you are not sure.
+                hr
+                +form()
+                    +button("submit", "Confirm", "check")
+                    +button("back", "Abort", "close", {secondary: true})

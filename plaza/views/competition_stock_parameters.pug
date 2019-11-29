@@ -1,0 +1,28 @@
+extends _page
+
+append scripts
+    +bind_form()
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "clipboard"
+    -title =api.competition.name
+
+block content
+
+    - var competition=api.competition
+
+    .max30
+        if administratorKc || api.user.showSecretary
+
+            +card(competition.briefName + " - e-gility Stock", "edit")
+                +form()
+                    +fieldset("Parameters")
+                        +input("readonly", "rings", "competition.rings", "Rings", {label: 30})
+                        +input("number", "tabletsSecretary", "competition.tabletsSecretary", "Secretary Tablets", {label: 30})
+                        +input("number", "tabletsSpare", "competition.tabletsSpare", "Spare Tablets", {label: 30})
+                        +input("number", "acusSpare", "competition.acusSpare", "Spare ACUs", {label: 30})
+                        +input("number", "tripods", "competition.tripods", "Tripods", {label: 30})
+                        
+                    +button("submit", "Update", "check")
+                        

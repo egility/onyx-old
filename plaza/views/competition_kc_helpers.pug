@@ -1,0 +1,36 @@
+extends _page
+
+prepend navigation
+    if (hasName(breadcrumbs, api.competition.name))
+        -crumb="Helpers"
+    else
+        -crumb=api.competition.name;
+    - icon=""
+    - title = api.competition.name + " - Helpers"
+
+block content
+    .max50
+        +card(title, icon)
+            if !api.competitors
+                .card-statement.mb-2 There are no helpers yet
+            else
+                table.table.table-sm.table-clickable
+                    thead
+                        tr
+                            th.width15 Helper
+                            th Voucher
+                            each campingDate in api.competition.helpingDates
+                                th.width3.text-xs-center=dateFormat(campingDate, "ddd") + " am"
+                                th.width3.text-xs-center=dateFormat(campingDate, "ddd") + " pm"
+                            th Judge
+                    for competitor in api.competitors
+                        tr
+                            td=competitor.name
+                            td.font80.align-middler= competitor.voucherCode
+                            each helpDate in competitor.helpDays
+                                th.width3.text-xs-center!=helpDate.am ? "&#10004;" : ""
+                                th.width3.text-xs-center!=helpDate.pm ? "&#10004;" : ""
+                            td.font80.align-middle=competitor.judges
+
+
+

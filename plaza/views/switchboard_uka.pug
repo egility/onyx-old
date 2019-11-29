@@ -1,0 +1,183 @@
+extends _page
+
+prepend navigation
+    - crumb=api.competition.uniqueName
+    -icon = "clipboard"
+    -title =api.competition.name + " <small>(" + dateRange(api.competition.dateStart, api.competition.dateEnd) + ")</small>"
+
+block content
+
+    - var competition=api.competition
+
+    .max45
+        if administratorUka || api.user.showSecretary
+            +card(competition.briefName + " Switchboard", icon)
+                +cardSection("Quick Lists", "file-alt")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/entries_uka"
+                            +link("List Entries", url)
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/camping"
+                            +link("List Camping Bookings", url)
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/entry_stats"
+                            +link("Show Individual Class Entries", url)
+                        .list-item
+                            - var url =  "/competition/" + competition.idCompetition + "/map"
+                            +link("Entry Map", url)
+                +cardSection("Downloads", "download")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/ukaData/" + competition.uniqueName + "_data.xls"
+                            +link("Show Data", url, {external: true})
+                        if isOrBeforeToday(competition.dateStart)
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/results/zip/" + session.token + "/" + api.competition.uniqueName + "_results.zip"
+                                +link("All Results PDFs (.zip)", url, {external: true})
+
+
+        if administratorUka
+
+            +card("UKA Management", "lock", {protected: true})
+
+                if isOrBeforeToday(competition.dateStart)
+                    +cardSection("Reports")
+                        .list.pl-1.mb-1
+                            if competition.dateStart.substring(0, 4)<2019
+                                .list-item
+                                    - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/account_payments/" + session.token + "/" + api.competition.uniqueName + "_account_payments.pdf"
+                                    +link("Account Payments", url, {external: true})
+                            else
+                                .list-item
+                                    - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/registration/" + session.token + "/" + api.competition.uniqueName + "registration.pdf"
+                                    +link("Registrations", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/complimentary_credits_used/" + session.token + "/" + api.competition.uniqueName + "_complimentary_credits_used.pdf"
+                                +link("Complimentary Credits Used", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/cheque_list/" + session.token + "/" + api.competition.uniqueName + "_cheque_list.pdf"
+                                +link("Cheque List", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/late_entry_credits/" + session.token + "/" + api.competition.uniqueName + "late_entry_credits.pdf"
+                                +link("Late Entry Credits", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/late_entry_free/" + session.token + "/" + api.competition.uniqueName + "late_entry_free.pdf"
+                                +link("Late Entry Free", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/late_entry_special/" + session.token + "/" + api.competition.uniqueName + "late_entry_special.pdf"
+                                +link("Late Entry Special", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/measurement/" + session.token + "/" + api.competition.uniqueName + "late_entry_special.pdf"
+                                +link("Measurements", url, {external: true})
+
+                            if (api.competition.dates != undefined)
+                                each day in api.competition.dates
+                                    .list-item
+                                        -  var dateString = dateFormat(day, "yyyymmdd")
+                                        - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/endOfDay/" + dateString + "/" + session.token + "/end_of_date_" + dateString + ".pdf"
+                                        +link("End of Day - " + dateFormat(day, "ddd, dd"), url, {external: true})
+
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/results/" + session.token + "/" + api.competition.uniqueName + "_results.xls"
+                                +link("Results Spreadsheet", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/results_all/" + session.token + "/" + api.competition.uniqueName + "_results_all.xls"
+                                +link("Results Spreadsheet (All)", url, {external: true})
+
+
+                +cardSection("Download", "download")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/classes/" + session.token + "/" + competition.uniqueName + "_classes.xls"
+                            +link("Ring Planner", url, {external: true})
+                        if true || competition.heightsGenerated
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/ring_plan_provisional/" + session.token + "/" + competition.uniqueName + "_ring_plan_provisional.doc"
+                                +link("Ring Plan (Provisional)", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/ring_boards/" + session.token + "/" + competition.uniqueName + "_ring_boards.doc"
+                                +link("Ring Boards", url, {external: true})
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/template/" + session.token + "/" + competition.uniqueName + "_template.xls"
+                            +link("Show Template", url, {external: true})
+
+                        if competition.uniqueName.startsWith("GrandFinals")
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/entriesBlank/" + session.token + "/" + competition.uniqueName + "_entries.xls"
+                                +link("Entries (Blank template)", url, {external: true})
+
+
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/entries/" + session.token + "/" + competition.uniqueName + "_entries.xls"
+                                +link("Entries", url, {external: true})
+
+                            .list-item
+                                - var url = apiRoot + "/competition/" + competition.idCompetition + "/report/runningOrders/" + session.token + "/" + competition.uniqueName + "_running_orders.xls"
+                                +link("Running Orders", url, {external: true})
+
+
+                        if competition.processed
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/ring_cards/" + session.token + "/" + api.competition.uniqueName + "_ring_cards.pdf"
+                                +link("Ring Cards", url, {external: true})
+                            .list-item
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/report/address_labels/" + session.token + "/" + api.competition.uniqueName + "_address_labels.pdf"
+                                +link("Labels", url, {external: true})
+
+                        if beforeToday(competition.dateEnd)
+                            .list-item
+                                - var nextYear = parseInt(dateFormat(api.competition.dateStart, "yyyy")) + 1
+                                - var url = apiRoot + "/competition/" + api.competition.idCompetition + "/template/" + session.token + "/" + api.competition.uniqueName + "_template_for_" + nextYear + ".xls?next_year=true"
+                                +link("Show Template for " + nextYear, url, {external: true})
+
+
+                +cardSection("Upload", "upload")
+                    .list.pl-1.mb-1
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Schedule"
+                            +uploadPdf("Schedule", url)
+                        .list-item
+                            - var url = apiRoot + "/competition/" + competition.idCompetition + "/upload/document/Ring Plan"
+                            +uploadPdf("Ring Plan", url)
+                        .list-item
+                            - var url = apiRoot + "/spreadsheet/upload"
+                            +uploadXml("Plaza Spreadsheet", url)
+
+                +cardSection("Diagnostics", "cogs")
+                    .list-item
+                        - var url = "/competition/" + competition.idCompetition + "/sign_on"
+                        +link("Sign-ons", url)
+                    .list-item
+                        - var url = "/competition/" + competition.idCompetition + "/signal"
+                        +link("Mobile Network", url)
+                
+                if session && session.systemAdministrator
+                    +cardSection("System Administration", "user-secret")
+                        .list-item
+                            +link("Open: Accounting System", "/competition_accounts/" + competition.idCompetition + "?root=true")
+
+
+                if (api.user && api.user.ukaSuperUser && api.competition.tournament && api.competition.provisionalRunningOrders)
+                    +cardSection("Logo Provisional Running Orders", "download")
+                        each agilityClass in api.competition.provisionalRunningOrders
+                            div
+                                - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/runningOrders/pdf/runningOrders_"+ agilityClass.idAgilityClass + ".pdf?tournament=true"
+                                - var className = agilityClass.className
+                                +link(className, url)
+                if (api.user && api.user.ukaSuperUser && api.competition.tournament && api.competition.runningOrders)
+                    +cardSection("Logo Final Running Orders", "download")
+                        each agilityClass in api.competition.runningOrders
+                            div
+                                - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/runningOrders/pdf/runningOrders_"+ agilityClass.idAgilityClass + ".pdf?tournament=true"
+                                - var className = agilityClass.className
+                                +link(className, url)
+
+                if (api.user && api.user.ukaSuperUser && api.competition.tournament && api.competition.results)
+                    +cardSection("Logo Results", "download")
+                        each agilityClass in api.competition.results
+                            div
+                                - var url = apiRoot + "/agilityClass/" + agilityClass.idAgilityClass + "/results/pdf/results_"+ agilityClass.idAgilityClass + ".pdf?tournament=true"
+                                - var className = agilityClass.className
+                                +link(className, url)
+

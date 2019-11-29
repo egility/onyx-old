@@ -1,0 +1,25 @@
+extends _page
+
+prepend navigation
+    - icon="envelope"
+    - title = "Email from Plaza"
+
+block content
+    .max60
+        +card(title, icon)
+            table.table.table-sm
+                tr
+                    td Subject
+                    td.bold=api.email.subject
+                tr
+                    td To
+                    td.bold=api.email.emailTo
+                tr
+                    td From
+                    td.bold=api.email.emailFrom
+                tr
+                    td Sent
+                    td=dateFormat(api.email.sent, "dd/mm/yy HH:MM")
+            hr.thick(style="border: 3px solid silver;")
+            span!=api.email.message
+                
